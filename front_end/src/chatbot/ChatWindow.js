@@ -22,7 +22,7 @@ const ChatWindow = ({ isOpen }) => {
       }));
     } else {
       return [
-        { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng TROOC2HAND. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
+        { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng BloomGarden. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
       ];
     }
   });
@@ -64,7 +64,7 @@ const ChatWindow = ({ isOpen }) => {
       if (!user) {
         // Nếu không có user (đã đăng xuất), reset tin nhắn về ban đầu
         setMessages([
-          { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng TROOC2HAND. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
+          { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng BloomGarden. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
         ]);
       }
     };
@@ -163,14 +163,14 @@ const ChatWindow = ({ isOpen }) => {
       <div className="bg-purple-600 text-white p-4 rounded-t-lg">
         <div className="flex justify-between items-center">
           <div>
-            <h3 className="font-medium">TROOC2HAND Bot</h3>
+            <h3 className="font-medium">BloomGarden Bot</h3>
             <p className="text-xs opacity-80">Hỏi đáp thông tin về sản phẩm, đặt hàng và hỗ trợ 24/7</p>
           </div>
           <button
             onClick={() => {
               // Xóa tin nhắn và đặt lại tin nhắn chào mừng
               setMessages([
-                { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng TROOC2HAND. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
+                { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng BloomGarden. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
               ]);
               localStorage.removeItem("chatMessages");
             }}

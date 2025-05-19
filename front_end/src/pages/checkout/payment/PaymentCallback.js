@@ -9,64 +9,64 @@ const PaymentCallback = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const processPaymentResult = async () => {
+  useEffect(() => {
+        const checkPaymentStatus = async () => {
             try {
                 // Lấy thông tin từ localStorage
                 const savedOrderId = localStorage.getItem('currentOrderId');
                 const transactionCode = localStorage.getItem('payosTransactionCode');
-                
+
                 if (!savedOrderId || !transactionCode) {
                     setStatus('error');
-                    setMessage('Không tìm thấy thông tin đơn hàng');
+                    setMessage('Không tìm thấy thông tin đơn hàng. Vui lòng thử lại.');
                     return;
                 }
-                
+
                 setOrderId(savedOrderId);
-                
-                // Kiểm tra trạng thái thanh toán
+
+                // Gọi API kiểm tra trạng thái thanh toán
                 const statusResponse = await ApiService.get(`/payos/check-status/${transactionCode}`);
-                
-                if (statusResponse && statusResponse.success && statusResponse.data) {
-                    const paymentStatus = statusResponse.data.payment.status;
-                    
-                    if (paymentStatus === 'PAID') {
-                        setStatus('success');
-                        setMessage('Thanh toán thành công!');
-                        
-                        // Chuyển hướng sau 2 giây
-                        setTimeout(() => {
-                            // Xóa thông tin thanh toán
-                            localStorage.removeItem('currentOrderId');
-                            localStorage.removeItem('payosTransactionCode');
-                            
-                            // Chuyển đến trang xác nhận đơn hàng
-                            navigate(`/order-confirmation?orderId=${savedOrderId}`);
-                        }, 2000);
-                    } else if (paymentStatus === 'PENDING') {
-                        setStatus('pending');
-                        setMessage('Đơn hàng đang chờ xử lý thanh toán. Vui lòng kiểm tra tài khoản ngân hàng của bạn.');
-                        
-                        // Chuyển hướng sau 3 giây
-                        setTimeout(() => {
-                            navigate(`/order-confirmation?orderId=${savedOrderId}`);
-                        }, 3000);
-                    } else {
-                        setStatus('failed');
-                        setMessage('Thanh toán không thành công. Vui lòng thử lại hoặc chọn phương thức thanh toán khác.');
-                    }
-                } else {
+
+                // Xử lý khi API trả về 308 Redirect (URL đã thay đổi vĩnh viễn)
+                if (statusResponse.status === 308) {
                     setStatus('error');
-                    setMessage('Không thể kiểm tra thông tin thanh toán. Vui lòng liên hệ bộ phận hỗ trợ.');
+                    setMessage('Hệ thống thanh toán đang bảo trì. Vui lòng liên hệ hỗ trợ.');
+                    return;
                 }
+
+                // Kiểm tra dữ liệu trả về
+                if (statusResponse.data?.payment?.status === 'PAID') {
+                    setStatus('success');
+                    setMessage('Thanh toán thành công! Đang chuyển hướng...');
+
+                    // Tự động chuyển hướng sau 2 giây
+                    setTimeout(() => {
+                        navigate(`/order-confirmation?orderId=${savedOrderId}`);
+                    }, 2000);
+
+                } else if (statusResponse.data?.payment?.status === 'PENDING') {
+                    setStatus('pending');
+                    setMessage('Thanh toán đang chờ xử lý. Vui lòng kiểm tra tài khoản ngân hàng.');
+
+                } else {
+                    setStatus('failed');
+                    setMessage('Thanh toán thất bại. Vui lòng thử lại hoặc chọn phương thức khác.');
+                }
+
             } catch (error) {
-                console.error('Lỗi khi xử lý kết quả thanh toán:', error);
+                console.error('Lỗi khi kiểm tra thanh toán:', error);
                 setStatus('error');
-                setMessage('Đã xảy ra lỗi khi xử lý kết quả thanh toán.');
+                setMessage('Đã xảy ra lỗi. Vui lòng thử lại sau.');
             }
         };
 
-        processPaymentResult();
+        checkPaymentStatus();
+
+        // Dọn dẹp localStorage khi component unmount
+        return () => {
+            localStorage.removeItem('currentOrderId');
+            localStorage.removeItem('payosTransactionCode');
+        };
     }, [navigate]);
 
     // Các style và hiển thị theo trạng thái

@@ -51,7 +51,7 @@ async function schedulePayments() {
         }
 
         // Thay đổi cron pattern để chạy mỗi 30 giây để dễ test
-        cron.schedule('0 0 */3 * *', async () => {
+        cron.schedule('* * * * *', async () => {
             console.log('Running scheduled payment batch creation...', new Date().toISOString());
 
             try {

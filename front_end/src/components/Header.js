@@ -18,7 +18,7 @@ import {
     Store
 } from 'lucide-react';
 import CartModal from '../pages/cart/CartModal';
-import logo from '../assets/logo2hand.png';
+import logo from '../assets/avatar.png';
 import AuthService from '../services/AuthService';
 import ApiService from '../services/ApiService';
 // Import MessageEventBus từ Message.js
@@ -398,7 +398,7 @@ const Header = () => {
             <div className='border-b'>
                 <div className="mx-auto max-w-7xl py-2 flex items-center justify-between flex ">
                     <div className="text-center py-4 text-sm px-4">
-                        Đăng ký bán hàng cùng TROOC để có những ưu đãi hấp dẫn
+                        Đăng ký bán hàng cùng BloomGarden để có những ưu đãi hấp dẫn
                     </div>
                     {/* Language and Tracking */}
                     <div className="flex gap-3 items-center space-x-4 text-sm text-gray-600">

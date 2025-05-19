@@ -64,10 +64,10 @@ const Footer = () => {
           <h3 className="font-bold mb-4">ĐỊA CHỈ</h3>
           <div className="space-y-2 text-gray-700">
             <p>Bạn có câu hỏi? Hãy gọi cho chúng tôi để được hỗ trợ 24/7</p>
-            <p className="font-semibold text-purple-600">Hotline: +84 966 768 150</p>
+            <p className="font-semibold text-purple-600">Hotline: +84 396 872 025</p>
             <p>66-69 Mục Uyên, Tân Xã, Thạch Hòa, Thạch Thất, Hà Nội</p>
-            <p>lahieutx@gmail.com</p>
-            <p>trooc2hand@gmail.com</p>
+            <p>2003tranquy123@gmail.com</p>
+            <p>bloomgardenexe2@gmail.com</p>
           </div>
         </div>
 
@@ -96,7 +96,7 @@ const Footer = () => {
         <div>
           <h3 className="font-bold mb-4">ĐĂNG KÝ NHẬN THÔNG BÁO</h3>
           <p className="text-gray-700 mb-4">
-            Với 20.000 khách hàng đã đăng ký với TROOC hãy đăng ký 
+            Với 20.000 khách hàng đã đăng ký với BloomGarden hãy đăng ký 
             nhanh để được những giảm giá tuyệt vời từ chúng tôi
           </p>
           <div className="flex">
