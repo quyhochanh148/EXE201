@@ -73,8 +73,8 @@ const TroocEcommerce = () => {
 
                 // Lọc sản phẩm theo trạng thái is_active = true
                 const activeProducts = productsData.filter(product => 
-                    // product.is_delete === false || product.is_delete === 'false' || product.is_delete === 0 &&
-                    product.is_active === true || product.is_active === 'true' || product.is_active === 1
+                    product.is_delete === false || product.is_delete === 'false' || product.is_delete === 0 
+                    // product.is_active === true || product.is_active === 'true' || product.is_active === 1
                 );
 
                 // Xử lý đường dẫn ảnh cho các sản phẩm đang active
