@@ -18,7 +18,7 @@ import {
     Store
 } from 'lucide-react';
 import CartModal from '../pages/cart/CartModal';
-import logo from '../assets/avatar.png';
+import logo from '../assets/LogoNew1.jpg';
 import AuthService from '../services/AuthService';
 import ApiService from '../services/ApiService';
 // Import MessageEventBus từ Message.js
@@ -26,6 +26,7 @@ import { MessageEventBus } from '../pages/UserProfile/components/Message';
 import { CartEventBus } from '../pages/cart/CartEventBus';
 import ProductCategoriesSidebar from './ProductCategoriesSidebar';
 import CategoryDropdown from './CategoryDropdown';
+import headerBg from '../assets/Header.jpg';
 
 
 
@@ -97,7 +98,29 @@ const flashingAnimation = `
     opacity: 0;
   }
 }
+.navbar-container {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1200px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 12px 16px;
+}
 
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  position: relative;
+  margin-left: -100px; 
+}
 /* Container to properly contain the animation */
 .promotion-container {
   position: relative;
@@ -328,19 +351,25 @@ const Header = () => {
     };
 
     // Kiểm tra xem người dùng có role SELLER không - cải tiến phương pháp phát hiện role
-    const isSeller = currentUser?.roles?.some(role => {
-        // Kiểm tra nhiều dạng role có thể có
-        if (typeof role === 'object' && role !== null) {
-            return role.name === "SELLER" || role.name === "ROLE_SELLER";
-        }
+    // const isSeller = currentUser?.roles?.some(role => {
+    //     // Kiểm tra nhiều dạng role có thể có
+    //     if (typeof role === 'object' && role !== null) {
+    //         return role.name === "SELLER" || role.name === "ROLE_SELLER";
+    //     }
 
-        if (typeof role === 'string') {
-            return role === "SELLER" || role === "ROLE_SELLER";
-        }
+    //     if (typeof role === 'string') {
+    //         return role === "SELLER" || role === "ROLE_SELLER";
+    //     }
 
-        return false;
-    });
-
+    //     return false;
+    // });
+    const isSeller = () => {
+        if (!isLoggedIn || !currentUser?.roles) return false;
+        return currentUser.roles.some(role =>
+            (typeof role === 'object' && role?.name && (role.name === 'SELLER' || role.name === 'ROLE_SELLER')) ||
+            (typeof role === 'string' && (role === 'SELLER' || role === 'ROLE_SELLER'))
+        );
+    };
     const toggleCategoriesSidebar = () => {
         setIsCategoriesSidebarOpen(!isCategoriesSidebarOpen);
     };
@@ -390,257 +419,251 @@ const Header = () => {
     }, [isUserDropdownOpen]);
 
     return (
-        <div className="bg-white shadow-sm relative">
-            {/* Add the animation CSS */}
-            <style>{flashingAnimation}</style>
+        <div
+            className="bg-cover bg-center bg-no-repeat shadow-sm relative"
+            style={{ backgroundImage: `url(${headerBg})`, minHeight: '220px' }}
+        >
 
-            {/* Top Notification Bar */}
-            <div className='border-b'>
-                <div className="mx-auto max-w-7xl py-2 flex items-center justify-between flex ">
-                    <div className="text-center py-4 text-sm px-4">
-                        Đăng ký bán hàng cùng BloomGarden để có những ưu đãi hấp dẫn
-                    </div>
-                    {/* Language and Tracking */}
-                    <div className="flex gap-3 items-center space-x-4 text-sm text-gray-600">
-                        {/* <a href="#" className="hover:text-purple-600">Vị trí cửa hàng</a> */}
-                        <a href="/user-profile/orders" className="hover:text-purple-600">Theo dõi đơn hàng</a>
-                        {/* <a href="#" className="hover:text-purple-600">FAQs</a> */}
-                        <div className="flex items-center space-x-2">
-                            <Globe size={16} />
-                            <select
-                                value={language}
-                                onChange={(e) => setLanguage(e.target.value)}
-                                className="bg-transparent outline-none"
-                            >
-                                <option value="Vietnamese">Vietnamese</option>
-                                <option value="English">English</option>
-                            </select>
-                        </div>
-                        {/* Currency */}
-                        <div className="text-sm text-gray-600">
-                            Việt Nam (VNĐ)
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div className="bg-white bg-opacity-80 shadow-sm relative">
+                <style>{flashingAnimation}</style>
 
-            {/* Logo and Search Section */}
-            <div className='border-b py-6'>
-                <div href='/' className="mx-auto max-w-7xl px-4  flex items-center space-x-6">
-                    {/* Logo */}
-                    <a href='/' className="flex items-center">
-                        <img
-                            src={logo}
-                            alt="TROOC Logo"
-                            className="w-16 h-16"
-                        />
-                    </a>
+                {/* Thanh điều hướng chính */}
+                <nav
+                    className="absolute top-4 left-1/2 -translate-x-1/2 bg-white bg-opacity-80 shadow px-4 py-2 rounded-md max-w-6xl w-full"
+                >
+                    <div className="flex items-center justify-between">
+                        {/* Logo */}
+                        <a href="/" className="navbar-logo relative">
+                            <img src={logo} alt="GreenGarden" className="w-28 h-16 object-contain scale-125" />
+                        </a>
 
-                    {/* Category and Search */}
-                    <div className="flex-grow flex items-center space-x-4">
-                        {/* Category Dropdown */}
-                        <CategoryDropdown />
+                        {/* Tìm kiếm và danh mục */}
 
-                        {/* Search Input */}
-                        <form onSubmit={handleSearch} className="flex-grow relative w-2/5">
-                            <input
-                                type="text"
-                                placeholder="Tìm kiếm sản phẩm..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                            />
-                            <button
-                                type="submit"
-                                className="absolute right-0 top-0 bottom-0 px-4 bg-purple-600 text-white rounded-r-md hover:bg-purple-700"
-                            >
-                                <Search size={20} />
-                            </button>
-                        </form>
-                    </div>
+                        <div className="flex items-center justify-between mt-2 space-x-6 text-sm px-8">
+                            {/* <a href="/" className="hover:text-purple-600 font-semibold">Trang chủ</a> */}
+                            <a href="/introduction" className="hover:text-purple-600 font-semibold">Giới Thiệu</a>
+                            <CategoryDropdown />
+                            <a href="/categories" className="hover:text-purple-600 font-semibold">Sản phẩm</a>
 
-                    {/* User Actions */}
-                    <div className="flex items-center space-x-12">
-                        {/* User Account Section - Conditional Rendering */}
-                        <div className="relative">
-                            {isLoggedIn ? (
-                                // Nếu đã đăng nhập, hiển thị nút dropdown tài khoản
-                                <button
-                                    ref={userButtonRef}
-                                    className="flex flex-col items-center text-gray-600 hover:text-purple-600 text-xs relative"
-                                    onClick={toggleUserDropdown}
-                                >
-                                    <User size={24} />
-                                    <span>Tài khoản</span>
-                                    {/* Hiển thị badge khi có tin nhắn chưa đọc */}
-                                    {unreadMessageCount > 0 && (
-                                        <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                                            {unreadMessageCount > 9 ? '9+' : unreadMessageCount}
-                                        </div>
-                                    )}
-                                </button>
-                            ) : (
-                                // Nếu chưa đăng nhập, hiển thị nút chuyển đến trang login
-                                <button
-                                    className="flex flex-col items-center text-gray-600 hover:text-purple-600 text-xs"
-                                    onClick={() => navigate('/login')}
-                                >
-                                    <User size={24} />
-                                    <span>Login</span>
-                                </button>
+                           
+                            {!isSeller() && (
+                                <a href="/shop-registration" className="text-red-500 font-semibold hover:text-red-600">
+                                    Đăng ký bán hàng
+                                </a>
                             )}
-
-                            {/* User Dropdown Menu for Logged In Users */}
-                            {isLoggedIn && isUserDropdownOpen && (
+                            {/* <div
+                                className="promotion-container"
+                                style={{ transform: 'scale(0.8)', transformOrigin: 'top left' }}
+                            >
                                 <div
-                                    ref={userDropdownRef}
-                                    className="absolute z-50 right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 border"
+                                    className="flashing-text cursor-pointer"
+                                    onClick={() => navigate('/categories')}
+                                    role="button"
+                                    aria-label="Khuyến mại 20% cho đơn hàng đầu tiên"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '4px',
+                                        fontSize: '13px',
+                                        padding: '4px 8px'
+                                    }}
                                 >
-                                    <div className="px-4 py-2 border-b">
-                                        <div className="font-medium text-gray-900">
-                                            {currentUser?.email}
-                                        </div>
-                                    </div>
+                                    <PiggyBank
+                                        size={18}
+                                        className="piggy-bank-icon"
+                                        style={{ width: '18px', height: '18px' }}
+                                    />
+                                    <span>Khuyến mại 20% cho đơn hàng đầu tiên</span>
+                                </div>
+                            </div> */}
 
-                                    <a
-                                        href="/user-profile"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
-                                    >
-                                        <UserCircle size={16} className="mr-2" />
-                                        Tài khoản của tôi
-                                    </a>
+                        </div>
+                        <div className="flex-grow flex items-center space-x-4 px-4">
 
-                                    <a
-                                        href="/user-profile/orders"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                            <form onSubmit={handleSearch} className="flex-grow relative w-2/5">
+                                <input
+                                    type="text"
+                                    placeholder="Tìm kiếm sản phẩm..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                    aria-label="Tìm kiếm sản phẩm"
+                                />
+                                <button
+                                    type="submit"
+                                    className="absolute right-0 top-0 bottom-0 px-4 bg-[#2E7D32] text-white rounded-r-md hover:bg-purple-700"
+                                    aria-label="Tìm kiếm"
+                                >
+                                    <Search size={20} />
+                                </button>
+                            </form>
+                        </div>
+                        {/* Hành động người dùng */}
+                        <div className="flex items-center space-x-12">
+                            {/* Ngôn ngữ và tiền tệ */}
+                            {/* <div className="flex items-center space-x-4 text-sm text-gray-600">
+                                <div className="flex items-center space-x-2">
+                                    <Globe size={16} />
+                                    <select
+                                        value={language}
+                                        onChange={(e) => setLanguage(e.target.value)}
+                                        className="bg-transparent outline-none"
+                                        aria-label="Chọn ngôn ngữ"
                                     >
-                                        <Package size={16} className="mr-2" />
-                                        Đơn mua
-                                    </a>
+                                        <option value="Vietnamese">Vietnamese</option>
+                                        <option value="English">English</option>
+                                    </select>
+                                </div>
+                                <div>Việt Nam (VNĐ)</div>
+                            </div> */}
 
-                                    <a
-                                        href="/user-profile/messages"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center relative"
+                            {/* Tài khoản */}
+                            <div className="relative">
+                                {isLoggedIn ? (
+                                    <button
+                                        ref={userButtonRef}
+                                        className="flex flex-col items-center text-gray-600 hover:text-purple-600 text-xs relative"
+                                        onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
+                                        aria-label="Menu tài khoản"
+                                        aria-expanded={isUserDropdownOpen}
                                     >
-                                        <MessageSquare size={16} className="mr-2" />
-                                        Tin nhắn
-                                        {/* Hiển thị badge trong dropdown khi có tin nhắn chưa đọc */}
+                                        <User size={24} />
+                                        <span>Tài khoản</span>
                                         {unreadMessageCount > 0 && (
-                                            <div className="ml-auto bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                            <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                                                 {unreadMessageCount > 9 ? '9+' : unreadMessageCount}
                                             </div>
                                         )}
-                                    </a>
-
-                                    <a
-                                        href="/user-profile/addresses"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                    </button>
+                                ) : (
+                                    <button
+                                        className="flex flex-col items-center text-gray-600 hover:text-purple-600 text-xs"
+                                        onClick={() => navigate('/login')}
+                                        aria-label="Đăng nhập"
                                     >
-                                        <MapPin size={16} className="mr-2" />
-                                        Địa chỉ nhận hàng
-                                    </a>
+                                        <User size={24} />
+                                        <span>Đăng nhập</span>
+                                    </button>
+                                )}
 
-                                    <a
-                                        href="/user-profile/followed-shops"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                {isLoggedIn && isUserDropdownOpen && (
+                                    <div
+                                        ref={userDropdownRef}
+                                        className="absolute z-50 right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 border"
+                                        role="menu"
                                     >
-                                        <Store size={16} className="mr-2" />
-                                        Cửa hàng đã theo dõi
-                                    </a>
-
-                                    <a
-                                        href="/user-profile/password"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
-                                    >
-                                        <Lock size={16} className="mr-2" />
-                                        Đổi mật khẩu
-                                    </a>
-
-                                    {/* Hiển thị nút truy cập vào SellerDashboard nếu người dùng có role SELLER */}
-                                    {isSeller && (
+                                        <div className="px-4 py-2 border-b">
+                                            <div className="font-medium text-gray-900">{currentUser?.email}</div>
+                                        </div>
                                         <a
-                                            href="/seller-dashboard"
-                                            className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 flex items-center"
+                                            href="/user-profile"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                            role="menuitem"
+                                        >
+                                            <UserCircle size={16} className="mr-2" />
+                                            Tài khoản của tôi
+                                        </a>
+                                        <a
+                                            href="/user-profile/orders"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                            role="menuitem"
+                                        >
+                                            <Package size={16} className="mr-2" />
+                                            Đơn mua
+                                        </a>
+                                        <a
+                                            href="/user-profile/messages"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center relative"
+                                            role="menuitem"
+                                        >
+                                            <MessageSquare size={16} className="mr-2" />
+                                            Tin nhắn
+                                            {unreadMessageCount > 0 && (
+                                                <div className="ml-auto bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                                    {unreadMessageCount > 9 ? '9+' : unreadMessageCount}
+                                                </div>
+                                            )}
+                                        </a>
+                                        <a
+                                            href="/user-profile/addresses"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                            role="menuitem"
+                                        >
+                                            <MapPin size={16} className="mr-2" />
+                                            Địa chỉ nhận hàng
+                                        </a>
+                                        <a
+                                            href="/user-profile/followed-shops"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                            role="menuitem"
                                         >
                                             <Store size={16} className="mr-2" />
-                                            Quản lý cửa hàng
+                                            Cửa hàng đã theo dõi
                                         </a>
-                                    )}
-
-                                    <div className="border-t mt-1">
-                                        <button
-                                            onClick={handleLogout}
-                                            className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center"
+                                        <a
+                                            href="/user-profile/password"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                            role="menuitem"
                                         >
-                                            <LogOut size={16} className="mr-2" />
-                                            Đăng xuất
-                                        </button>
+                                            <Lock size={16} className="mr-2" />
+                                            Đổi mật khẩu
+                                        </a>
+                                        {isSeller() && (
+                                            <a
+                                                href="/seller-dashboard"
+                                                className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 flex items-center"
+                                                role="menuitem"
+                                            >
+                                                <Store size={16} className="mr-2" />
+                                                Quản lý cửa hàng
+                                            </a>
+                                        )}
+                                        <div className="border-t mt-1">
+                                            <button
+                                                onClick={handleLogout}
+                                                className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center"
+                                                role="menuitem"
+                                            >
+                                                <LogOut size={16} className="mr-2" />
+                                                Đăng xuất
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            )}
-                        </div>
-
-                        <button className="flex flex-col items-center text-gray-600 hover:text-purple-600 text-xs">
-                            <Heart size={24} />
-                        </button>
-
-                        <div className='flex gap-2'>
-                            <button id='cartbutton' className='cartbutton' onClick={() => setIsCartOpen(true)}>
-                                <ShoppingCart size={24} />
-                            </button>
-                            <div className='flex flex-col items-center text-gray-600 hover:text-purple-600 text-xs'>
-                                <p>Giỏ hàng</p>
-                                <span>{formatPrice(cartTotal)}</span>
+                                )}
                             </div>
-                        </div>
 
-                        <CartModal
-                            isOpen={isCartOpen}
-                            onClose={() => setIsCartOpen(false)}
-                        />
+                            {/* Yêu thích */}
+                            {/* <button
+                                className="flex flex-col items-center text-gray-600 hover:text-purple-600 text-xs"
+                                aria-label="Danh sách yêu thích"
+                            >
+                                <Heart size={24} />
+                                <span>Yêu thích</span>
+                            </button> */}
+
+                            {/* Giỏ hàng */}
+                            <div className="flex gap-2">
+                                <button
+                                    id="cartbutton"
+                                    className="cartbutton flex flex-col items-center text-gray-600 hover:text-purple-600 text-xs"
+                                    onClick={() => setIsCartOpen(true)}
+                                    aria-label="Mở giỏ hàng"
+                                >
+                                    <ShoppingCart size={24} />
+                                    <span>Giỏ hàng</span>
+                                </button>
+                                <div className="flex flex-col items-center text-gray-600 text-xs">
+                                    <span>{formatPrice(cartTotal)}</span>
+                                </div>
+                            </div>
+                            <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+                        </div>
                     </div>
-                </div>
+
+                    {/* Thanh điều hướng phụ */}
+
+                </nav>
             </div>
-
-            {/* Navigation Menu */}
-            <nav className="">
-                <div className="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between space-x-6 text-sm">
-                    <button
-                        ref={categoriesButtonRef}
-                        className="flex items-center space-x-2 font-semibold"
-                        onClick={toggleCategoriesSidebar}
-                    >
-                        <Menu size={20} />
-                        <span>Danh mục sản phẩm</span>
-                    </button>
-
-                    <a href="/" className="hover:text-purple-600">Trang chủ</a>
-                    <a href="categories" className="hover:text-purple-600">Sản phẩm</a>
-                    {/* <a href="#" className="hover:text-purple-600">Bài viết</a>
-                    <a href="#" className="hover:text-purple-600">Hỗ trợ</a> */}
-
-                    {/* Hide "Đăng ký bán hàng" link if user is already a seller */}
-                    {!userIsSeller && (
-                        <a href="shop-registration" className="text-red-500 font-semibold">Đăng ký bán hàng</a>
-                    )}
-
-                    {/* Updated flashing promotion text */}
-                    <div className="promotion-container">
-                        <div className="flashing-text cursor-pointer"
-                            onClick={() => navigate('/categories')}>
-                            <PiggyBank size={24} className="piggy-bank-icon" />
-                            <span>Khuyến mại 20% cho đơn hàng đầu tiên</span>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            {/* Product Categories Sidebar */}
-            <ProductCategoriesSidebar
-                isOpen={isCategoriesSidebarOpen}
-                onClose={() => setIsCategoriesSidebarOpen(false)}
-                buttonRef={categoriesButtonRef}
-            />
         </div>
     );
 };

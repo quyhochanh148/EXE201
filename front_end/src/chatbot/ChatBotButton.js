@@ -40,7 +40,7 @@ const ChatBotButton = ({ isOpen, toggleChat }) => {
     <div className="relative">
       <button
         onClick={toggleChat}
-        className={`fixed bottom-6 right-6 w-14 h-14 rounded-full ${isOpen ? 'bg-red-500 hover:bg-red-600' : 'bg-purple-600 hover:bg-purple-700'} text-white flex items-center justify-center shadow-lg transition-colors z-50 ${isAnimating ? 'animate-bounce' : ''}`}
+        className={`fixed bottom-6 right-6 w-14 h-14 rounded-full ${isOpen ? 'bg-red-500 hover:bg-red-600' : 'bg-[#2E7D32] hover:bg-[#2E7D32]'} text-white flex items-center justify-center shadow-lg transition-colors z-50 ${isAnimating ? 'animate-bounce' : ''}`}
         aria-label={isOpen ? "Đóng chat" : "Mở chat"}
       >
         {isOpen ? <X size={24} /> : <BotMessageSquare size={24} />}

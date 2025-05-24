@@ -160,7 +160,7 @@ const ChatWindow = ({ isOpen }) => {
         }`}
     >
       {/* Header */}
-      <div className="bg-purple-600 text-white p-4 rounded-t-lg">
+      <div className="bg-[#2E7D32] text-white p-4 rounded-t-lg">
         <div className="flex justify-between items-center">
           <div>
             <h3 className="font-medium">BloomGarden Bot</h3>
@@ -174,7 +174,7 @@ const ChatWindow = ({ isOpen }) => {
               ]);
               localStorage.removeItem("chatMessages");
             }}
-            className="text-xs px-2 py-1 bg-purple-800 rounded hover:bg-purple-900"
+            className="text-xs px-2 py-1 bg-[#2E7D32] rounded hover:bg-[#2E7D32]"
           >
             Xóa lịch sử
           </button>
@@ -194,8 +194,8 @@ const ChatWindow = ({ isOpen }) => {
           >
             <div
               className={`p-3 rounded-lg ${message.sender === 'user'
-                  ? 'bg-purple-600 text-white rounded-br-none'
-                  : 'bg-gray-200 text-gray-800 rounded-bl-none'
+                  ? 'bg-[#2E7D32] text-white rounded-br-none'
+                  : 'bg-[#2E7D32] text-gray-800 rounded-bl-none'
                 }`}
             >
               {message.text}
@@ -212,10 +212,10 @@ const ChatWindow = ({ isOpen }) => {
         {/* Hiệu ứng "đang nhập" cho bot */}
         {isTyping && (
           <div className="mb-3 max-w-[80%] mr-auto">
-            <div className="p-3 rounded-lg bg-gray-200 text-gray-800 rounded-bl-none flex space-x-1">
-              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+            <div className="p-3 rounded-lg bg-[#2E7D32] text-gray-800 rounded-bl-none flex space-x-1">
+              <div className="w-2 h-2 bg-[#2E7D32] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+              <div className="w-2 h-2 bg-[#2E7D32] rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+              <div className="w-2 h-2 bg-[#2E7D32] rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
             </div>
           </div>
         )}
@@ -243,7 +243,7 @@ const ChatWindow = ({ isOpen }) => {
         />
         <button
           type="submit"
-          className={`text-white px-3 py-2 rounded-r-md ${isTyping ? 'bg-purple-400 cursor-not-allowed' : 'bg-purple-600 hover:bg-purple-700'}`}
+          className={`text-white px-3 py-2 rounded-r-md ${isTyping ? 'bg-[#2E7D32] cursor-not-allowed' : 'bg-[#2E7D32] hover:bg-[#2E7D32]'}`}
           disabled={isTyping}
         >
           <Send size={18} />

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCartIcon } from 'lucide-react';
-import image1 from '../../assets/image1.png'; // Đường dẫn đến ảnh banner đầu tiên
-import image2 from '../../assets/quanaosecondhand.jpg'; // Sử dụng ảnh có sẵn cho slider
-import image3 from '../../assets/giay2hand.jpg'; // Sử dụng ảnh có sẵn cho slider
-import image4 from '../../assets/dongho2hand.jpg'; // Sử dụng ảnh có sẵn cho slider
-import image5 from '../../assets/quanaosecondhand.jpg'; // Sử dụng ảnh có sẵn cho slider
+import image1 from '../../assets/ImageSliderDetail/1684222267_Bia-WEB-1.jpg'; // Đường dẫn đến ảnh banner đầu tiên
+import image2 from '../../assets/ImageSliderDetail/1684223894_Cay-con.jpg'; // Sử dụng ảnh có sẵn cho slider
+import image3 from '../../assets/ImageSliderDetail/1585185542_florist02102016435-A.jpg'; // Sử dụng ảnh có sẵn cho slider
+import image4 from '../../assets/ImageSliderDetail/1684225761_Klasmann.jpg'; // Sử dụng ảnh có sẵn cho slider
+import image5 from '../../assets/ImageSliderDetail/hhtt.jpg'; // Sử dụng ảnh có sẵn cho slider
 
 import ApiService from '../../services/ApiService';
 import CartModal from '../cart/CartModal';
@@ -18,7 +18,7 @@ import PromotionalBanners from './components/PromotionalBanners';
 import ProductModal from './components/ProductModal';
 import ProductSection from './components/ProductSection';
 import ImageSlider from './components/ImageSlider'; // Import ImageSlider component
-
+import products1 from './components/ImageSliderDetail';
 import { BE_API_URL } from '../../config/config';
 
 const TroocEcommerce = () => {
@@ -72,8 +72,8 @@ const TroocEcommerce = () => {
                 const productsData = await ApiService.get('/product', true);
 
                 // Lọc sản phẩm theo trạng thái is_active = true
-                const activeProducts = productsData.filter(product => 
-                    product.is_delete === false || product.is_delete === 'false' || product.is_delete === 0 
+                const activeProducts = productsData.filter(product =>
+                    product.is_delete === false || product.is_delete === 'false' || product.is_delete === 0
                     // product.is_active === true || product.is_active === 'true' || product.is_active === 1
                 );
 
@@ -85,24 +85,24 @@ const TroocEcommerce = () => {
 
                 // Lấy tất cả biến thể của sản phẩm để kiểm tra hàng tồn kho
                 let productsInStock = [];
-                
+
                 // Dùng Promise.all để giảm thời gian chờ
                 const productStockChecks = await Promise.all(
                     productsWithImages.map(async (product) => {
                         try {
                             const variants = await ApiService.get(`/product-variant/product/${product._id}`, false);
-                            
+
                             // Lọc ra các biến thể đang active
-                            const activeVariants = variants.filter(variant => 
+                            const activeVariants = variants.filter(variant =>
                                 variant.is_active === true || variant.is_active === 'true' || variant.is_active === 1
                             );
-                            
+
                             // Kiểm tra xem có ít nhất một biến thể còn hàng không
-                            const hasStock = activeVariants.length === 0 || 
-                                             activeVariants.some(variant => 
-                                                variant.stock === undefined || variant.stock > 0
-                                             );
-                                             
+                            const hasStock = activeVariants.length === 0 ||
+                                activeVariants.some(variant =>
+                                    variant.stock === undefined || variant.stock > 0
+                                );
+
                             return {
                                 product,
                                 hasStock
@@ -117,7 +117,7 @@ const TroocEcommerce = () => {
                         }
                     })
                 );
-                
+
                 // Lọc ra các sản phẩm còn hàng
                 productsInStock = productStockChecks
                     .filter(item => item.hasStock)
@@ -185,12 +185,12 @@ const TroocEcommerce = () => {
             // Fetch variants để kiểm tra xem sản phẩm có biến thể hay không
             try {
                 const variants = await ApiService.get(`/product-variant/product/${product._id}`, false);
-                
+
                 // Lọc ra các variant đang active
-                const activeVariants = variants.filter(variant => 
+                const activeVariants = variants.filter(variant =>
                     variant.is_active === true || variant.is_active === 'true' || variant.is_active === 1
                 );
-                
+
                 const hasVariants = activeVariants && activeVariants.length > 0;
 
                 // Nếu sản phẩm có biến thể nhưng chưa chọn biến thể
@@ -292,18 +292,18 @@ const TroocEcommerce = () => {
             if (updatedProduct.is_active === true || updatedProduct.is_active === 'true' || updatedProduct.is_active === 1) {
                 // Kiểm tra xem sản phẩm còn hàng không
                 const variants = await ApiService.get(`/product-variant/product/${updatedProduct._id}`, false);
-                
+
                 // Lọc ra các biến thể đang active
-                const activeVariants = variants.filter(variant => 
+                const activeVariants = variants.filter(variant =>
                     variant.is_active === true || variant.is_active === 'true' || variant.is_active === 1
                 );
-                
+
                 // Kiểm tra xem có ít nhất một biến thể còn hàng không
-                const hasStock = activeVariants.length === 0 || 
-                                 activeVariants.some(variant => 
-                                    variant.stock === undefined || variant.stock > 0
-                                 );
-                
+                const hasStock = activeVariants.length === 0 ||
+                    activeVariants.some(variant =>
+                        variant.stock === undefined || variant.stock > 0
+                    );
+
                 if (hasStock) {
                     setSelectedProduct(updatedProduct);
                     setShowProductModal(true);
@@ -386,7 +386,7 @@ const TroocEcommerce = () => {
                         <div className="space-y-2">
                             <div className="w-full flex gap-x-8 justify-center">
                                 {/* Updated CategorySidebar with clickable categories */}
-                                <div className="w-1/5 bg-white">
+                                {/* <div className="w-1/5 bg-white">
                                     <div className="space-y-2 pt-3 pb-3 pl-3 pr-5">
                                         {categories.slice(0, 6).map((category) => (
                                             <div
@@ -398,11 +398,11 @@ const TroocEcommerce = () => {
                                             </div>
                                         ))}
                                     </div>
-                                </div>
+                                </div> */}
 
                                 {/* Image Slider replacing single image */}
-                                <div className='w-4/5 h-80'> {/* Added fixed height */}
-                                    <ImageSlider images={bannerImages} />
+                                <div className=' h-80'> {/* Added fixed height */}
+                                    <ImageSlider products={products1} />
                                 </div>
                             </div>
                         </div>
@@ -414,7 +414,7 @@ const TroocEcommerce = () => {
                         products={newProducts}
                         hoveredProduct={hoveredProduct}
                         setHoveredProduct={setHoveredProduct}
-                        handleProductClick={handleProductClick}
+                        handle opeProductClick={handleProductClick}
                         addToCart={addToCart}
                         formatPrice={formatPrice}
                     />
@@ -425,13 +425,13 @@ const TroocEcommerce = () => {
                     {/* Recommended Products Section */}
                     <div className="mt-10 p-4 bg-white pb-10">
                         <div className="w-full">
-                            <h2 className="text-lg text-center font-bold text-blue-500">GỢI Ý HÔM NAY</h2>
-                        </div>
+                        <h2 className="text-lg text-center font-bold text-red-500">GỢI Ý HÔM NAY</h2>
+                    </div>
 
-                        <div className='bg-[#5E81C2] h-[4px]'></div>
+                       <div className="bg-red-500 h-[4px] my-2"></div>
 
                         {/* First row of products */}
-                        <div className="grid grid-cols-5 gap-4 pt-8">
+                        <div className="grid grid-cols-4 gap-4 pt-8 px-4">
                             {recommendedProducts.slice(0, 5).map((product, index) => (
                                 <ProductCard
                                     key={product._id}
@@ -448,7 +448,7 @@ const TroocEcommerce = () => {
 
                         {/* Second row of products if available */}
                         {recommendedProducts.length > 5 && (
-                            <div className="grid grid-cols-5 gap-4 pt-8">
+                            <div className="grid grid-cols-4 gap-4 pt-8">
                                 {recommendedProducts.slice(5, 10).map((product, index) => (
                                     <ProductCard
                                         key={product._id}

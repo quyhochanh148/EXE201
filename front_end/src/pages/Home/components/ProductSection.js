@@ -12,26 +12,28 @@ const ProductSection = ({
     formatPrice
 }) => {
     return (
-        <div className="">
-            <div className="flex items-center mb-4 bg-white p-4">
-                <ClockIcon size={24} className="text-red-500 mr-2" />
-                <h2 className="text-lg font-bold text-red-500">{title}</h2>
-            </div>
+        <div className="bg-white py-8">
+            <div className="mx-auto max-w-7xl px-8 ">
+                <div className="flex items-center justify-center mb-4 bg-white p-4">
+                    <ClockIcon size={24} className="text-red-500 mr-2" />
+                    <h2 className="text-lg font-bold text-red-500">{title}</h2>
+                </div>
 
-            {/* Product Grid */}
-            <div className="grid grid-cols-5 gap-4 bg-[#F1F5F9]">
-                {products.map((product, index) => (
-                    <ProductCard
-                        key={product._id}
-                        product={product}
-                        index={`${title.toLowerCase().replace(/\s+/g, '-')}-${index}`}
-                        isHoveredProduct={hoveredProduct === `${title.toLowerCase().replace(/\s+/g, '-')}-${index}`}
-                        onHover={setHoveredProduct}
-                        onClick={handleProductClick}
-                        onAddToCart={addToCart}
-                        formatPrice={formatPrice}
-                    />
-                ))}
+                {/* Product Grid */}
+                <div className="grid grid-cols-4 gap-4">
+                    {products.map((product, index) => (
+                        <ProductCard
+                            key={product._id}
+                            product={product}
+                            index={`${title.toLowerCase().replace(/\s+/g, '-')}-${index}`}
+                            isHoveredProduct={hoveredProduct === `${title.toLowerCase().replace(/\s+/g, '-')}-${index}`}
+                            onHover={setHoveredProduct}
+                            onClick={handleProductClick}
+                            onAddToCart={addToCart}
+                            formatPrice={formatPrice}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
