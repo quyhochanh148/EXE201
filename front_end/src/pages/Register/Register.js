@@ -249,21 +249,29 @@ const RegisterPage = () => {
 
   return (
     <div className="flex h-screen w-full">
-      {/* Left side with title */}
-      <div className="w-5/12 bg-blue-600 flex items-center p-16">
-        <h1 className="text-white text-6xl font-bold leading-tight">
-          The Real
-          <br />
-          Options On
-          <br />
-          Customers
-        </h1>
+      {/* Left side with title and plant image */}
+      <div className="w-5/12 bg-green-600 flex items-center p-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-20"></div>
+        <div className="relative z-10">
+          <h1 className="text-white text-6xl font-bold leading-tight">
+            The Real
+            <br />
+            Options On
+            <br />
+            Customers
+          </h1>
+        </div>
+        <img 
+          src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/12/hinh-nen-xanh-la-2.jpg" 
+          alt="Decorative plants" 
+          className="absolute right-0 bottom-0 w-3/4 h-auto opacity-80"
+        />
       </div>
 
       {/* Right side with registration form */}
       <div className="w-7/12 flex items-center justify-center">
         <div className="w-full max-w-md px-8">
-          <h2 className="text-3xl font-bold text-blue-600 mb-8">
+          <h2 className="text-3xl font-bold text-green-600 mb-8">
             Đăng ký tài khoản
           </h2>
 
@@ -284,7 +292,7 @@ const RegisterPage = () => {
                 type="text"
                 name="lastName"
                 placeholder="Nhập họ"
-                className={`w-full px-3 py-2 border ${touched.lastName && errors.lastName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`w-full px-3 py-2 border ${touched.lastName && errors.lastName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={formData.lastName}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -305,7 +313,7 @@ const RegisterPage = () => {
                 type="text"
                 name="firstName"
                 placeholder="Nhập tên"
-                className={`w-full px-3 py-2 border ${touched.firstName && errors.firstName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`w-full px-3 py-2 border ${touched.firstName && errors.firstName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={formData.firstName}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -326,7 +334,7 @@ const RegisterPage = () => {
                 type="tel"
                 name="phone"
                 placeholder="Nhập số điện thoại"
-                className={`w-full px-3 py-2 border ${touched.phone && errors.phone ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`w-full px-3 py-2 border ${touched.phone && errors.phone ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={formData.phone}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -348,7 +356,7 @@ const RegisterPage = () => {
                 type="email"
                 name="email"
                 placeholder="Nhập email"
-                className={`w-full px-3 py-2 border ${touched.email && errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`w-full px-3 py-2 border ${touched.email && errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={formData.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -369,7 +377,7 @@ const RegisterPage = () => {
                 type="password"
                 name="password"
                 placeholder="Nhập mật khẩu"
-                className={`w-full px-3 py-2 border ${touched.password && errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`w-full px-3 py-2 border ${touched.password && errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={formData.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -386,7 +394,7 @@ const RegisterPage = () => {
 
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition flex items-center justify-center"
+              className="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md transition flex items-center justify-center"
               disabled={loading}
             >
               {loading ? (
@@ -403,7 +411,7 @@ const RegisterPage = () => {
 
           <div className="mt-6 text-center">
             <div className="mt-1">
-              <a href="/login" className="text-red-500 hover:underline text-sm">
+              <a href="/login" className="text-green-600 hover:underline text-sm">
                 Bạn đã có tài khoản? Đăng nhập ngay
               </a>
             </div>

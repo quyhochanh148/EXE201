@@ -45,26 +45,26 @@ const ActionButtons = ({
             
             <div className="flex space-x-2">
                 <button
-                    className={`bg-blue-500 hover:bg-blue-600 text-white flex-1 py-2 rounded-lg flex items-center justify-center font-medium transition-colors 
-                        ${isDisabled ? 'opacity-50 cursor-not-allowed bg-blue-400 hover:bg-blue-400' : ''}`}
+                    className={`bg-green-600 hover:bg-green-700 text-white flex-1 py-2 rounded-full flex items-center justify-center font-bold shadow-md transition-colors 
+                        ${isDisabled ? 'opacity-50 cursor-not-allowed bg-green-300 hover:bg-green-300' : ''}`}
                     onClick={buyNow}
                     disabled={isDisabled}
                 >
                     {getButtonText()}
                 </button>
                 <button
-                    className={`border border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors border-blue-600 
-                        ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`border border-green-600 hover:bg-green-50 px-4 py-2 rounded-full transition-colors text-green-700 font-bold shadow-md 
+                        ${isDisabled ? 'opacity-50 cursor-not-allowed border-green-300 hover:bg-green-100' : ''}`}
                     onClick={addToCart}
                     disabled={isDisabled}
                 >
-                    <ShoppingCart size={18} className="text-gray-600" />
+                    <ShoppingCart size={18} className="text-green-600" />
                 </button>
                 <button
                     onClick={handleStartChat}
-                    className="border border-gray-300 hover:bg-gray-50 flex-1 py-2 rounded-lg text-gray-600 border-blue-600 font-medium transition-colors"
+                    className="border border-green-600 hover:bg-green-50 flex-1 py-2 rounded-full text-green-700 font-bold shadow-md transition-colors"
                 >
-                    <p className='flex items-center justify-center gap-2 text-blue-600'>
+                    <p className='flex items-center justify-center gap-2 text-green-700'>
                         <MessageSquareText size={18} />Chat
                     </p>
                 </button>
