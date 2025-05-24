@@ -315,31 +315,31 @@ const ProductTabs = ({ activeTab, setActiveTab, product, variants, formatPrice, 
     };
 
     return (
-        <div className="bg-white mt-6 rounded-lg overflow-hidden">
+        <div className="bg-[#F6FFF6] mt-6 rounded-xl overflow-hidden shadow-lg">
             {/* Tab Navigation */}
-            <div className="flex border-b">
+            <div className="flex border-b bg-white rounded-t-xl">
                 <button
-                    className={`py-4 px-6 text-sm font-medium border-b-2 ${activeTab === 'details' ? 'text-indigo-600 border-indigo-600' : 'text-gray-600 border-transparent'}`}
+                    className={`py-4 px-6 text-sm font-bold border-b-2 uppercase tracking-wide transition-all duration-200 ${activeTab === 'details' ? 'text-green-600 border-green-600 bg-[#F6FFF6]' : 'text-gray-600 border-transparent'}`}
                     onClick={() => setActiveTab('details')}
                 >
-                    CHI TIẾT SẢN PHẨM
+                    Chi tiết sản phẩm
                 </button>
                 <button
-                    className={`py-4 px-6 text-sm font-medium border-b-2 ${activeTab === 'shipping' ? 'text-indigo-600 border-indigo-600' : 'text-gray-600 border-transparent'}`}
+                    className={`py-4 px-6 text-sm font-bold border-b-2 uppercase tracking-wide transition-all duration-200 ${activeTab === 'shipping' ? 'text-green-600 border-green-600 bg-[#F6FFF6]' : 'text-gray-600 border-transparent'}`}
                     onClick={() => setActiveTab('shipping')}
                 >
-                    VẬN CHUYỂN & TRẢ HÀNG
+                    Vận chuyển & trả hàng
                 </button>
                 <button
-                    className={`py-4 px-6 text-sm font-medium border-b-2 ${activeTab === 'reviews' ? 'text-indigo-600 border-indigo-600' : 'text-gray-600 border-transparent'}`}
+                    className={`py-4 px-6 text-sm font-bold border-b-2 uppercase tracking-wide transition-all duration-200 ${activeTab === 'reviews' ? 'text-green-600 border-green-600 bg-[#F6FFF6]' : 'text-gray-600 border-transparent'}`}
                     onClick={() => setActiveTab('reviews')}
                 >
-                    ĐÁNH GIÁ
+                    Đánh giá
                 </button>
             </div>
 
             {/* Tab Content */}
-            <div className="px-6">
+            <div className="px-8 py-6">
                 {renderTabContent()}
             </div>
         </div>

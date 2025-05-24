@@ -136,19 +136,27 @@ const LoginPage = () => {
     // The rest of your component remains the same
     return (
         <div className="flex h-screen w-full">
-            {/* Left side with title */}
-            <div className="w-5/12 bg-blue-600 flex items-center p-16">
-                <h1 className="text-white text-6xl font-bold leading-tight">
-                    The Real<br />
-                    Options On<br />
-                    Customers
-                </h1>
+            {/* Left side with title and plant image */}
+            <div className="w-5/12 bg-green-600 flex items-center p-16 relative overflow-hidden">
+                <div className="absolute inset-0 bg-black opacity-20"></div>
+                <div className="relative z-10">
+                    <h1 className="text-white text-6xl font-bold leading-tight">
+                        The Real<br />
+                        Options On<br />
+                        Customers
+                    </h1>
+                </div>
+                <img 
+                    src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/12/hinh-nen-xanh-la-2.jpg" 
+                    alt="Decorative plants" 
+                    className="absolute right-0 bottom-0 w-3/4 h-auto opacity-80"
+                />
             </div>
 
             {/* Right side with login form */}
             <div className="w-7/12 flex items-center justify-center">
                 <div className="w-full max-w-md px-8">
-                    <h2 className="text-3xl font-bold text-blue-600 mb-8">Đăng nhập tài khoản</h2>
+                    <h2 className="text-3xl font-bold text-green-600 mb-8">Đăng nhập tài khoản</h2>
 
                     {error && (
                         <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -165,7 +173,7 @@ const LoginPage = () => {
                                 type="email"
                                 name="email"
                                 placeholder="abcxyz@gmail.com"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
@@ -180,7 +188,7 @@ const LoginPage = () => {
                                 type="password"
                                 name="password"
                                 placeholder="********"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
@@ -189,7 +197,7 @@ const LoginPage = () => {
 
                         <button
                             type="submit"
-                            className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition"
+                            className="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md transition"
                             disabled={loading}
                         >
                             {loading ? "Đang xử lý..." : "Đăng nhập"}
@@ -225,16 +233,16 @@ const LoginPage = () => {
                     </div>
 
                     <div className="mt-6 text-center">
-                        <a href="/forgot-password" className="text-blue-600 hover:underline text-sm">
+                        <a href="/forgot-password" className="text-green-600 hover:underline text-sm">
                             Bạn quên mật khẩu? Click vào đây
                         </a>
                         <div className="mt-1">
-                            <a href="/register" className="text-red-500 hover:underline text-sm">
+                            <a href="/register" className="text-green-600 hover:underline text-sm">
                                 Đăng kí tài khoản
                             </a>
                         </div>
                         <div className="mt-1">
-                            <a href="/" className="text-red-500 hover:underline text-sm">
+                            <a href="/" className="text-green-600 hover:underline text-sm">
                                 Về trang chủ
                             </a>
                         </div>
