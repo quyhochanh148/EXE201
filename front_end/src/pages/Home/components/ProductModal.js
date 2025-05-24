@@ -156,7 +156,7 @@ const ProductModal = ({
                             className={`w-full text-white py-3 rounded-md font-medium transition-colors ${
                                 (hasVariants && !variantSelected) || isOutOfStock
                                 ? 'bg-gray-400 cursor-not-allowed' 
-                                : 'bg-indigo-600 hover:bg-indigo-700'
+                                : 'bg-[#2E7D32] hover:bg-[#2E7D32]'
                             }`}
                             onClick={() => onAddToCart(product, quantity, true)}
                             disabled={(hasVariants && !variantSelected) || isOutOfStock}
@@ -171,7 +171,7 @@ const ProductModal = ({
                             onClick={() => {
                                 window.location.href = `/product-detail?id=${product._id}`;
                             }}
-                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-md font-medium"
+                            className="w-full bg-[#2E7D32] hover:bg-[#2E7D32] text-white py-3 rounded-md font-medium"
                         >
                             Xem thông tin chi tiết
                         </button>

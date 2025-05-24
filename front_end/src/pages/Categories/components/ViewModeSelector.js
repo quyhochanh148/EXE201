@@ -9,7 +9,7 @@ const ViewModeSelector = ({ viewMode, setViewMode, sortOption, setSortOption }) 
                     onClick={() => setViewMode('grid')}
                     className={`
                         p-2 rounded 
-                        ${viewMode === 'grid' ? 'bg-purple-100 text-purple-600' : 'text-gray-500'}
+                        ${viewMode === 'grid' ? 'bg-purple-100 text-[#2E7D32]' : 'text-gray-500'}
                     `}
                 >
                     <Grid size={20} />
@@ -18,7 +18,7 @@ const ViewModeSelector = ({ viewMode, setViewMode, sortOption, setSortOption }) 
                     onClick={() => setViewMode('list')}
                     className={`
                         p-2 rounded 
-                        ${viewMode === 'list' ? 'bg-purple-100 text-purple-600' : 'text-gray-500'}
+                        ${viewMode === 'list' ? 'bg-purple-100 text-[#2E7D32]' : 'text-gray-500'}
                     `}
                 >
                     <List size={20} />

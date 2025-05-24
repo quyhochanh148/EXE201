@@ -64,7 +64,7 @@ const Pagination = ({
                         className={`
                             w-10 h-10 flex items-center justify-center rounded
                             ${pageNumber === currentPage 
-                                ? 'bg-purple-600 text-white' 
+                                ? 'bg-[#2E7D32] text-white' 
                                 : pageNumber === '...' 
                                     ? 'cursor-default' 
                                     : 'text-gray-700 hover:bg-gray-100'}

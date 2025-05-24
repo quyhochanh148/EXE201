@@ -19,7 +19,7 @@ const ImageSlider = ({ products }) => {
     stopTimer();
     timerRef.current = setTimeout(() => {
       nextSlide();
-    }, 5000); // Chuyển slide sau 5 giây
+    }, 5000);
   };
 
   const stopTimer = () => {
@@ -36,7 +36,7 @@ const ImageSlider = ({ products }) => {
     
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 500); // Đồng bộ với thời gian chuyển động CSS
+    }, 500);
   };
 
   const prevSlide = () => {
@@ -47,7 +47,7 @@ const ImageSlider = ({ products }) => {
     
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 500); // Đồng bộ với thời gian chuyển động CSS
+    }, 500);
   };
 
   const goToSlide = (index) => {
@@ -58,11 +58,11 @@ const ImageSlider = ({ products }) => {
     
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 500); // Đồng bộ với thời gian chuyển động CSS
+    }, 500);
   };
 
   return (
-    <div className="relative w-screen h-full overflow-hidden group">
+    <div className="relative w-screen h-full overflow-hidden group" style={{ zIndex: 100 }}>
       {/* Slider images */}
       <div 
         className="w-full h-full flex transition-transform duration-500 ease-in-out"
@@ -75,7 +75,6 @@ const ImageSlider = ({ products }) => {
               alt={product.title}
               className="w-screen h-full object-cover"
             />
-            {/* Caption with title and descriptions */}
             <div className="absolute bottom-8 left-24 bg-black bg-opacity-50 text-white p-3 rounded-lg max-w-md w-full">
               <h3 className="text-xl font-bold mb-1">{product.title}</h3>
               <ul className="list-disc list-inside text-base space-y-1">
@@ -88,7 +87,7 @@ const ImageSlider = ({ products }) => {
         ))}
       </div>
 
-      {/* Navigation arrows - Chỉ hiển thị khi hover */}
+      {/* Navigation arrows */}
       <button
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-80 p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         onClick={prevSlide}

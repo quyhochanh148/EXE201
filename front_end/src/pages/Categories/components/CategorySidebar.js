@@ -74,7 +74,7 @@ const CategorySidebar = ({
                     Giá không được âm
                 </div>
                 <button
-                    className="w-full mt-2 bg-purple-600 text-white py-2 rounded hover:bg-purple-700"
+                    className="w-full mt-2 bg-[#2E7D32] text-white py-2 rounded hover:bg-[#2E7D32]"
                     onClick={applyPriceFilter}
                     disabled={
                         (priceRange.min && parseFloat(priceRange.min) < 0) ||

@@ -6,27 +6,32 @@ import ApiService from '../services/ApiService';
 const styles = `
 .category-dropdown-container {
   position: relative;
+  z-index: 2000; /* Tăng z-index để vượt qua ImageSlider */
 }
 
 .category-dropdown {
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 50;
+  z-index: 2000; /* Tăng z-index để vượt qua ImageSlider */
   background: white;
   border: 1px solid #e5e7eb;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   min-width: 200px;
+  max-height: 300px; /* Giới hạn chiều cao */
+  overflow-y: auto; /* Thêm thanh cuộn dọc */
   padding: 8px 0;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  transform: translateY(-10px);
 }
 
 .category-dropdown-container:hover .category-dropdown {
   opacity: 1;
   visibility: visible;
+  transform: translateY(0);
 }
 
 .category-dropdown a {
@@ -42,15 +47,15 @@ const styles = `
 }
 
 .category-button {
-  background: transparent;   /* Không màu nền */
-  border: none;              /* Không viền */
+  background: transparent;
+  border: none;
   padding: 8px 16px;
   font-size: 14px;
   color: #374151;
   display: flex;
   align-items: center;
   gap: 8px;
-  border-radius: 0;          /* Không bo góc */
+  border-radius: 0;
   cursor: pointer;
 }
 
@@ -81,6 +86,7 @@ const CategoryDropdown = () => {
     const navigate = useNavigate();
     const buttonRef = useRef(null);
     const dropdownRef = useRef(null);
+    const timeoutRef = useRef(null);
 
     // Lấy danh mục từ API
     useEffect(() => {
@@ -88,6 +94,7 @@ const CategoryDropdown = () => {
             try {
                 setLoading(true);
                 const response = await ApiService.get('/categories', false);
+                console.log('Categories:', response);
                 setCategories(response || []);
             } catch (error) {
                 console.error('Lỗi khi lấy danh mục:', error);
@@ -108,6 +115,7 @@ const CategoryDropdown = () => {
                 buttonRef.current &&
                 !buttonRef.current.contains(event.target)
             ) {
+                console.log('Closing dropdown due to click outside');
                 setIsOpen(false);
             }
         };
@@ -119,6 +127,7 @@ const CategoryDropdown = () => {
 
     // Xử lý chọn danh mục
     const handleCategorySelect = (categoryId) => {
+        console.log('Selected category:', categoryId);
         setIsOpen(false);
         if (categoryId) {
             navigate(`/categories?category=${categoryId}`);
@@ -127,18 +136,32 @@ const CategoryDropdown = () => {
         }
     };
 
+    // Xử lý hover với độ trễ
+    const handleMouseEnter = () => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        setIsOpen(true);
+    };
+
+    const handleMouseLeave = () => {
+        timeoutRef.current = setTimeout(() => {
+            setIsOpen(false);
+        }, 200);
+    };
+
     return (
         <div className="category-dropdown-container">
             <style>{styles}</style>
             <button
                 ref={buttonRef}
                 className="category-button"
-                onMouseEnter={() => setIsOpen(true)}
-                onMouseLeave={() => setIsOpen(false)}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onClick={() => setIsOpen(!isOpen)}
                 disabled={loading}
                 aria-label="Danh mục sản phẩm"
                 aria-expanded={isOpen}
-              
             >
                 Tất cả danh mục
                 {loading ? (
@@ -154,8 +177,8 @@ const CategoryDropdown = () => {
                     ref={dropdownRef}
                     className="category-dropdown"
                     role="menu"
-                    onMouseEnter={() => setIsOpen(true)}
-                    onMouseLeave={() => setIsOpen(false)}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                 >
                     <a
                         href="/categories"

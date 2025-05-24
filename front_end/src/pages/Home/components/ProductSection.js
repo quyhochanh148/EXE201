@@ -13,6 +13,7 @@ const ProductSection = ({
 }) => {
     return (
         <div className="bg-white py-8">
+            
             <div className="mx-auto max-w-7xl px-8 ">
                 <div className="flex items-center justify-center mb-4 bg-white p-4">
                     <ClockIcon size={24} className="text-red-500 mr-2" />
@@ -23,15 +24,16 @@ const ProductSection = ({
                 <div className="grid grid-cols-4 gap-4">
                     {products.map((product, index) => (
                         <ProductCard
-                            key={product._id}
-                            product={product}
-                            index={`${title.toLowerCase().replace(/\s+/g, '-')}-${index}`}
-                            isHoveredProduct={hoveredProduct === `${title.toLowerCase().replace(/\s+/g, '-')}-${index}`}
-                            onHover={setHoveredProduct}
-                            onClick={handleProductClick}
-                            onAddToCart={addToCart}
-                            formatPrice={formatPrice}
-                        />
+                        key={product._id}
+                        product={product}
+                        index={`${title.toLowerCase().replace(/\s+/g, '-')}-${index}`}
+                        isHoveredProduct={hoveredProduct === `${title.toLowerCase().replace(/\s+/g, '-')}-${index}`}
+                        onHover={setHoveredProduct}
+                        onClick={handleProductClick}
+                        onAddToCart={addToCart}
+                        formatPrice={formatPrice}
+                        
+                    />
                     ))}
                 </div>
             </div>

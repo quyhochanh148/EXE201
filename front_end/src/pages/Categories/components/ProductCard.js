@@ -53,12 +53,12 @@ const ProductCard = ({
                 </div>
             )}
             {product.is_feature && !product.is_hot && (
-                <div className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded z-10">
+                <div className="absolute top-2 left-2 bg-[#2E7D32] text-[#2E7D32] text-xs px-2 py-1 rounded z-10">
                     Đặc sắc
                 </div>
             )}
             {hasVariants && (
-                <div className="absolute top-2 right-2 bg-purple-500 text-white text-xs px-2 py-1 rounded z-10">
+                <div className="absolute top-2 right-2 bg-[#2E7D32] text-[#2E7D32] text-xs px-2 py-1 rounded z-10">
                     Nhiều lựa chọn
                 </div>
             )}
@@ -83,7 +83,7 @@ const ProductCard = ({
                                 handleProductClick(product);
                             }}
                         >
-                            <button className="bg-purple-600 hover:bg-purple-700 text-white py-1.5 px-4 rounded-md font-medium text-sm">
+                            <button className="bg-[#2E7D32] hover:bg-[#2E7D32] text-white py-1.5 px-4 rounded-md font-medium text-sm">
                                 {hasVariants ? 'Chọn biến thể' : 'Xem chi tiết'}
                             </button>
                         </div>
