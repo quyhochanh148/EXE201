@@ -46,9 +46,9 @@ const TroocEcommerce = () => {
     const getImagePath = (imgPath) => {
         if (!imgPath) return "";
         if (imgPath.startsWith('http')) return imgPath;
-        if (imgPath.startsWith('/uploads')) return `${BE_API_URL}${imgPath}`;
+        if (imgPath.startsWith('/Uploads')) return `${BE_API_URL}${imgPath}`;
         const fileName = imgPath.split("\\").pop();
-        return `${BE_API_URL}/uploads/products/${fileName}`;
+        return `${BE_API_URL}/Uploads/products/${fileName}`;
     };
 
     const { currentUser, isLoggedIn } = useAuth();
@@ -286,7 +286,7 @@ const TroocEcommerce = () => {
             />
             <div className="max-w-7xl mx-auto">
                 <div className="w-full">
-                    <div className="pt-0 pb-4 bg-[#F1F5F9]" style={{ zIndex: 100, position: 'relative' }}>
+                    <div className="pt-16 pb-4 bg-[#F1F5F9]" style={{ zIndex: 100, position: 'relative' }}>
                         <div className="space-y-2">
                             <div className="w-full flex gap-x-8 justify-center">
                                 <div className='h-80' style={{ zIndex: 100 }}>

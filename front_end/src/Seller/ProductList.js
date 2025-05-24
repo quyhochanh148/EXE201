@@ -241,7 +241,7 @@ const ProductDetailsModal = ({ product, onClose }) => {
             <hr className="my-6" />
 
             {/* Product Detail Section */}
-            <div>
+            <div style={{zIndex:2000}}>
               <h4 className="text-lg font-medium mb-3">Chi tiết sản phẩm</h4>
               <div className="prose max-w-none">
                 <p>{productDetails.detail}</p>
@@ -251,7 +251,7 @@ const ProductDetailsModal = ({ product, onClose }) => {
             <hr className="my-6" />
 
             {/* Product Variants Section */}
-            <div>
+            <div style={{zIndex:2000}}>
               <div className="flex justify-between items-center mb-4">
                 <h4 className="text-lg font-medium">Biến thể sản phẩm</h4>
                 <button
@@ -331,7 +331,7 @@ const ProductDetailsModal = ({ product, onClose }) => {
             </div>
 
             {/* SEO Information */}
-            <div>
+            <div style={{zIndex:2000}}>
               <h4 className="text-lg font-medium mb-3">Thông tin SEO</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>

@@ -328,7 +328,7 @@ const Header = () => {
     return (
         <div
             className="bg-cover bg-center bg-no-repeat shadow-sm relative"
-            style={{ backgroundImage: `url(${headerBg})`, minHeight: '220px', zIndex: 3000 }}
+            style={{ backgroundImage: `url(${headerBg})`, minHeight: '220px', zIndex: 1000 }}
         >
             <div className="bg-white bg-opacity-80 shadow-sm relative">
                 <style>{flashingAnimation}</style>
