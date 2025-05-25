@@ -50,7 +50,7 @@ const ProductCard = ({
                         onClick(product);
                     }}
                 >
-                    <button className="bg-purple-600 hover:bg-purple-700 text-white py-1.5 px-4 rounded-md font-medium text-sm">
+                    <button className="bg-[#2E7D32] hover:bg-[#2E7D32] text-white py-1.5 px-4 rounded-md font-medium text-sm">
                         Mua sản phẩm
                     </button>
                 </div>

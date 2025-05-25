@@ -1,7 +1,7 @@
 import React from 'react';
-import clothesBanner from '../../../assets/clothesBanner.jpg';
-import phoneBanner from '../../../assets/phoneBanner.jpg';
-import clockBanner from '../../../assets/clockBanner.jpg';
+import clothesBanner from '../../../assets/Banner/318555050_133775472841455_1358442034130724765_n.jpg';
+import phoneBanner from '../../../assets/Banner/318840065_133775412841461_1550456133701032360_n.jpg';
+import clockBanner from '../../../assets/Banner/321928000_535011058576102_2859376662600392960_n.jpg';
 
 const PromotionalBanners = () => {
     return (
@@ -9,7 +9,7 @@ const PromotionalBanners = () => {
             {/* Clothes Banner */}
             <div className="bg-indigo-700 p-6 rounded-lg text-white relative overflow-hidden">
                 <div className="z-10 relative">
-                    <h3 className="text-2xl font-bold mb-1">Quần áo</h3>
+                    <h3 className="text-2xl font-bold mb-1">Cây chậu</h3>
                     <p className="text-yellow-300 font-bold text-xl">Giảm 20% Sản phẩm</p>
                     <p className="text-sm mt-1">Miễn phí ships</p>
                 </div>
@@ -23,8 +23,8 @@ const PromotionalBanners = () => {
             {/* Phone Banner */}
             <div className="bg-teal-500 p-6 rounded-lg text-white relative overflow-hidden">
                 <div className="z-10 relative">
-                    <h3 className="text-2xl font-bold mb-1">Điện thoại 2hand</h3>
-                    <p className="text-yellow-300 font-bold text-xl">Giảm giá 80%</p>
+                    <h3 className="text-2xl font-bold mb-1">Công cụ nhà vườn</h3>
+                    <p className="text-yellow-300 font-bold text-xl">Bảo hành 3 tháng</p>
                     <p className="text-sm mt-1">Miễn phí ship toàn quốc</p>
                 </div>
                 <img
@@ -37,8 +37,8 @@ const PromotionalBanners = () => {
             {/* Clock Banner */}
             <div className="bg-red-500 p-6 rounded-lg text-white relative overflow-hidden">
                 <div className="z-10 relative">
-                    <h3 className="text-2xl font-bold mb-1">Máy tính bảng</h3>
-                    <p className="text-yellow-300 font-bold text-xl">Giảm đến 1 triệu đồng</p>
+                    <h3 className="text-2xl font-bold mb-1">Đất trồng</h3>
+                    <p className="text-yellow-300 font-bold text-xl">Chất lượng tốt cho cây trồng</p>
                     <p className="text-sm mt-1">Free shipping 20km Radius</p>
                 </div>
                 <img

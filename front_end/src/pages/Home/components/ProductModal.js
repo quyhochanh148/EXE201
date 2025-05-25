@@ -53,7 +53,7 @@ const ProductModal = ({
     const isOutOfStock = selectedVariant && selectedVariant.stock !== undefined && selectedVariant.stock <= 0;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style={{zIndex:1500}}>
             <div className="bg-white rounded-lg w-11/12 max-w-4xl overflow-hidden relative">
                 <button
                     className="absolute top-4 right-4 text-gray-800"
@@ -156,7 +156,7 @@ const ProductModal = ({
                             className={`w-full text-white py-3 rounded-md font-medium transition-colors ${
                                 (hasVariants && !variantSelected) || isOutOfStock
                                 ? 'bg-gray-400 cursor-not-allowed' 
-                                : 'bg-indigo-600 hover:bg-indigo-700'
+                                : 'bg-[#2E7D32] hover:bg-[#2E7D32]'
                             }`}
                             onClick={() => onAddToCart(product, quantity, true)}
                             disabled={(hasVariants && !variantSelected) || isOutOfStock}
@@ -171,7 +171,7 @@ const ProductModal = ({
                             onClick={() => {
                                 window.location.href = `/product-detail?id=${product._id}`;
                             }}
-                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-md font-medium"
+                            className="w-full bg-[#2E7D32] hover:bg-[#2E7D32] text-white py-3 rounded-md font-medium"
                         >
                             Xem thông tin chi tiết
                         </button>

@@ -5,6 +5,7 @@ import LoginPage from "./pages/Login/Login";
 import RegisterPage from "./pages/Register/Register";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import IntroductionSection from './components/IntroductionSection'; // Đường dẫn đến IntroductionSection
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import ShopDetail from "./pages/ShopDetail/ShopDetail";
 import UserProfile from "./pages/UserProfile/UserProfile";
@@ -69,7 +70,15 @@ function App() {
               <Homepage />
             )
           } />
-
+          <Route path="/introduction" element={
+            shouldRedirect ? (
+              <RoleRedirect>
+                <IntroductionSection />
+              </RoleRedirect>
+            ) : (
+              <IntroductionSection />
+            )
+          } />
           <Route path="/product-detail" element={
             shouldRedirect ? (
               <RoleRedirect>

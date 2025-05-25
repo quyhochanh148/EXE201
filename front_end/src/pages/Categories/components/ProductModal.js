@@ -100,7 +100,7 @@ const ProductModal = ({
                             
                             {/* Thông tin biến thể đã chọn */}
                             {selectedVariant && (
-                                <div className="mb-4 p-3 bg-purple-50 rounded-lg border border-purple-100">
+                                <div className="mb-4 p-3 bg-[#2E7D32] rounded-lg border border-purple-100">
                                     
                                     {renderVariantAttributes() && (
                                         <div className="mt-2 text-sm text-gray-600">
@@ -125,7 +125,7 @@ const ProductModal = ({
                         <button
                             className={`w-full ${isOutOfStock 
                                 ? 'bg-gray-400 cursor-not-allowed' 
-                                : 'bg-purple-600 hover:bg-purple-700'} text-white py-3 rounded-md font-medium transition-colors`}
+                                : 'bg-[#2E7D32] hover:bg-[#2E7D32]'} text-white py-3 rounded-md font-medium transition-colors`}
                             onClick={() => addToCart(selectedProduct, quantity, true)}
                             disabled={isOutOfStock}
                         >
@@ -135,7 +135,7 @@ const ProductModal = ({
                         </button>
                         <button
                             onClick={() => window.location.href = `/product-detail?id=${selectedProduct._id || selectedProduct.id}`}
-                            className='w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-md font-medium transition-colors'
+                            className='w-full bg-[#2E7D32] hover:bg-[#2E7D32] text-white py-3 rounded-md font-medium transition-colors'
                         >
                             Xem thông tin chi tiết
                         </button>

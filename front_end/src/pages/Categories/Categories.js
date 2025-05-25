@@ -571,7 +571,7 @@ const Categories = () => {
                     <p className="text-gray-700">{error}</p>
                     <button
                         onClick={() => window.location.reload()}
-                        className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+                        className="mt-4 bg-[#2E7D32] text-white px-4 py-2 rounded hover:bg-[#2E7D32]"
                     >
                         Tải lại trang
                     </button>
@@ -618,7 +618,7 @@ const Categories = () => {
                         </div>
 
                         {searchQuery && (
-                            <div className="mb-4 p-3 bg-purple-100 rounded">
+                            <div className="mb-4 p-3 bg-[#2E7D32] rounded">
                                 <div className="flex items-center">
                                     <span className="text-sm font-medium text-purple-700">
                                         Kết quả tìm kiếm cho: "{searchQuery}"

@@ -60,21 +60,29 @@ const ForgotPasswordPage = () => {
 
   return (
     <div className="flex h-screen w-full">
-      {/* Left side with title */}
-      <div className="w-5/12 bg-blue-600 flex items-center p-16">
-        <h1 className="text-white text-6xl font-bold leading-tight">
-          The Real
-          <br />
-          Options On
-          <br />
-          Customers
-        </h1>
+      {/* Left side with title and plant image */}
+      <div className="w-5/12 bg-green-600 flex items-center p-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-20"></div>
+        <div className="relative z-10">
+          <h1 className="text-white text-6xl font-bold leading-tight">
+            The Real
+            <br />
+            Options On
+            <br />
+            Customers
+          </h1>
+        </div>
+        <img 
+          src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/12/hinh-nen-xanh-la-2.jpg" 
+          alt="Decorative plants" 
+          className="absolute right-0 bottom-0 w-3/4 h-auto opacity-80"
+        />
       </div>
 
       {/* Right side with form */}
       <div className="w-7/12 flex items-center justify-center">
         <div className="w-full max-w-md px-8">
-          <h2 className="text-3xl font-bold text-blue-600 mb-8">
+          <h2 className="text-3xl font-bold text-green-600 mb-8">
             {showOtpForm ? "Đặt lại mật khẩu" : "Quên mật khẩu"}
           </h2>
 
@@ -102,7 +110,7 @@ const ForgotPasswordPage = () => {
                 <input
                   type="email"
                   placeholder="Nhập email đã đăng ký"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -111,7 +119,7 @@ const ForgotPasswordPage = () => {
 
               <button
                 type="submit"
-                className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition"
+                className="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md transition"
                 disabled={loading}
               >
                 {loading ? "Đang xử lý..." : "Gửi mã xác nhận"}
@@ -129,7 +137,7 @@ const ForgotPasswordPage = () => {
                 <input
                   type="text"
                   placeholder="Nhập mã xác nhận từ email"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
                   required
@@ -145,7 +153,7 @@ const ForgotPasswordPage = () => {
                 <input
                   type="password"
                   placeholder="Nhập mật khẩu mới"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
@@ -157,7 +165,7 @@ const ForgotPasswordPage = () => {
 
               <button
                 type="submit"
-                className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition"
+                className="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md transition"
                 disabled={loading}
               >
                 {loading ? "Đang xử lý..." : "Đặt lại mật khẩu"}
@@ -167,7 +175,7 @@ const ForgotPasswordPage = () => {
 
           <div className="mt-6 text-center">
             <div className="mt-1">
-              <a href="/login" className="text-red-500 hover:underline text-sm">
+              <a href="/login" className="text-green-600 hover:underline text-sm">
                 Quay lại trang đăng nhập
               </a>
             </div>

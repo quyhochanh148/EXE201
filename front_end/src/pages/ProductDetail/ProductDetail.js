@@ -592,104 +592,80 @@ const ProductDetail = () => {
         ];
 
     return (
-        <div className="bg-[#F1F5F9]">
-            <div className="max-w-7xl mx-auto bg-[#F1F5F9] py-8">
-                <div className="bg-white rounded-lg">
-                    <div className="flex flex-col gap-6 md:flex-row bg-[#F1F5F9]">
-                        {/* Left side - Product images */}                 
-                        <ProductImages
-                            images={images}
-                            selectedImage={selectedImage}
-                            setSelectedImage={setSelectedImage}
-                            product={product}
-                        />
-                        
-
+        <div className="bg-gradient-to-b from-[#e8f5e9] to-[#f1f8e9] min-h-screen">
+            <div className="max-w-6xl mx-auto py-10">
+                <div className="bg-white rounded-3xl shadow-2xl border border-green-100 p-8">
+                    <div className="flex flex-col md:flex-row gap-10">
+                        {/* Left side - Product images */}
+                        <div className="md:w-[60%] flex items-center justify-center">
+                            <ProductImages
+                                images={images}
+                                product={product}
+                            />
+                        </div>
                         {/* Right side - Product details */}
-                        <div className="w-1/2 px-8 pt-6 pb-2 bg-white rounded-lg">
+                        <div className="md:w-[40%] flex flex-col justify-between">
                             <ProductHeader
                                 product={product}
                                 formatDate={formatDate}
                             />
-
-                            {/* Display price - prefer variant price if selected */}
-                            <div className="text-red-600 font-bold text-xl mb-4">
+                            <div className="text-4xl font-extrabold text-green-600 mb-6 mt-2">
                                 {selectedVariant
                                     ? formatPrice(selectedVariant.price)
                                     : formatPrice(product.price)}
                             </div>
-
-                            {/* Product description */}
-                            <div className="mb-4">
-                                <h2 className="font-bold mb-2">Mô tả chi tiết:</h2>
-                                <p className="text-sm text-gray-700">
-                                    {safeRender(product.description ?
-                                        product.description.substring(0, 150) + '...' :
-                                        'Không có mô tả chi tiết')}
-                                </p>
-                            </div>
-
-                            {/* Product Variant Selector */}
                             <ProductVariantSelector
                                 productId={product._id}
                                 onVariantSelect={handleVariantSelect}
                                 initialQuantity={quantity}
                                 onQuantityChange={handleQuantityChange}
                             />
-
-                            {/* Seller info */}
                             <SellerInfo
                                 shop={shopData}
                                 seller={seller}
                                 product={product}
                                 getShopId={getShopId}
                             />
-
-                            {/* Action buttons */}
-                            <ActionButtons
-                                isAddingToCart={isAddingToCart}
-                                addToCart={addToCart}
-                                buyNow={buyNow}
-                                handleStartChat={handleStartChat}
-                                hasVariants={hasVariants}
-                                selectedVariant={selectedVariant}
-                                isOutOfStock={isOutOfStock}
-                            />
-
-                            {/* Location, time and follow button */}
-                            <div className="mt-4 flex items-center justify-between">
-                                <div className="text-sm text-gray-500">
+                            <div className="mt-8">
+                                <ActionButtons
+                                    isAddingToCart={isAddingToCart}
+                                    addToCart={addToCart}
+                                    buyNow={buyNow}
+                                    handleStartChat={handleStartChat}
+                                    hasVariants={hasVariants}
+                                    selectedVariant={selectedVariant}
+                                    isOutOfStock={isOutOfStock}
+                                />
+                            </div>
+                            <div className="mt-8 flex items-center justify-between">
+                                <div className="text-base text-gray-500">
                                     <div className="flex items-center mb-1">
-                                        <MapPin size={14} className="mr-1" />
+                                        <MapPin size={16} className="mr-2 text-green-400" />
                                         <span>{safeRender(shopData?.address || product.location, 'Vị trí không rõ')}</span>
                                     </div>
                                     <div className="flex items-center">
-                                        <Clock size={14} className="mr-1" />
+                                        <Clock size={16} className="mr-2 text-green-400" />
                                         <span>{product.created_at ? getTimeAgo(product.created_at) : 'Vừa đăng'}</span>
                                     </div>
                                 </div>
-
-                                {/* Follow Shop Button */}
                                 <button
                                     onClick={handleFollowShop}
-                                    className={`px-4 py-2 rounded-lg ${isFollowingShop
-                                        ? "bg-red-100 text-red-500 hover:bg-red-200"
-                                        : "bg-blue-100 text-blue-500 hover:bg-blue-200"
-                                        } ${followLoading ? "opacity-50 cursor-not-allowed" : ""} flex items-center text-sm`}
+                                    className={`px-8 py-2 rounded-full font-bold shadow-md border border-green-200 transition-all duration-200 text-lg ${isFollowingShop
+                                        ? "bg-green-100 text-green-700 hover:bg-green-200"
+                                        : "bg-white text-green-600 hover:bg-green-50"
+                                        } ${followLoading ? "opacity-50 cursor-not-allowed" : ""} flex items-center`}
                                     disabled={followLoading}
                                 >
                                     {followLoading && (
                                         <span className="inline-block h-4 w-4 border-2 border-current border-r-transparent rounded-full animate-spin mr-2"></span>
                                     )}
-                                    <Heart size={16} className={`mr-1 ${isFollowingShop ? "fill-red-500" : ""}`} />
+                                    <Heart size={20} className={`mr-2 ${isFollowingShop ? "fill-green-600" : ""}`} />
                                     {isFollowingShop ? "Đang theo dõi" : "Theo dõi shop"}
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                {/* Product Information Tabs */}
                 <ProductTabs
                     activeTab={activeTab}
                     setActiveTab={setActiveTab}
@@ -699,8 +675,6 @@ const ProductDetail = () => {
                     safeRender={safeRender}
                     formatDate={formatDate}
                 />
-
-                {/* Similar products */}
                 <SimilarProducts
                     similarProducts={similarProducts}
                     formatPrice={formatPrice}
@@ -708,8 +682,6 @@ const ProductDetail = () => {
                     safeRender={safeRender}
                 />
             </div>
-
-            {/* Cart message */}
             {showCartMessage && (
                 <div className="fixed top-5 right-5 bg-white p-4 rounded-lg shadow-lg z-50 border-l-4 border-green-500">
                     <p>{cartMessage}</p>

@@ -23,7 +23,7 @@ const FilterDisplay = ({
                 <span className="text-sm font-medium text-gray-700">Bộ lọc đang áp dụng:</span>
 
                 {selectedCategory && (
-                    <div className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs flex items-center">
+                    <div className="bg-[#2E7D32] text-purple-700 px-2 py-1 rounded text-xs flex items-center">
                         {categories.find(c => c._id === selectedCategory)?.name}
                         <XIcon
                             size={14}
@@ -37,7 +37,7 @@ const FilterDisplay = ({
                 )}
 
                 {(priceRange.min || priceRange.max) && (
-                    <div className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs flex items-center">
+                    <div className="bg-[#2E7D32] text-purple-700 px-2 py-1 rounded text-xs flex items-center">
                         Giá: {priceRange.min ? formatPrice(priceRange.min) : '0đ'} - {priceRange.max ? formatPrice(priceRange.max) : '∞'}
                         <XIcon
                             size={14}
@@ -51,7 +51,7 @@ const FilterDisplay = ({
                 )}
 
                 {selectedLocations.length > 0 && (
-                    <div className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs flex items-center">
+                    <div className="bg-[#2E7D32] text-purple-700 px-2 py-1 rounded text-xs flex items-center">
                         Địa điểm: {selectedLocations.length > 2
                             ? `${selectedLocations.slice(0, 2).join(', ')} +${selectedLocations.length - 2}`
                             : selectedLocations.join(', ')}
