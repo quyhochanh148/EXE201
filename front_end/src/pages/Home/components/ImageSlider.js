@@ -62,7 +62,7 @@ const ImageSlider = ({ products }) => {
   };
 
   return (
-    <div className="relative w-screen h-full overflow-hidden group" style={{ zIndex: 100 }}>
+    <div className="relative w-screen h-full overflow-hidden group" style={{ zIndex: -100 }}>
       {/* Slider images */}
       <div 
         className="w-full h-full flex transition-transform duration-500 ease-in-out"

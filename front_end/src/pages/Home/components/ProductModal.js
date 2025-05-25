@@ -53,7 +53,7 @@ const ProductModal = ({
     const isOutOfStock = selectedVariant && selectedVariant.stock !== undefined && selectedVariant.stock <= 0;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style={{zIndex:1500}}>
             <div className="bg-white rounded-lg w-11/12 max-w-4xl overflow-hidden relative">
                 <button
                     className="absolute top-4 right-4 text-gray-800"
