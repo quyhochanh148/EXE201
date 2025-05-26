@@ -272,7 +272,7 @@ const TroocEcommerce = () => {
     }
 
     return (
-        <div className='bg-[#F1F5F9] pb-20 relative' style={{ zIndex: 100 }}>
+        <div className='bg-[#F1F5F9] pb-20 relative' style={{ zIndex: 0 }}>
             {showMessage && (
                 <div className="fixed top-5 right-5 bg-white p-4 rounded-lg shadow-lg z-[20] border-l-4 border-green-500">
                     <p>{addCartMessage}</p>
@@ -289,7 +289,7 @@ const TroocEcommerce = () => {
                     <div className="pt-16 pb-4 bg-[#F1F5F9]" style={{ zIndex: 100, position: 'relative' }}>
                         <div className="space-y-2">
                             <div className="w-full flex gap-x-8 justify-center">
-                                <div className='h-80' style={{ zIndex: 100 }}>
+                                <div className='h-80' style={{ zIndex: -1000 }}>
                                     <ImageSlider products={products1} />
                                 </div>
                             </div>

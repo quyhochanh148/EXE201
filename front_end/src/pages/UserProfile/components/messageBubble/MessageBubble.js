@@ -279,6 +279,7 @@ const MessageBubble = () => {
         <div 
           ref={messageWindowRef}
           className="fixed bottom-40 right-6 w-80 md:w-96 h-[500px] bg-white rounded-lg shadow-xl flex flex-col z-40 overflow-hidden"
+        style={{zIndex: 1500}}
         >
           {/* Header */}
           <div className="bg-indigo-600 text-white p-4 rounded-t-lg">

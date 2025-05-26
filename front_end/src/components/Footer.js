@@ -43,7 +43,7 @@ const Footer = () => {
       className="bg-[#2E7D32] text-white"
     >
       {/* Features Section */}
-      <div className="py-6 border-t border-white">
+      <div className=" border-t border-white">
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     {featuresData.map((feature, index) => (
       <div
