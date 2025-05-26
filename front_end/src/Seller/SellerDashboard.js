@@ -241,6 +241,11 @@ const SellerDashboard = () => {
       }
       
       // Lọc đơn hàng theo khoảng thời gian đã chọn
+          const filteredOrders1 = filterOrdersByPeriod(allOrders, selectedPeriod, startDate, endDate)
+      .filter(order => {
+        const status = order.order?.order_status || order.order?.status_id || order.status_id || order.order_status;
+        return status === 'delivered';
+      });
       const filteredOrders = filterOrdersByPeriod(allOrders, selectedPeriod, startDate, endDate);
       console.log(`Filtered orders for ${selectedPeriod}:`, filteredOrders.length);
       
@@ -392,7 +397,7 @@ const SellerDashboard = () => {
         console.log(`Tính toán doanh thu từ đơn hàng cho ${selectedPeriod}`);
         
         // Tính tổng doanh thu từ đơn hàng đã lọc
-        orderRevenueValue = calculateTotalOrderValue(filteredOrders);
+        orderRevenueValue = calculateTotalOrderValue(filteredOrders1);
         console.log(`Calculated order revenue for ${selectedPeriod}:`, orderRevenueValue);
         
         // Tính doanh thu từ đơn hàng đã thanh toán trong khoảng thời gian
@@ -697,7 +702,7 @@ const SellerDashboard = () => {
                 <h3 className="text-lg font-semibold">Đơn hàng mới cần xác nhận</h3>
                 <a href="#" className="text-blue-500 text-sm" onClick={(e) => {
                   e.preventDefault();
-                  navigate('/all-order'); // Đường dẫn đến trang AllOrder
+                  navigate('/seller-dashboard/orders'); // Đường dẫn đến trang AllOrder
                 }}>Xem tất cả</a>
               </div>
               {/* New orders list */}

@@ -154,97 +154,93 @@ const CartModal = ({ isOpen, onClose, refreshTrigger = 0 }) => {
     if (!isOpen) return null;
 
     return (
-        <div
-            className="fixed top-0 right-0 w-96 h-full bg-white shadow-lg z-50 
-            transition-transform duration-300 ease-in-out transform translate-x-0"
-        >
-            <div className="p-4 border-b flex justify-between items-center">
-                <div className="flex items-center">
-                    <ShoppingCart size={20} className="mr-2 text-purple-600" />
-                    <h2 className="text-xl font-bold">Giỏ Hàng</h2>
-                </div>
-                <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-                    <CircleX size={20} />
+<div
+    className="fixed top-0 right-0 w-96 h-full bg-white shadow-xl z-50 
+    transition-transform duration-300 ease-in-out transform translate-x-0 border-l-4 border-purple-200"
+>
+    <div className="p-4 border-b-2 border-gray-200 flex justify-between items-center bg-gray-50">
+        <div className="flex items-center">
+            <ShoppingCart size={24} className="mr-3 text-purple-700" />
+            <h2 className="text-2xl font-bold text-purple-900">Giỏ Hàng</h2>
+        </div>
+        <button onClick={onClose} className="text-gray-600 hover:text-red-500 transition-colors">
+            <CircleX size={24} />
+        </button>
+    </div>
+
+    <div className="p-4 overflow-y-auto max-h-[calc(100vh-220px)] bg-gray-100">
+        {loading ? (
+            <div className="text-center py-6">
+                <div className="inline-block animate-spin h-8 w-8 border-4 border-gray-400 border-t-purple-700 rounded-full"></div>
+                <p className="mt-3 text-lg text-gray-700">Đang tải...</p>
+            </div>
+        ) : error ? (
+            <div className="text-center py-6 text-xl text-red-600 bg-red-50 p-4 rounded-lg">{error}</div>
+        ) : !userId ? (
+            <div className="text-center py-6">
+                <p className="mb-5 text-lg text-gray-700">Vui lòng đăng nhập để xem giỏ hàng</p>
+                <button
+                    onClick={() => window.location.href = "/login"}
+                    className="bg-purple-700 text-white px-6 py-3 rounded-lg hover:bg-purple-800 text-lg"
+                >
+                    Đăng nhập
                 </button>
             </div>
-
-            <div className="p-4 overflow-y-auto max-h-[calc(100vh-200px)]">
-                {loading ? (
-                    <div className="text-center py-4">
-                        <div className="inline-block animate-spin h-5 w-5 border-2 border-gray-300 border-t-purple-600 rounded-full"></div>
-                        <p className="mt-2">Đang tải...</p>
-                    </div>
-                ) : error ? (
-                    <div className="text-center py-4 text-red-500">{error}</div>
-                ) : !userId ? (
-                    <div className="text-center py-4">
-                        <p className="mb-4">Vui lòng đăng nhập để xem giỏ hàng</p>
-                        <button
-                            onClick={() => window.location.href = "/login"}
-                            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
-                        >
-                            Đăng nhập
-                        </button>
-                    </div>
-                ) : cartItems.length === 0 ? (
-                    <div className="text-center py-8">
-                        <ShoppingCart size={40} className="mx-auto text-gray-400 mb-4" />
-                        <p className="text-gray-500">Giỏ hàng của bạn đang trống</p>
-                        <button
-                            onClick={() => window.location.href = "/"}
-                            className="mt-4 text-purple-600 hover:text-purple-800 font-medium"
-                        >
-                            Tiếp tục mua sắm
-                        </button>
-                    </div>
-                ) : (
-                    <>
-                        {/* Thông tin về biến thể */}
-                        <div className="bg-blue-50 p-3 rounded-lg mb-4 text-sm flex items-start">
-                            <Info size={16} className="text-blue-600 mr-2 mt-0.5" />
-                            <p className="text-blue-800">
-                                Sản phẩm trong giỏ hàng hiển thị theo biến thể bạn đã chọn. Giá và số lượng tồn kho có thể khác nhau giữa các biến thể.
-                            </p>
-                        </div>
-                        
-                        {/* Danh sách sản phẩm */}
-                        {cartItems.map((item) => (
-                            <CartItem
-                                key={item._id}
-                                item={item}
-                                onUpdateQuantity={updateQuantity}
-                                onRemove={removeItem}
-                            />
-                        ))}
-                    </>
-                )}
+        ) : cartItems.length === 0 ? (
+            <div className="text-center py-10">
+                <ShoppingCart size={48} className="mx-auto text-gray-500 mb-6" />
+                <p className="text-xl text-gray-600">Giỏ hàng của bạn đang trống</p>
+                <button
+                    onClick={() => window.location.href = "/"}
+                    className="mt-6 text-purple-700 hover:text-purple-900 text-lg font-semibold"
+                >
+                    Tiếp tục mua sắm
+                </button>
             </div>
-
-            {userId && cartItems.length > 0 && (
-                <div className="p-4 border-t bg-gray-50">
-                    <div className="flex justify-between mb-3">
-                        <span className="text-gray-700">Tạm tính</span>
-                        <span className="font-bold text-purple-600">{cartTotal.toLocaleString()} đ</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                        <button
-                            onClick={() => window.location.href = "/cart"}
-                            className="w-full bg-white border border-purple-600 text-purple-600 py-2 rounded 
-                            hover:bg-purple-50 transition-colors"
-                        >
-                            Xem Giỏ Hàng
-                        </button>
-                        <button
-                            onClick={() => window.location.href = "/checkout"}
-                            className="w-full bg-purple-600 text-white py-2 rounded 
-                            hover:bg-purple-700 transition-colors"
-                        >
-                            Thanh Toán
-                        </button>
-                    </div>
+        ) : (
+            <>
+                <div className="bg-blue-100 p-4 rounded-lg mb-5 text-base flex items-start shadow-md">
+                    <Info size={18} className="text-blue-700 mr-3 mt-0.5" />
+                    <p className="text-blue-900">
+                        Sản phẩm trong giỏ hàng hiển thị theo biến thể bạn đã chọn. Giá và số lượng tồn kho có thể khác nhau giữa các biến thể.
+                    </p>
                 </div>
-            )}
+                
+                {cartItems.map((item) => (
+                    <CartItem
+                        key={item._id}
+                        item={item}
+                        onUpdateQuantity={updateQuantity}
+                        onRemove={removeItem}
+                    />
+                ))}
+            </>
+        )}
+    </div>
+
+    {userId && cartItems.length > 0 && (
+        <div className="p-4 border-t-2 border-gray-200 bg-white shadow-inner">
+            <div className="flex justify-between mb-4 text-lg">
+                <span className="text-gray-800 font-medium">Tạm tính</span>
+                <span className="font-bold text-purple-800">{cartTotal.toLocaleString()} đ</span>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+                <button
+                    onClick={() => window.location.href = "/cart"}
+                    className="w-full bg-white border-2 border-purple-700 text-purple-700 py-3 rounded-lg hover:bg-purple-100 text-base font-semibold transition-colors"
+                >
+                    Xem Giỏ Hàng
+                </button>
+                <button
+                    onClick={() => window.location.href = "/checkout"}
+                    className="w-full bg-purple-700 text-white py-3 rounded-lg hover:bg-purple-800 text-base font-semibold transition-colors"
+                >
+                    Thanh Toán
+                </button>
+            </div>
         </div>
+    )}
+</div>
     );
 };
 

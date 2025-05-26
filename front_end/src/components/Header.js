@@ -328,7 +328,7 @@ const Header = () => {
     return (
         <div
             className="bg-cover bg-center bg-no-repeat shadow-sm relative"
-            style={{ backgroundImage: `url(${headerBg})`, minHeight: '220px', zIndex: 1000 }}
+            style={{ backgroundImage: `url(${headerBg})`, minHeight: '220px', zIndex: 1 }}
         >
             <div className="bg-white bg-opacity-80 shadow-sm relative">
                 <style>{flashingAnimation}</style>
@@ -492,21 +492,35 @@ const Header = () => {
                                     </div>
                                 )}
                             </div>
-                            <div className="flex gap-2">
-                                <button
-                                    id="cartbutton"
-                                    className="cartbutton flex flex-col items-center text-gray-600 hover:text-purple-600 text-xs"
-                                    onClick={() => setIsCartOpen(true)}
-                                    aria-label="Mở giỏ hàng"
-                                >
-                                    <ShoppingCart size={24} />
-                                    <span>Giỏ hàng</span>
-                                </button>
-                                <div className="flex flex-col items-center text-gray-600 text-xs">
-                                    <span>{formatPrice(cartTotal)}</span>
-                                </div>
-                            </div>
-                            <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} style={{ zIndex: 1500 }} />
+<div className="flex items-center gap-3 bg-white/80 px-3 py-2 rounded-lg shadow-md">
+    <button
+        id="cartbutton"
+        className="cartbutton flex flex-col items-center text-purple-700 hover:text-white hover:bg-purple-600 active:bg-purple-800 active:scale-110 transition-all duration-200 ease-in-out text-sm font-bold rounded-md p-2 border-2 border-purple-300 hover:border-purple-500"
+        onClick={() => setIsCartOpen(true)}
+        aria-label="Mở giỏ hàng"
+    >
+        <ShoppingCart size={28} />
+        <span>Giỏ hàng</span>
+    </button>
+    <div className="flex flex-col items-center text-purple-700 text-sm font-semibold">
+        <span>{formatPrice(cartTotal)}</span>
+    </div>
+</div>
+
+                            <CartModal 
+    isOpen={isCartOpen} 
+    onClose={() => setIsCartOpen(false)} 
+    style={{ 
+        zIndex: 1500, 
+        backgroundColor: 'rgba(0, 0, 0, 0.6)', // Nền mờ đậm hơn
+        border: '3px solid #6b46c1', // Viền dày hơn
+        borderRadius: '10px', // Góc bo tròn lớn hơn
+        boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)', // Bóng đổ đậm hơn
+        transform: isCartOpen ? 'scale(1)' : 'scale(0.9)', 
+        opacity: isCartOpen ? 1 : 0, // Hiệu ứng mờ dần
+        transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out' // Chuyển động và độ mờ
+    }} 
+/>
                         </div>
                     </div>
                 </nav>

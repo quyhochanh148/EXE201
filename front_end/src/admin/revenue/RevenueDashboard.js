@@ -37,6 +37,68 @@ const RevenueDashboard = () => {
     return new Date(dateString).toLocaleDateString('vi-VN');
   };
 
+  // Function to get chart configuration based on period
+  const getChartConfig = () => {
+    const config = {
+      dataKey: 'year_month',
+      labelFormatter: (value) => `Tháng ${value}`,
+      title: 'Xu hướng doanh thu'
+    };
+
+    switch (period) {
+      case 'today':
+        config.dataKey = 'hour';
+        config.labelFormatter = (value) => `${value}:00`;
+        config.title = 'Doanh thu theo giờ - Hôm nay';
+        break;
+      case 'week':
+        config.dataKey = 'day_of_week';
+        config.labelFormatter = (value) => {
+          const days = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
+          return days[value] || `Ngày ${value}`;
+        };
+        config.title = 'Doanh thu theo ngày - Tuần này';
+        break;
+      case 'month':
+        config.dataKey = 'day';
+        config.labelFormatter = (value) => `Ngày ${value}`;
+        config.title = 'Doanh thu theo ngày - Tháng này';
+        break;
+      case 'year':
+        config.dataKey = 'month';
+        config.labelFormatter = (value) => `Tháng ${value}`;
+        config.title = 'Doanh thu theo tháng - Năm nay';
+        break;
+      case 'last30':
+        config.dataKey = 'date';
+        config.labelFormatter = (value) => formatDate(value);
+        config.title = 'Doanh thu theo ngày - 30 ngày qua';
+        break;
+      case 'all':
+      default:
+        config.dataKey = 'year_month';
+        config.labelFormatter = (value) => `Tháng ${value}`;
+        config.title = 'Xu hướng doanh thu - Tất cả thời gian';
+        break;
+    }
+
+    return config;
+  };
+
+  // Function to format chart data based on period
+  const getChartData = () => {
+    if (!revenueData || !revenueData.revenue_trend) return [];
+    
+    const chartConfig = getChartConfig();
+    return revenueData.revenue_trend.map(item => ({
+      ...item,
+      displayLabel: item[chartConfig.dataKey]
+    }));
+  };
+
+  const chartConfig = getChartConfig();
+  const chartData = getChartData();
+
   return (
     <div className="flex-1 bg-gray-50 p-6">
       <div className="flex justify-between items-center mb-6">
@@ -57,7 +119,7 @@ const RevenueDashboard = () => {
             </select>
             <button 
               onClick={fetchRevenueData} 
-              className="p-2 bg-white border border-gray-300 rounded-md"
+              className="p-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
             >
               <RefreshCw size={18} className="text-gray-500" />
             </button>
@@ -126,7 +188,7 @@ const RevenueDashboard = () => {
                 <span className="font-medium text-red-600">{formatCurrency(revenueData.summary.unpaid_to_shops || 0)}</span>
               </div>
               <div className="mt-2">
-                <a href="/admin/revenue/shop-payments" className="text-blue-600 text-sm flex items-center">
+                <a href="/admin/revenue/shop-payments" className="text-blue-600 text-sm flex items-center hover:text-blue-800 transition-colors">
                   Xem chi tiết thanh toán
                   <ArrowRight size={14} className="ml-1" />
                 </a>
@@ -137,38 +199,61 @@ const RevenueDashboard = () => {
           {/* Revenue Trend Chart */}
           <div className="bg-white p-6 rounded-lg shadow-sm mb-8">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Xu hướng doanh thu</h2>
+              <h2 className="text-lg font-semibold">{chartConfig.title}</h2>
             </div>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={revenueData.revenue_trend}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="year_month" />
-                  <YAxis tickFormatter={(value) => value.toLocaleString('vi-VN')} />
-                  <Tooltip 
-                    formatter={(value) => [formatCurrency(value), '']}
-                    labelFormatter={(value) => `Tháng ${value}`}
-                  />
-                  <Legend />
-                  <Line 
-                    type="monotone" 
-                    dataKey="total_revenue" 
-                    name="Tổng doanh thu" 
-                    stroke="#8884d8" 
-                    activeDot={{ r: 8 }} 
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="total_commission" 
-                    name="Hoa hồng nền tảng" 
-                    stroke="#82ca9d" 
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+            {chartData.length > 0 ? (
+              <div className="h-80">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    data={chartData}
+                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis 
+                      dataKey={chartConfig.dataKey}
+                      tickFormatter={(value) => {
+                        if (period === 'week') {
+                          const days = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+                          return days[value] || value;
+                        }
+                        if (period === 'today') {
+                          return `${value}h`;
+                        }
+                        if (period === 'last30') {
+                          return new Date(value).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' });
+                        }
+                        return value;
+                      }}
+                    />
+                    <YAxis tickFormatter={(value) => value.toLocaleString('vi-VN')} />
+                    <Tooltip 
+                      formatter={(value, name) => [formatCurrency(value), name === 'total_revenue' ? 'Tổng doanh thu' : 'Hoa hồng nền tảng']}
+                      labelFormatter={chartConfig.labelFormatter}
+                    />
+                    <Legend />
+                    <Line 
+                      type="monotone" 
+                      dataKey="total_revenue" 
+                      name="Tổng doanh thu" 
+                      stroke="#8884d8" 
+                      activeDot={{ r: 8 }} 
+                      strokeWidth={2}
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="total_commission" 
+                      name="Hoa hồng nền tảng" 
+                      stroke="#82ca9d" 
+                      strokeWidth={2}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            ) : (
+              <div className="h-80 flex items-center justify-center text-gray-500">
+                Không có dữ liệu biểu đồ cho khoảng thời gian này
+              </div>
+            )}
           </div>
 
           {/* Two column layout for category revenue and top shops */}
@@ -187,7 +272,7 @@ const RevenueDashboard = () => {
                       <XAxis dataKey="category" />
                       <YAxis tickFormatter={(value) => value.toLocaleString('vi-VN')} />
                       <Tooltip 
-                        formatter={(value) => [formatCurrency(value), '']}
+                        formatter={(value, name) => [formatCurrency(value), name === 'total_revenue' ? 'Doanh thu' : 'Hoa hồng']}
                       />
                       <Legend />
                       <Bar dataKey="total_revenue" name="Doanh thu" fill="#8884d8" />
@@ -203,7 +288,7 @@ const RevenueDashboard = () => {
               <div className="bg-white p-6 rounded-lg shadow-sm h-full">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-lg font-semibold">Cửa hàng hàng đầu</h2>
-                  <a href="/admin/revenue/shop-payments" className="text-blue-600 text-sm flex items-center">
+                  <a href="/admin/revenue/shop-payments" className="text-blue-600 text-sm flex items-center hover:text-blue-800 transition-colors">
                     Xem tất cả
                     <ExternalLink size={14} className="ml-1" />
                   </a>

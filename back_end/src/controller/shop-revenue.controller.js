@@ -17,10 +17,10 @@ const getSystemRevenueOverview = async (req, res) => {
         
         // Build date filter
         let dateFilter = {};
+        let startOfPeriod;
         
         if (period !== 'all') {
             const now = new Date();
-            let startOfPeriod;
             
             switch (period) {
                 case 'today':
@@ -101,29 +101,143 @@ const getSystemRevenueOverview = async (req, res) => {
             { $sort: { total_revenue: -1 } }
         ]);
         
-        // Get revenue trend (last 6 months)
-        const sixMonthsAgo = new Date();
-        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-        
-        const revenueTrend = await ShopRevenue.aggregate([
+        // Get top shops in the selected period
+        const topShops = await ShopRevenue.aggregate([
+            { $match: dateFilter },
             { 
-                $match: { 
-                    transaction_date: { $gte: sixMonthsAgo } 
-                } 
+                $lookup: {
+                    from: 'shops',
+                    localField: 'shop_id',
+                    foreignField: '_id',
+                    as: 'shop_info'
+                }
             },
+            { $unwind: "$shop_info" },
             {
                 $group: {
-                    _id: {
-                        year: { $year: "$transaction_date" },
-                        month: { $month: "$transaction_date" }
-                    },
+                    _id: "$shop_id",
+                    shop_name: { $first: "$shop_info.name" },
                     total_revenue: { $sum: "$total_amount" },
                     total_commission: { $sum: "$commission_amount" },
                     orders_count: { $sum: 1 }
                 }
             },
-            {
+            { 
                 $project: {
+                    shop_id: "$_id",
+                    shop_name: 1,
+                    total_revenue: 1,
+                    total_commission: 1,
+                    orders_count: 1
+                }
+            },
+            { $sort: { total_revenue: -1 } },
+            { $limit: 10 }
+        ]);
+        
+        // Get revenue trend based on period
+        let revenueTrend = [];
+        
+        // Build trend query based on period
+        let trendDateFilter = {};
+        let groupByFormat = {};
+        let projectFormat = {};
+        
+        switch (period) {
+            case 'today':
+                // Group by hour for today
+                trendDateFilter = dateFilter;
+                groupByFormat = {
+                    hour: { $hour: "$transaction_date" }
+                };
+                projectFormat = {
+                    _id: 0,
+                    hour: "$_id.hour",
+                    total_revenue: 1,
+                    total_commission: 1,
+                    orders_count: 1
+                };
+                break;
+                
+            case 'week':
+                // Group by day of week
+                trendDateFilter = dateFilter;
+                groupByFormat = {
+                    dayOfWeek: { $dayOfWeek: "$transaction_date" }
+                };
+                projectFormat = {
+                    _id: 0,
+                    day_of_week: { $subtract: ["$_id.dayOfWeek", 1] }, // Convert to 0-6 (Sunday=0)
+                    total_revenue: 1,
+                    total_commission: 1,
+                    orders_count: 1
+                };
+                break;
+                
+            case 'month':
+                // Group by day of month
+                trendDateFilter = dateFilter;
+                groupByFormat = {
+                    day: { $dayOfMonth: "$transaction_date" }
+                };
+                projectFormat = {
+                    _id: 0,
+                    day: "$_id.day",
+                    total_revenue: 1,
+                    total_commission: 1,
+                    orders_count: 1
+                };
+                break;
+                
+            case 'year':
+                // Group by month of year
+                trendDateFilter = dateFilter;
+                groupByFormat = {
+                    month: { $month: "$transaction_date" }
+                };
+                projectFormat = {
+                    _id: 0,
+                    month: "$_id.month",
+                    total_revenue: 1,
+                    total_commission: 1,
+                    orders_count: 1
+                };
+                break;
+                
+            case 'last30':
+                // Group by date for last 30 days
+                trendDateFilter = dateFilter;
+                groupByFormat = {
+                    year: { $year: "$transaction_date" },
+                    month: { $month: "$transaction_date" },
+                    day: { $dayOfMonth: "$transaction_date" }
+                };
+                projectFormat = {
+                    _id: 0,
+                    date: { 
+                        $dateFromParts: { 
+                            year: "$_id.year", 
+                            month: "$_id.month", 
+                            day: "$_id.day" 
+                        } 
+                    },
+                    total_revenue: 1,
+                    total_commission: 1,
+                    orders_count: 1
+                };
+                break;
+                
+            case 'all':
+            default:
+                // Group by month for all time (last 12 months)
+                const twelveMonthsAgo = new Date();
+                twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
+                trendDateFilter = { transaction_date: { $gte: twelveMonthsAgo } };
+                groupByFormat = {
+                    year: { $year: "$transaction_date" },
+                    month: { $month: "$transaction_date" }
+                };
+                projectFormat = {
                     _id: 0,
                     year_month: { 
                         $concat: [
@@ -134,17 +248,89 @@ const getSystemRevenueOverview = async (req, res) => {
                     },
                     total_revenue: 1,
                     total_commission: 1,
-                    commission_percentage: { 
-                        $multiply: [
-                            { $divide: ["$total_commission", "$total_revenue"] }, 
-                            100
-                        ] 
-                    },
                     orders_count: 1
-                }
-            },
-            { $sort: { year_month: 1 } }
-        ]);
+                };
+                break;
+        }
+        
+        // Execute trend query
+        if (Object.keys(groupByFormat).length > 0) {
+            revenueTrend = await ShopRevenue.aggregate([
+                { $match: trendDateFilter },
+                {
+                    $group: {
+                        _id: groupByFormat,
+                        total_revenue: { $sum: "$total_amount" },
+                        total_commission: { $sum: "$commission_amount" },
+                        orders_count: { $sum: 1 }
+                    }
+                },
+                {
+                    $project: projectFormat
+                },
+                { $sort: period === 'today' ? { hour: 1 } : 
+                         period === 'week' ? { day_of_week: 1 } :
+                         period === 'month' ? { day: 1 } :
+                         period === 'year' ? { month: 1 } :
+                         period === 'last30' ? { date: 1 } :
+                         { year_month: 1 } }
+            ]);
+        }
+        
+        // Fill missing data points for better visualization
+        if (period === 'today') {
+            // Fill missing hours (0-23)
+            const hourlyData = new Array(24).fill(0).map((_, hour) => {
+                const existing = revenueTrend.find(item => item.hour === hour);
+                return existing || {
+                    hour,
+                    total_revenue: 0,
+                    total_commission: 0,
+                    orders_count: 0
+                };
+            });
+            revenueTrend = hourlyData;
+        } else if (period === 'week') {
+            // Fill missing days (0-6, Sunday=0)
+            const weeklyData = new Array(7).fill(0).map((_, day) => {
+                const existing = revenueTrend.find(item => item.day_of_week === day);
+                return existing || {
+                    day_of_week: day,
+                    total_revenue: 0,
+                    total_commission: 0,
+                    orders_count: 0
+                };
+            });
+            revenueTrend = weeklyData;
+        } else if (period === 'month') {
+            // Fill missing days in current month
+            const now = new Date();
+            const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+            const monthlyData = new Array(daysInMonth).fill(0).map((_, index) => {
+                const day = index + 1;
+                const existing = revenueTrend.find(item => item.day === day);
+                return existing || {
+                    day,
+                    total_revenue: 0,
+                    total_commission: 0,
+                    orders_count: 0
+                };
+            });
+            revenueTrend = monthlyData;
+        } else if (period === 'year') {
+            // Fill missing months (1-12)
+            const yearlyData = new Array(12).fill(0).map((_, index) => {
+                const month = index + 1;
+                const existing = revenueTrend.find(item => item.month === month);
+                return existing || {
+                    month,
+                    total_revenue: 0,
+                    total_commission: 0,
+                    orders_count: 0
+                };
+            });
+            revenueTrend = yearlyData;
+        }
         
         // Format the response
         const response = {
@@ -156,8 +342,10 @@ const getSystemRevenueOverview = async (req, res) => {
                 paid_to_shops: overallStats[0].paid_to_shops,
                 unpaid_to_shops: overallStats[0].unpaid_to_shops,
                 orders_count: overallStats[0].orders_count,
-                platform_revenue_percentage: (overallStats[0].total_commission / overallStats[0].total_revenue * 100).toFixed(2) + '%',
-                avg_order_value: (overallStats[0].total_revenue / overallStats[0].orders_count).toFixed(2)
+                platform_revenue_percentage: overallStats[0].total_revenue > 0 ? 
+                    (overallStats[0].total_commission / overallStats[0].total_revenue * 100).toFixed(2) + '%' : '0%',
+                avg_order_value: overallStats[0].orders_count > 0 ? 
+                    (overallStats[0].total_revenue / overallStats[0].orders_count).toFixed(2) : '0'
             } : {
                 total_revenue: 0,
                 total_commission: 0,
@@ -169,7 +357,8 @@ const getSystemRevenueOverview = async (req, res) => {
                 avg_order_value: '0'
             },
             revenue_by_shop_category: shopCategoryRevenue,
-            revenue_trend: revenueTrend
+            revenue_trend: revenueTrend,
+            top_shops: topShops
         };
         
         res.status(200).json(response);
