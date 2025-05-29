@@ -14,11 +14,13 @@ const PaymentCallback = () => {
             try {
                 const queryParams = new URLSearchParams(location.search);
                 const urlOrderId = queryParams.get("orderId");
+                const urlTransactionCode = queryParams.get("transactionCode");
 
-                const savedOrderId = localStorage.getItem('currentOrderId') || urlOrderId;
-                const transactionCode = localStorage.getItem('paymentTransactionCode');
+                const savedOrderId = urlOrderId || localStorage.getItem('currentOrderId');
+                const transactionCode = urlTransactionCode || localStorage.getItem('paymentTransactionCode');
 
                 if (!savedOrderId || !transactionCode) {
+                    console.warn("Thiếu dữ liệu orderId hoặc transactionCode");
                     setStatus('error');
                     setMessage('Không tìm thấy thông tin đơn hàng. Vui lòng thử lại.');
                     return;
@@ -38,7 +40,6 @@ const PaymentCallback = () => {
                 if (statusResponse.data?.payment?.status === 'PAID') {
                     setStatus('success');
                     setMessage('Thanh toán thành công! Đang chuyển hướng...');
-
                     setTimeout(() => {
                         navigate(`/order-confirmation?orderId=${savedOrderId}`);
                     }, 2000);
