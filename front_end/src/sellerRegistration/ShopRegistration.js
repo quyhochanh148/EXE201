@@ -1005,7 +1005,7 @@ const ShopRegistration = () => {
               className="mt-1 mr-3"
             />
             <span className="text-sm text-gray-700">
-              Tôi đã đọc và đồng ý với <a href="#" className="text-purple-600 hover:underline">Điều khoản dịch vụ</a> và <a href="#" className="text-purple-600 hover:underline">Chính sách bán hàng</a> của Trooc. Tôi cam kết tuân thủ các quy định về bán hàng và chịu trách nhiệm về các sản phẩm đăng bán.
+              Tôi đã đọc và đồng ý với <a href="#" className="text-purple-600 hover:underline">Điều khoản dịch vụ</a> và <a href="#" className="text-purple-600 hover:underline">Chính sách bán hàng</a> của GreenGarden. Tôi cam kết tuân thủ các quy định về bán hàng và chịu trách nhiệm về các sản phẩm đăng bán.
             </span>
           </label>
         </div>
@@ -1062,7 +1062,7 @@ const ShopRegistration = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Đăng ký trở thành người bán trên Trooc</h1>
+        <h1 className="text-3xl font-bold text-gray-800">Đăng ký trở thành người bán trên GreenGarden</h1>
         <p className="text-gray-600 mt-2">Tiếp cận hàng triệu khách hàng và phát triển kinh doanh của bạn</p>
       </div>
 
@@ -1110,7 +1110,7 @@ const ShopRegistration = () => {
       )}
 
       <div className="bg-gray-50 rounded-lg p-6">
-        <h2 className="text-lg font-bold mb-4">Lợi ích khi bán hàng trên Trooc</h2>
+        <h2 className="text-lg font-bold mb-4">Lợi ích khi bán hàng trên GreenGarden</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="flex">
