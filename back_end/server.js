@@ -287,10 +287,15 @@ if (process.env.NODE_ENV !== 'production') {
     db.connectDB();
     schedulePayments();
   });
-} else {
-  // For production (Vercel), just connect to DB
+} 
+
+const PORT = process.env.PORT || 9999;
+
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
   db.connectDB();
-}
+  schedulePayments();
+});
 
 // Add this line for Vercel serverless deployment
 module.exports = server;
