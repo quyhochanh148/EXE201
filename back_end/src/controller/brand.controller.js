@@ -56,17 +56,17 @@ const updateBrand = async (req, res) => {
             return res.status(400).json({ message: "One or more categories are invalid" });
         }
 
-        const updatedBrand = await Brand.findByIdAndUpdate(
-            req.params.id,
-            { name, description, categories, updated_at: Date.now() },
-            { new: true }
-        ).populate('categories');
+        // const updatedBrand = await Brand.findByIdAndUpdate(
+        //     req.params.id,
+        //     { name, description, categories, updated_at: Date.now() },
+        //     { new: true }
+        // ).populate('categories');
 
-        if (!updatedBrand) {
-            return res.status(404).json({ message: "Brand not found" });
-        }
+        // if (!updatedBrand) {
+        //     return res.status(404).json({ message: "Brand not found" });
+        // }
 
-        res.status(200).json(updatedBrand);
+        // res.status(200).json(updatedBrand);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

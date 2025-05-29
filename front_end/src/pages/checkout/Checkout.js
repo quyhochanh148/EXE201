@@ -438,11 +438,12 @@ const CheckoutPage = () => {
     }, []);
 
     // Remove coupon
-    const handleRemoveCoupon = () => {
-        localStorage.removeItem('appliedCoupon');
-        setAppliedCoupon(null);
-        setDiscountAmount(0);
-    };
+const handleRemoveCoupon = () => {
+    localStorage.removeItem('appliedCoupon');
+    setAppliedCoupon(null);
+    setDiscountAmount(0);
+};
+
 
     // Open add address popup
     const handleAddAddress = () => {
@@ -856,59 +857,44 @@ const CheckoutPage = () => {
                 selectedPaymentMethod.name.toLowerCase().includes("mã qr")
             );
 
-            if (isVNPayMethod && createdOrderIds.length > 0) {
-                try {
-                    // If payment integration supports multiple orders, pass them all
-                    if (createdOrderIds.length === 1) {
-                        // For single order, proceed normally
-                        console.log("Creating PayOS payment for single order:", createdOrderIds[0]);
+if (isVNPayMethod && createdOrderIds.length > 0) {
+    try {
+        let paymentResponse;
+        if (createdOrderIds.length === 1) {
+            console.log("Creating PayOS payment for single order:", createdOrderIds[0]);
+            paymentResponse = await ApiService.post('/payos/create-payment', {
+                orderId: createdOrderIds[0]
+            });
+        } else {
+            console.log("Creating PayOS payment for multiple orders:", createdOrderIds);
+            paymentResponse = await ApiService.post('/payos/create-batch-payment', {
+                orderIds: createdOrderIds
+            });
+        }
 
-                        const paymentResponse = await ApiService.post('/payos/create-payment', {
-                            orderId: createdOrderIds[0]
-                        });
+        if (paymentResponse && paymentResponse.success && paymentResponse.data && paymentResponse.data.paymentUrl) {
+            // Lưu thông tin thanh toán vào localStorage
+            localStorage.setItem('currentOrderId', createdOrderIds.length === 1 ? createdOrderIds[0] : JSON.stringify(createdOrderIds));
+            localStorage.setItem('paymentTransactionCode', paymentResponse.data.transactionCode);
 
-                        if (paymentResponse && paymentResponse.success && paymentResponse.data && paymentResponse.data.paymentUrl) {
-                            // Save payment info to localStorage
-                            localStorage.setItem('currentOrderId', createdOrderIds[0]);
-                            localStorage.setItem('paymentTransactionCode', paymentResponse.data.transactionCode);
+            // Chuyển hướng đến trang thanh toán
+            window.location.href = paymentResponse.data.paymentUrl;
+            return;
+        } else {
+            throw new Error("Phản hồi thanh toán từ PayOS không hợp lệ");
+        }
+    } catch (paymentError) {
+        console.error("Lỗi thanh toán PayOS:", paymentError);
+        alert(`Lỗi khởi tạo thanh toán: ${paymentError.message || 'Không xác định'}`);
+    }
+}
 
-                            // Redirect to payment page
-                            window.location.href = paymentResponse.data.paymentUrl;
-                            return;
-                        }
-                    } else {
-                        // For multiple orders, try batch payment if supported
-                        console.log("Creating PayOS payment for multiple orders:", createdOrderIds);
-
-                        // This API endpoint would need to be implemented to handle multiple orders
-                        const paymentResponse = await ApiService.post('/payos/create-batch-payment', {
-                            orderIds: createdOrderIds
-                        });
-
-                        if (paymentResponse && paymentResponse.success && paymentResponse.data && paymentResponse.data.paymentUrl) {
-                            // Save all order IDs for later reference
-                            localStorage.setItem('currentOrderIds', JSON.stringify(createdOrderIds));
-                            localStorage.setItem('paymentTransactionCode', paymentResponse.data.transactionCode);
-
-                            // Redirect to payment page
-                            window.location.href = paymentResponse.data.paymentUrl;
-                            return;
-                        }
-                    }
-                } catch (paymentError) {
-                    console.error("PayOS payment error:", paymentError);
-                    alert(`Lỗi khởi tạo thanh toán: ${paymentError.message || 'Không xác định'}`);
-                }
-            }
-
-            // Redirect to order confirmation page with all order IDs
-            if (createdOrderIds.length === 1) {
-                // For single order, use the existing URL format
-                window.location.href = `/order-confirmation?orderId=${createdOrderIds[0]}`;
-            } else {
-                // For multiple orders, pass all IDs
-                window.location.href = `/order-confirmation?orderIds=${createdOrderIds.join(',')}`;
-            }
+// Chuyển hướng đến trang xác nhận đơn hàng chỉ khi không cần thanh toán hoặc sau khi thiết lập thanh toán thành công
+if (createdOrderIds.length === 1) {
+    window.location.href = `/order-confirmation?orderId=${createdOrderIds[0]}`;
+} else {
+    window.location.href = `/order-confirmation?orderIds=${createdOrderIds.join(',')}`;
+}
         } catch (error) {
             console.error("Error creating orders:", error);
             alert(`Error placing orders: ${error.message || 'Unknown error'}`);
@@ -948,6 +934,7 @@ const CheckoutPage = () => {
     };
 
     const orderSummaryProps = {
+    
         cartItems,
         cartTotal,
         appliedCoupon,

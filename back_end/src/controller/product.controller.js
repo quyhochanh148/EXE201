@@ -25,7 +25,7 @@ const getAllProducts = async (req, res) => {
     try {
         const products = await Product.find()
             .populate("category_id", "name")
-            .populate("brand_id", "name")
+            // .populate("brand_id", "name")
             .populate("shop_id", "name");
         res.status(200).json(products);
     } catch (error) {
@@ -140,7 +140,7 @@ const createProduct = async (req, res) => {
         // Lưu ý: Trong trường hợp upload qua middleware Cloudinary, file.path sẽ chứa URL đầy đủ
         const cloudinaryThumbnail = req.file ? req.file.path : thumbnail;
 
-        // Kiểm tra xem danh mục và thương hiệu có tồn tại không
+        // Kiểm tra xem danh mục và  có tồn tại không
         const categoryExists = await Category.find({ _id: { $in: category_id } });
         if (categoryExists.length !== category_id.length) {
             // Nếu upload thất bại, xóa file đã upload
@@ -413,7 +413,7 @@ const updateProduct = async (req, res) => {
     try {
         const {
             category_id,
-            brand_id,
+            // brand_id,
             shop_id,
             name,
             slug,
@@ -422,7 +422,8 @@ const updateProduct = async (req, res) => {
             price,
             meta_title,
             meta_keyword,
-            meta_description
+            meta_description,
+            weight
         } = req.body;
 
         // Lấy thumbnail từ file upload nếu tồn tại (URL Cloudinary)
@@ -434,7 +435,8 @@ const updateProduct = async (req, res) => {
             if (newThumbnail) removeFile(newThumbnail);
             return res.status(404).json({ message: "Product not found" });
         }
-
+        console.log("Current product details:", currentProduct);
+        
         // Kiểm tra quyền cập nhật (chỉ chủ shop hoặc admin)
         const shopToCheck = shop_id || currentProduct.shop_id;
         const shop = await Shop.findById(shopToCheck);
@@ -453,13 +455,13 @@ const updateProduct = async (req, res) => {
             }
         }
 
-        if (brand_id) {
-            const brandExists = await Brand.findById(brand_id);
-            if (!brandExists) {
-                if (newThumbnail) removeFile(newThumbnail);
-                return res.status(400).json({ message: "Invalid brand ID" });
-            }
-        }
+        // if (brand_id) {
+        //     const brandExists = await Brand.findById(brand_id);
+        //     if (!brandExists) {
+        //         if (newThumbnail) removeFile(newThumbnail);
+        //         return res.status(400).json({ message: "Invalid brand ID" });
+        //     }
+        // }
 
         // Kiểm tra shop mới nếu có thay đổi
         if (shop_id && shop_id !== currentProduct.shop_id.toString()) {
@@ -485,7 +487,7 @@ const updateProduct = async (req, res) => {
             req.params.id,
             {
                 ...(category_id && { category_id }),
-                ...(brand_id && { brand_id }),
+                // ...(brand_id && { brand_id }),
                 ...(shop_id && { shop_id }),
                 ...(name && { name }),
                 ...(slug && { slug }),
@@ -496,16 +498,18 @@ const updateProduct = async (req, res) => {
                 ...(meta_title && { meta_title }),
                 ...(meta_keyword && { meta_keyword }),
                 ...(meta_description && { meta_description }),
+                ...(weight && { weight }),
                 updated_at: Date.now(),
                 ...(req.userId && { updated_by: req.userId })
             },
             { new: true }
         )
             .populate("category_id", "name")
-            .populate("brand_id", "name")
+            // .populate("brand_id", "name")
             .populate("shop_id", "name");
 
         res.status(200).json(updatedProduct);
+        console.log("Product updated successfully:", updatedProduct);
     } catch (error) {
         // Nếu có lỗi, xóa bất kỳ file đã upload
         if (req.file) {

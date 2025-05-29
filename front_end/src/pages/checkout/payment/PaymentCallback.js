@@ -14,7 +14,7 @@ const PaymentCallback = () => {
             try {
                 // Lấy thông tin từ localStorage
                 const savedOrderId = localStorage.getItem('currentOrderId');
-                const transactionCode = localStorage.getItem('payosTransactionCode');
+                const transactionCode = localStorage.getItem('paymentTransactionCode');
 
                 if (!savedOrderId || !transactionCode) {
                     setStatus('error');
@@ -26,7 +26,8 @@ const PaymentCallback = () => {
 
                 // Gọi API kiểm tra trạng thái thanh toán
                 const statusResponse = await ApiService.get(`/payos/check-status/${transactionCode}`);
-
+                console.log('Trạng thái thanh toán:', statusResponse.data);
+                
                 // Xử lý khi API trả về 308 Redirect (URL đã thay đổi vĩnh viễn)
                 if (statusResponse.status === 308) {
                     setStatus('error');
