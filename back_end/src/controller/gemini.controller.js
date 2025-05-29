@@ -128,7 +128,7 @@ exports.chatCompletion = async (req, res) => {
       category: p.category_id && Array.isArray(p.category_id) && p.category_id.length > 0 
         ? p.category_id[0].name 
         : (p.category_id?.name || 'Không phân loại'),
-      brand: p.brand_id?.name || 'Không thương hiệu',
+      // brand: p.brand_id?.name || 'Không thương hiệu',
       condition: p.condition || 'Không xác định',
       description: p.description?.substring(0, 100) + '...' || ''
     }));

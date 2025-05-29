@@ -16,7 +16,7 @@ const OrderSummary = ({
     discountAmount,
     deliveryMethods,
     deliveryMethod,
-    handleRemoveCoupon,
+    handleRemoveCoupon={handleRemoveCoupon},
     calculateTotal,
     handlePlaceOrder,
     selectedAddress,
@@ -128,6 +128,7 @@ const OrderSummary = ({
                 <a href="/cart" className="text-purple-600">Quay trở lại giỏ hàng</a>
             </p>
         </div>
+
     );
 };
 
