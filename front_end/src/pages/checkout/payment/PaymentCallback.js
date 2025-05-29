@@ -9,11 +9,13 @@ const PaymentCallback = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-  useEffect(() => {
+    useEffect(() => {
         const checkPaymentStatus = async () => {
             try {
-                // Lấy thông tin từ localStorage
-                const savedOrderId = localStorage.getItem('currentOrderId');
+                const queryParams = new URLSearchParams(location.search);
+                const urlOrderId = queryParams.get("orderId");
+
+                const savedOrderId = localStorage.getItem('currentOrderId') || urlOrderId;
                 const transactionCode = localStorage.getItem('paymentTransactionCode');
 
                 if (!savedOrderId || !transactionCode) {
@@ -24,36 +26,29 @@ const PaymentCallback = () => {
 
                 setOrderId(savedOrderId);
 
-                // Gọi API kiểm tra trạng thái thanh toán
                 const statusResponse = await ApiService.get(`/payos/check-status/${transactionCode}`);
                 console.log('Trạng thái thanh toán:', statusResponse.data);
-                
-                // Xử lý khi API trả về 308 Redirect (URL đã thay đổi vĩnh viễn)
+
                 if (statusResponse.status === 308) {
                     setStatus('error');
                     setMessage('Hệ thống thanh toán đang bảo trì. Vui lòng liên hệ hỗ trợ.');
                     return;
                 }
 
-                // Kiểm tra dữ liệu trả về
                 if (statusResponse.data?.payment?.status === 'PAID') {
                     setStatus('success');
                     setMessage('Thanh toán thành công! Đang chuyển hướng...');
 
-                    // Tự động chuyển hướng sau 2 giây
                     setTimeout(() => {
                         navigate(`/order-confirmation?orderId=${savedOrderId}`);
                     }, 2000);
-
                 } else if (statusResponse.data?.payment?.status === 'PENDING') {
                     setStatus('pending');
                     setMessage('Thanh toán đang chờ xử lý. Vui lòng kiểm tra tài khoản ngân hàng.');
-
                 } else {
                     setStatus('failed');
                     setMessage('Thanh toán thất bại. Vui lòng thử lại hoặc chọn phương thức khác.');
                 }
-
             } catch (error) {
                 console.error('Lỗi khi kiểm tra thanh toán:', error);
                 setStatus('error');
@@ -63,14 +58,12 @@ const PaymentCallback = () => {
 
         checkPaymentStatus();
 
-        // Dọn dẹp localStorage khi component unmount
         return () => {
             localStorage.removeItem('currentOrderId');
-            localStorage.removeItem('payosTransactionCode');
+            localStorage.removeItem('paymentTransactionCode');
         };
-    }, [navigate]);
+    }, [navigate, location]);
 
-    // Các style và hiển thị theo trạng thái
     const getStatusColor = () => {
         switch (status) {
             case 'success': return 'text-green-600';
@@ -103,7 +96,7 @@ const PaymentCallback = () => {
                 <p className={`text-center mb-6 ${getStatusColor()}`}>
                     {message}
                 </p>
-                
+
                 {status === 'failed' && (
                     <div className="flex justify-center mt-4">
                         <button
@@ -112,7 +105,6 @@ const PaymentCallback = () => {
                         >
                             Quay lại thanh toán
                         </button>
-                        
                         {orderId && (
                             <button
                                 onClick={() => navigate(`/order-confirmation?orderId=${orderId}`)}
@@ -123,7 +115,7 @@ const PaymentCallback = () => {
                         )}
                     </div>
                 )}
-                
+
                 {status === 'error' && (
                     <div className="flex justify-center mt-4">
                         <button
@@ -134,7 +126,7 @@ const PaymentCallback = () => {
                         </button>
                     </div>
                 )}
-                
+
                 {(status === 'checking' || status === 'success' || status === 'pending') && (
                     <div className="flex justify-center mt-4">
                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
