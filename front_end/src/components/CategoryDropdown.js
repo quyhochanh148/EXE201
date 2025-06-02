@@ -1,74 +1,86 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ChevronDown } from 'lucide-react';
 import ApiService from '../services/ApiService';
 
-// CSS for dropdown
 const styles = `
 .category-dropdown-container {
   position: relative;
-  z-index: 2000; /* Tăng z-index để vượt qua ImageSlider */
+  perspective: 1000px;
+}
+
+.category-button {
+  background: transparent;
+  border: 2px solid #22c55e;
+  padding: 8px 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #15803d;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.2);
+  transform: rotateY(0deg);
+}
+
+.category-button:hover {
+  color: #14532d;
+  transform: scale(1.05) rotateY(10deg) translateZ(10px);
+  box-shadow: 0 8px 16px rgba(34, 197, 94, 0.4);
+  background: #e6f4e6;
 }
 
 .category-dropdown {
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 2000; /* Tăng z-index để vượt qua ImageSlider */
+  z-index: 2000;
   background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  min-width: 200px;
-  max-height: 300px; /* Giới hạn chiều cao */
-  overflow-y: auto; /* Thêm thanh cuộn dọc */
+  border: 2px solid #22c55e;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+  min-width: 220px;
+  max-height: 320px;
+  overflow-y: auto;
   padding: 8px 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-  transform: translateY(-10px);
+  animation: glowGreen 2s ease-in-out infinite;
+  transform-origin: top;
+  transform: rotateX(-90deg);
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.category-dropdown-container:hover .category-dropdown {
+.category-dropdown.open {
+  transform: rotateX(0deg);
   opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
 }
 
 .category-dropdown a {
   display: block;
-  padding: 8px 16px;
-  color: #374151;
+  padding: 10px 16px;
+  color: #1f2937;
   text-decoration: none;
   font-size: 14px;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  perspective: 1000px;
+  transform: rotateY(0deg);
 }
 
 .category-dropdown a:hover {
-  background: #f3f4f6;
-}
-
-.category-button {
-  background: transparent;
-  border: none;
-  padding: 8px 16px;
-  font-size: 14px;
-  color: #374151;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-radius: 0;
-  cursor: pointer;
-}
-
-.category-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  background: #d1fae5;
+  color: #15803d;
+  transform: rotateY(5deg) translateZ(5px);
+  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.2);
 }
 
 .spinner {
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #6b7280;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #22c55e;
   border-top: 2px solid transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -77,132 +89,108 @@ const styles = `
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px) rotateX(-90deg); }
+  to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+}
+
+@keyframes glowGreen {
+  0%, 100% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.3); }
+  50% { box-shadow: 0 0 15px rgba(34, 197, 94, 0.6); }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out forwards;
+}
 `;
 
 const CategoryDropdown = () => {
-    const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [isOpen, setIsOpen] = useState(false);
-    const navigate = useNavigate();
-    const buttonRef = useRef(null);
-    const dropdownRef = useRef(null);
-    const timeoutRef = useRef(null);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const dropdownRef = useRef(null);
+  const buttonRef = useRef(null);
 
-    // Lấy danh mục từ API
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                setLoading(true);
-                const response = await ApiService.get('/categories', false);
-                console.log('Categories:', response);
-                setCategories(response || []);
-            } catch (error) {
-                console.error('Lỗi khi lấy danh mục:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        const response = await ApiService.get('/categories', false);
+        setCategories(response || []);
+      } catch (error) {
+        console.error('Lỗi khi lấy danh mục:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
 
-        fetchCategories();
-    }, []);
-
-    // Xử lý click ngoài để đóng dropdown
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target) &&
-                buttonRef.current &&
-                !buttonRef.current.contains(event.target)
-            ) {
-                console.log('Closing dropdown due to click outside');
-                setIsOpen(false);
-            }
-        };
-        if (isOpen) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [isOpen]);
-
-    // Xử lý chọn danh mục
-    const handleCategorySelect = (categoryId) => {
-        console.log('Selected category:', categoryId);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
         setIsOpen(false);
-        if (categoryId) {
-            navigate(`/categories?category=${categoryId}`);
-        } else {
-            navigate('/categories');
-        }
+      }
     };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
-    // Xử lý hover với độ trễ
-    const handleMouseEnter = () => {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-        }
-        setIsOpen(true);
-    };
+  const handleCategorySelect = (categoryId) => {
+    setIsOpen(false);
+    navigate(categoryId ? `/categories?category=${categoryId}` : '/categories');
+  };
 
-    const handleMouseLeave = () => {
-        timeoutRef.current = setTimeout(() => {
-            setIsOpen(false);
-        }, 200);
-    };
-
-    return (
-        <div className="category-dropdown-container">
-            <style>{styles}</style>
-            <button
-                ref={buttonRef}
-                className="category-button"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onClick={() => setIsOpen(!isOpen)}
-                disabled={loading}
-                aria-label="Danh mục sản phẩm"
-                aria-expanded={isOpen}
+  return (
+    <div className="category-dropdown-container">
+      <style>{styles}</style>
+      <button
+        ref={buttonRef}
+        className="category-button"
+        onClick={() => setIsOpen(!isOpen)}
+        disabled={loading}
+        aria-label="Danh mục sản phẩm"
+        aria-expanded={isOpen}
+      >
+        Danh Mục
+        {loading ? (
+          <span className="spinner"></span>
+        ) : (
+          <ChevronDown size={16} className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        )}
+      </button>
+      {isOpen && (
+        <div ref={dropdownRef} className={`category-dropdown ${isOpen ? 'open' : ''}`} role="menu">
+          <a
+            href="/categories"
+            className="block"
+            role="menuitem"
+            onClick={() => handleCategorySelect('')}
+          >
+            Tất cả danh mục
+          </a>
+          {categories.map((category) => (
+            <a
+              key={category._id}
+              href={`/categories?category=${category._id}`}
+              className="block"
+              role="menuitem"
+              onClick={() => handleCategorySelect(category._id)}
             >
-                Tất cả danh mục
-                {loading ? (
-                    <span className="spinner"></span>
-                ) : (
-                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                    </svg>
-                )}
-            </button>
-            {isOpen && (
-                <div
-                    ref={dropdownRef}
-                    className="category-dropdown"
-                    role="menu"
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                >
-                    <a
-                        href="/categories"
-                        className="block"
-                        role="menuitem"
-                        onClick={() => handleCategorySelect('')}
-                    >
-                        Tất cả danh mục
-                    </a>
-                    {categories.map((category) => (
-                        <a
-                            key={category._id}
-                            href={`/categories?category=${category._id}`}
-                            className="block"
-                            role="menuitem"
-                            onClick={() => handleCategorySelect(category._id)}
-                        >
-                            {category.name}
-                        </a>
-                    ))}
-                </div>
-            )}
+              {category.name}
+            </a>
+          ))}
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default CategoryDropdown;

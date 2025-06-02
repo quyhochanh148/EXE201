@@ -149,36 +149,36 @@ const getConversationMessages = async (req, res) => {
 
 // Gửi tin nhắn trong một cuộc trò chuyện
 const sendMessage = async (req, res) => {
-    try {
-        const { conversationId, content } = req.body;
-        const userId = req.userId;
-        
-        // Kiểm tra xem người dùng có quyền truy cập cuộc trò chuyện này không
-        const conversation = await Conversation.findById(conversationId);
-        if (!conversation || !conversation.participants.includes(userId)) {
-            return res.status(403).json({ message: "You don't have permission to access this conversation" });
-        }
-        
-        // Tạo tin nhắn mới
-        const newMessage = new Message({
-            conversation_id: conversationId,
-            sender_id: userId,
-            content
-        });
-        
-        await newMessage.save();
-        
-        // Cập nhật last_message và last_message_time trong conversation
-        conversation.last_message = content;
-        conversation.last_message_time = Date.now();
-        await conversation.save();
-        
-        res.status(201).json(newMessage);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
+  try {
+    const { conversationId, content } = req.body || {};
+    const userId = req.userId;
 
+    if (!conversationId || !content) {
+      return res.status(400).json({ message: "Invalid data" });
+    }
+
+    const conversation = await db.conversation.findById(conversationId);
+    if (!conversation || !conversation.participants.includes(userId)) {
+      return res.status(403).json({ message: "You don't have permission to access this conversation" });
+    }
+
+    const newMessage = new db.message({
+      conversation_id: conversationId,
+      sender_id: userId,
+      content,
+    });
+
+    await newMessage.save();
+
+    conversation.last_message = content;
+    conversation.last_message_time = Date.now();
+    await conversation.save();
+
+    return res.status(201).json(newMessage);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 const markAsRead = async (req, res) => {
     try {
         const { conversationId } = req.params;
