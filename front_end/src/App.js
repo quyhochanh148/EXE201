@@ -58,7 +58,7 @@ function App() {
   return (
     <div className="font-bold">
       <AuthProvider>
-        <main className="main-content">
+        <main className={`main-content ${noHeaderPage ? 'no-header' : ''}`}>
         {!noHeaderPage && <Header />}
         <Routes>
           {/* Public routes with role redirection */}
