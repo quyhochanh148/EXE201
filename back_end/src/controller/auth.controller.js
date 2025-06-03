@@ -101,7 +101,7 @@ async function signIn(req, res, next) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:9999"
+    callbackURL: "https://greengarden-rho.vercel.app/api/auth/google/callback"
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         let user = await User.findOne({ email: profile.emails[0].value });
@@ -112,7 +112,7 @@ passport.use(new GoogleStrategy({
                 firstName: profile.name.givenName || 'Google',
                 lastName: profile.name.familyName || 'User',
                 password: bcrypt.hashSync(Math.random().toString(36).slice(-8), 10),
-                phone: '0912345678' // Số điện thoại mặc định
+                phone: '0396872025' // Số điện thoại mặc định
             });
 
             // Gán quyền mặc định
