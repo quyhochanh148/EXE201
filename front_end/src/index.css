@@ -9,7 +9,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+main, .main-content {
+  padding-top: 65px; /* Chiều cao header trên desktop */
+}
 
+main.no-header, .main-content.no-header {
+  padding-top: 0; /* Không có padding-top cho các trang không có header */
+}
+
+@media (max-width: 768px) {
+  main, .main-content {
+    padding-top: 60px; /* Chiều cao header trên mobile */
+  }
+
+  main.no-header, .main-content.no-header {
+    padding-top: 0; /* Không có padding-top cho các trang không có header */
+  }
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
