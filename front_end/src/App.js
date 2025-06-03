@@ -58,6 +58,7 @@ function App() {
   return (
     <div className="font-bold">
       <AuthProvider>
+        <main className={`main-content ${noHeaderPage ? 'no-header' : ''}`}>
         {!noHeaderPage && <Header />}
         <Routes>
           {/* Public routes with role redirection */}
@@ -274,6 +275,7 @@ function App() {
         {!noHeaderPage && <Footer />}
         <ChatBot />
         {<MessageBubble />}
+        </main>
       </AuthProvider>
     </div>
   );

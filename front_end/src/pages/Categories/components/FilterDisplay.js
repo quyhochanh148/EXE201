@@ -23,7 +23,7 @@ const FilterDisplay = ({
                 <span className="text-sm font-medium text-gray-700">Bộ lọc đang áp dụng:</span>
 
                 {selectedCategory && (
-                    <div className="bg-[#2E7D32] text-purple-700 px-2 py-1 rounded text-xs flex items-center">
+                    <div className="bg-[#2E7D32] text-white px-2 py-1 rounded text-xs flex items-center">
                         {categories.find(c => c._id === selectedCategory)?.name}
                         <XIcon
                             size={14}
