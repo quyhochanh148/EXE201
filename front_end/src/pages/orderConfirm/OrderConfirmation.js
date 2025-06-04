@@ -601,7 +601,7 @@ const OrderConfirmation = () => {
         {isOnlinePayment(order) && order.status_id === 'pending' && (
           <p className="text-yellow-600 mt-2 bg-yellow-50 p-2 rounded">
             <AlertCircle size={16} className="inline mr-1" />
-            Lưu ý: Đơn hàng của bạn đang chờ thanh toán. Vui lòng hoàn tất thanh toán để đơn hàng được xử lý.
+            Lưu ý: Đơn hàng của bạn đang chờ xác nhận.
           </p>
         )}
 
