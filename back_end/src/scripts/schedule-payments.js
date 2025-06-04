@@ -6,8 +6,8 @@ require('dotenv').config();
 const BASE_URL = process.env.API_BASE_URL || 'https://greengarden-rho.vercel.app';
 
 // Thông tin đăng nhập admin
-const ADMIN_USERNAME = 'quytthe173122@fpt.edu.vn'; // Thay bằng username thực tế của admin
-const ADMIN_PASSWORD = 'quy123456'; // Thay bằng password thực tế của admin
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'quytthe173122@fpt.edu.vn';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'quy123456';
 
 /**
  * Lấy token admin bằng cách đăng nhập
