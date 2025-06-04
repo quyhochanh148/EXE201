@@ -173,7 +173,7 @@ const OrderConfirmation = () => {
       console.log(`Checking payment status for transaction: ${transactionCode}`);
 
       // Call PayOS API to check payment status
-      const response = await ApiService.get(`/payos/check-payment-status/${transactionCode}`);
+      const response = await ApiService.get(`/payos/check-status/${transactionCode}`);
 
       if (response && response.success) {
         console.log("Payment status response:", response);
