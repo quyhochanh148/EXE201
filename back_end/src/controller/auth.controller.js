@@ -112,7 +112,7 @@ passport.use(new GoogleStrategy({
                 firstName: profile.name.givenName || 'Google',
                 lastName: profile.name.familyName || 'User',
                 password: bcrypt.hashSync(Math.random().toString(36).slice(-8), 10),
-                phone: '0396872025' // Số điện thoại mặc định
+                
             });
 
             // Gán quyền mặc định
