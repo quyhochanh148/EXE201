@@ -51,7 +51,61 @@ async function schedulePayments() {
         }
 
         // Thay đổi cron pattern để chạy mỗi 30 giây để dễ test
-        cron.schedule('* * * * *', async () => {
+        // cron.schedule('* * * * *', async () => {
+        //     console.log('Running scheduled payment batch creation...', new Date().toISOString());
+
+        //     try {
+        //         console.log('Sending POST request to:', `${BASE_URL}/api/revenue/batch/create`);
+
+        //         // Create new payment batch
+        //         const batchResponse = await axios.post(
+        //             `${BASE_URL}/api/revenue/batch/create`,
+        //             {},
+        //             {
+        //                 headers: {
+        //                     'x-access-token': adminToken,
+        //                     'Content-Type': 'application/json'
+        //                 },
+        //                 timeout: 10000 // 10 giây timeout
+        //             }
+        //         );
+
+        //         console.log('Batch response received:', batchResponse.status);
+        //         console.log('Batch response data:', JSON.stringify(batchResponse.data, null, 2));
+
+        //         const batchId = batchResponse.data.batch.batch_id;
+        //         console.log(`Created payment batch: ${batchId}`);
+
+        //         // Process the batch (in a real system, this might be a separate step after review)
+        //         console.log('Sending batch process request to:', `${BASE_URL}/api/revenue/batch/${batchId}/process`);
+
+        //         const processResponse = await axios.post(
+        //             `${BASE_URL}/api/revenue/batch/${batchId}/process`,
+        //             {
+        //                 transaction_id: `TRANS-${Date.now()}`
+        //             },
+        //             {
+        //                 headers: {
+        //                     'x-access-token': adminToken,
+        //                     'Content-Type': 'application/json'
+        //                 },
+        //                 timeout: 10000
+        //             }
+        //         );
+
+        //         console.log('Process response received:', processResponse.status);
+        //         console.log('Process response data:', JSON.stringify(processResponse.data, null, 2));
+        //         console.log(`Processed batch ${batchId}: ${processResponse.data.records_updated} records updated`);
+        cron.schedule('0 0 * * *', async () => {
+            const today = new Date();
+            const day = today.getDate();
+
+            // Chỉ chạy nếu ngày chia hết cho 3 (ví dụ: 3, 6, 9, 12, ...)
+            if (day % 3 !== 0) {
+                console.log(`Skipping batch creation on day ${day} — not a 3-day interval`);
+                return;
+            }
+
             console.log('Running scheduled payment batch creation...', new Date().toISOString());
 
             try {
@@ -66,7 +120,7 @@ async function schedulePayments() {
                             'x-access-token': adminToken,
                             'Content-Type': 'application/json'
                         },
-                        timeout: 10000 // 10 giây timeout
+                        timeout: 10000
                     }
                 );
 
@@ -76,7 +130,7 @@ async function schedulePayments() {
                 const batchId = batchResponse.data.batch.batch_id;
                 console.log(`Created payment batch: ${batchId}`);
 
-                // Process the batch (in a real system, this might be a separate step after review)
+                // Process the batch
                 console.log('Sending batch process request to:', `${BASE_URL}/api/revenue/batch/${batchId}/process`);
 
                 const processResponse = await axios.post(
