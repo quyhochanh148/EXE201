@@ -3,7 +3,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 require('dotenv').config();
 
-const BASE_URL = process.env.API_BASE_URL || 'https://greengarden-rho.vercel.app';
+const BASE_URL = process.env.API_BASE_URL || 'https://exe201-gl51.onrender.com';
 
 // Thông tin đăng nhập admin
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'quytthe173122@fpt.edu.vn';

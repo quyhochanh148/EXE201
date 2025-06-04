@@ -523,7 +523,7 @@ const updateOrderStatus = async (req, res) => {
             try {
                 // Create revenue record internally
                 const axios = require('axios');
-                const BASE_URL = process.env.API_BASE_URL || 'https://greengarden-rho.vercel.app';
+                const BASE_URL = process.env.API_BASE_URL || 'https://exe201-gl51.onrender.com';
 
                 // Get admin token for internal API call
                 const jwt = require('jsonwebtoken');
