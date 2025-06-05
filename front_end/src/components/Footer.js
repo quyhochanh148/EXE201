@@ -30,15 +30,15 @@ const Footer = () => {
             <ul className="space-y-4 text-sm leading-relaxed">
               <li className="flex items-center transform hover:translateZ(5px) transition-all duration-200">
                 <MapPin size={16} className="mr-2 text-green-300" />
-                123 Đường Xanh, Quận 1, TP. HCM
+                Fpt hòa lạc, Thạch Thất, Hà Nội
               </li>
               <li className="flex items-center transform hover:translateZ(5px) transition-all duration-200">
                 <Phone size={16} className="mr-2 text-green-300" />
-                +84 123 456 789
+                0396872025
               </li>
               <li className="flex items-center transform hover:translateZ(5px) transition-all duration-200">
                 <Mail size={16} className="mr-2 text-green-300" />
-                support@greenliving.vn
+                bloomgardenexe2@gmail.com
               </li>
             </ul>
           </div>
