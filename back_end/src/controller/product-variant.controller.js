@@ -42,13 +42,13 @@ const getVariantsByProductId = async (req, res) => {
 // Lấy biến thể theo ID
 const getVariantById = async (req, res) => {
     try {
-        const { productId } = req.params;
+        const { id } = req.params;
 
-        if (!mongoose.Types.ObjectId.isValid(productId)) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: "Invalid variant ID format" });
         }
 
-        const variant = await ProductVariant.findById(productId);
+        const variant = await ProductVariant.findById(id);
 
         if (!variant || variant.is_delete) {
             return res.status(404).json({ message: "Variant not found" });

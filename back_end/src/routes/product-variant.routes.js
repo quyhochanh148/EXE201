@@ -9,7 +9,7 @@ ProductVariantRouter.use(bodyParser.json());
 
 // Public routes
 ProductVariantRouter.get("/product/:productId", productVariantController.getVariantsByProductId);
-ProductVariantRouter.get("/:productId", productVariantController.getVariantById);
+ProductVariantRouter.get("/:id", productVariantController.getVariantById);
 
 // Protected routes - requires authentication
 ProductVariantRouter.post("/create", [VerifyJwt.verifyToken], productVariantController.createVariant);
