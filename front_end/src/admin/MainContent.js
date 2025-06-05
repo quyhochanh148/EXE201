@@ -37,7 +37,7 @@ const MainContent = () => {
       <div className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4">
         <div className="p-4 flex gap-2 items-center">
           <img src={logo} alt="VVDShop Logo" className="h-10" />
-          <p>BloomGarden</p>
+          <p>GreenGarden</p>
         </div>
         {/* <div className="relative w-3/5">
           <input

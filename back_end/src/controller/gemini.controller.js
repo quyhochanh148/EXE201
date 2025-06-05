@@ -141,7 +141,7 @@ exports.chatCompletion = async (req, res) => {
     
     // System prompt cho AI
     const systemPrompt = `
-    Bạn là trợ lý AI hỗ trợ khách hàng của cửa hàng bán đồ đã qua sử dụng BloomGarden. 
+    Bạn là trợ lý AI hỗ trợ khách hàng của cửa hàng bán đồ đã qua sử dụng GreenGarden. 
     Hãy trả lời ngắn gọn, thân thiện và hữu ích về các sản phẩm, dịch vụ, cách đặt hàng, vận chuyển, v.v.
     Đảm bảo phản hồi của bạn luôn mang tính chuyên nghiệp và bằng tiếng Việt.
     

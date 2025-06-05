@@ -18,7 +18,7 @@ const ChatWindow = ({ isOpen }) => {
       }));
     } else {
       return [
-        { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng BloomGarden. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
+        { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng GreenGarden. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
       ];
     }
   });
@@ -55,7 +55,7 @@ const ChatWindow = ({ isOpen }) => {
       const user = localStorage.getItem('user');
       if (!user) {
         setMessages([
-          { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng BloomGarden. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
+          { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng GreenGarden. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
         ]);
       }
     };
@@ -138,13 +138,13 @@ const ChatWindow = ({ isOpen }) => {
       <div className="bg-[#2E7D32] text-white p-4 rounded-t-lg">
         <div className="flex justify-between items-center">
           <div>
-            <h3 className="font-medium">BloomGarden Bot</h3>
+            <h3 className="font-medium">GreenGarden Bot</h3>
             <p className="text-xs opacity-80">Hỏi đáp thông tin về sản phẩm, đặt hàng và hỗ trợ 24/7</p>
           </div>
           <button
             onClick={() => {
               setMessages([
-                { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng BloomGarden. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
+                { id: 1, text: "Xin chào! Tôi là trợ lý AI hỗ trợ cửa hàng GreenGarden. Tôi có thể giúp gì cho bạn?", sender: 'bot', time: new Date() }
               ]);
               localStorage.removeItem("chatMessages");
             }}
