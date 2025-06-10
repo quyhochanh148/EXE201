@@ -45,10 +45,7 @@ async function schedulePayments() {
         // Debug info
         console.log('Debug info:');
         console.log('BASE_URL:', BASE_URL);
-        console.log('ADMIN_TOKEN exists:', !!adminToken);
-        if (adminToken) {
-            console.log('ADMIN_TOKEN preview:', `${adminToken.substring(0, 20)}...`);
-        }
+
 
         // Thay đổi cron pattern để chạy mỗi 30 giây để dễ test
         // cron.schedule('* * * * *', async () => {
@@ -110,6 +107,7 @@ async function schedulePayments() {
 
             try {
                 const adminToken = await getAdminToken();
+                console.log('New admin token obtained:', `${adminToken.substring(0, 20)}...`);
                 console.log('Sending POST request to:', `${BASE_URL}/api/revenue/batch/create`);
 
                 // Create new payment batch
