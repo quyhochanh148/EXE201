@@ -44,53 +44,64 @@ const ProductModal = ({
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-fadeIn">
-            <div className="bg-white rounded-lg w-11/12 max-w-4xl overflow-y-auto max-h-[90vh] relative animate-scaleIn">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg w-11/12 max-w-4xl overflow-y-auto max-h-[90vh] relative">
                 <button
-                    className="
-                        absolute top-4 right-4 text-gray-800 p-2 rounded-full
-                        transition-all duration-300 ease-in-out
-                        hover:bg-gray-100 hover:rotate-90 hover:scale-125
-                    "
+                    className="absolute top-4 right-4 text-gray-800 hover:bg-gray-100 p-1 rounded-full"
                     onClick={closeModal}
                 >
-                    <XIcon size={32} /> {/* Tăng kích thước icon từ 24 lên 32 */}
+                    <XIcon size={24} />
                 </button>
 
                 <div className="p-6">
-                    <h2 className="text-xl font-bold mb-6 animate-slideDown">CHỌN BIẾN THỂ SẢN PHẨM</h2>
+                    <h2 className="text-xl font-bold mb-6">CHỌN BIẾN THỂ SẢN PHẨM</h2>
 
                     <div className="flex flex-col md:flex-row gap-8">
                         {/* Product Image */}
                         <div className="w-full md:w-1/3">
-                            <div className="relative overflow-hidden rounded-lg">
-                                <img
-                                    src={displayImage}
-                                    alt={selectedProduct.name}
-                                    className="
-                                        w-full h-auto rounded object-cover
-                                        transition-all duration-400 ease-in-out
-                                        hover:scale-110 hover:shadow-[0_0_10px_rgba(142,68,173,0.5)]
-                                    "
-                                />
-                            </div>
+                            <img
+                                src={displayImage}
+                                alt={selectedProduct.name}
+                                className="w-full h-auto rounded object-cover"
+                            />
+
+                            {/* <div className="flex gap-2 mt-4 overflow-x-auto">
+
+                                {selectedVariant && selectedVariant.images && selectedVariant.images.length > 0 ? (
+                                    selectedVariant.images.slice(0, 4).map((imgSrc, idx) => (
+                                        <div key={idx} className="border border-gray-300 p-1 w-16 h-16 flex-shrink-0">
+                                            <img
+                                                src={imgSrc}
+                                                alt={`Biến thể ${idx + 1}`}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                    ))
+                                ) : (
+                                    <>
+                                        <div className="border border-gray-300 p-1 w-16 h-16 flex-shrink-0">
+                                            <img
+                                                src={selectedProduct.thumbnail || dongho}
+                                                alt="Thumbnail"
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                    </>
+                                )}
+                            </div> */}
                         </div>
 
                         {/* Product Details with Variant Selector */}
                         <div className="w-full md:w-2/3">
-                            <h3 className="text-lg font-bold mb-1 animate-slideDown">{selectedProduct.name}</h3>
-                            <p className="text-red-500 font-bold text-xl mb-3 animate-slideDown">
+                            <h3 className="text-lg font-bold mb-1">{selectedProduct.name}</h3>
+                            <p className="text-red-500 font-bold text-xl mb-3">
                                 {displayPrice}
                             </p>
                             
                             {/* Thông tin biến thể đã chọn */}
                             {selectedVariant && (
-                                <div
-                                    className="
-                                        mb-4 p-3 bg-[#2E7D32] rounded-lg border border-purple-100
-                                        animate-slideUp
-                                    "
-                                >
+                                <div className="mb-4 p-3 bg-[#2E7D32] rounded-lg border border-purple-100">
+                                    
                                     {renderVariantAttributes() && (
                                         <div className="mt-2 text-sm text-gray-600">
                                             {renderVariantAttributes()}
@@ -110,16 +121,11 @@ const ProductModal = ({
                     </div>
 
                     {/* Add to Cart Button */}
-                    <div className="flex flex-col sm:flex-row gap-4 mt-6">
+                    <div className='flex flex-col sm:flex-row gap-4 mt-6'>
                         <button
-                            className={`
-                                w-full py-3 rounded-md font-medium
-                                transition-all duration-300 ease-in-out
-                                ${isOutOfStock 
-                                    ? 'bg-gray-400 cursor-not-allowed' 
-                                    : 'bg-[#2E7D32] hover:bg-[#2E7D32]/90 hover:scale-105'}
-                                text-white
-                            `}
+                            className={`w-full ${isOutOfStock 
+                                ? 'bg-gray-400 cursor-not-allowed' 
+                                : 'bg-[#2E7D32] hover:bg-[#2E7D32]'} text-white py-3 rounded-md font-medium transition-colors`}
                             onClick={() => addToCart(selectedProduct, quantity, true)}
                             disabled={isOutOfStock}
                         >
@@ -129,70 +135,13 @@ const ProductModal = ({
                         </button>
                         <button
                             onClick={() => window.location.href = `/product-detail?id=${selectedProduct._id || selectedProduct.id}`}
-                            className="
-                                w-full bg-[#2E7D32] text-white py-3 rounded-md font-medium
-                                transition-all duration-300 ease-in-out
-                                hover:bg-[#2E7D32]/90 hover:scale-105
-                            "
+                            className='w-full bg-[#2E7D32] hover:bg-[#2E7D32] text-white py-3 rounded-md font-medium transition-colors'
                         >
                             Xem thông tin chi tiết
                         </button>
                     </div>
                 </div>
             </div>
-
-            <style jsx>{`
-                @keyframes fadeIn {
-                    from {
-                        opacity: 0;
-                    }
-                    to {
-                        opacity: 1;
-                    }
-                }
-                @keyframes scaleIn {
-                    from {
-                        opacity: 0;
-                        transform: scale(0.95);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: scale(1);
-                    }
-                }
-                @keyframes slideDown {
-                    from {
-                        opacity: 0;
-                        transform: translateY(-20px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-                @keyframes slideUp {
-                    from {
-                        opacity: 0;
-                        transform: translateY(20px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-                .animate-fadeIn {
-                    animation: fadeIn 0.4s ease-out forwards;
-                }
-                .animate-scaleIn {
-                    animation: scaleIn 0.4s ease-out forwards;
-                }
-                .animate-slideDown {
-                    animation: slideDown 0.5s ease-out forwards;
-                }
-                .animate-slideUp {
-                    animation: slideUp 0.5s ease-out forwards;
-                }
-            `}</style>
         </div>
     );
 };

@@ -40,7 +40,7 @@ async function getAdminToken() {
 async function schedulePayments() {
     try {
         // Lấy token mới khi khởi động script
-        const adminToken = await getAdminToken();
+        
 
         // Debug info
         console.log('Debug info:');
@@ -109,6 +109,7 @@ async function schedulePayments() {
             console.log('Running scheduled payment batch creation...', new Date().toISOString());
 
             try {
+                const adminToken = await getAdminToken();
                 console.log('Sending POST request to:', `${BASE_URL}/api/revenue/batch/create`);
 
                 // Create new payment batch
