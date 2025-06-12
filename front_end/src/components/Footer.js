@@ -30,7 +30,7 @@ const Footer = () => {
             <ul className="space-y-4 text-sm leading-relaxed">
               <li className="flex items-center transform hover:translateZ(5px) transition-all duration-200">
                 <MapPin size={16} className="mr-2 text-green-300" />
-                Fpt hòa lạc, Thạch Thất, Hà Nội
+                FPT Hòa Lạc, Thạch Thất, Hà Nội
               </li>
               <li className="flex items-center transform hover:translateZ(5px) transition-all duration-200">
                 <Phone size={16} className="mr-2 text-green-300" />
@@ -93,12 +93,12 @@ const Footer = () => {
 
         <div className="border-t border-green-600 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center animate-slideUp animation-delay-400">
           <div className="flex space-x-4 mb-4 md:mb-0 perspective-1000">
-            <a href="#" className="hover:text-green-300 transition-all duration-200 hover:scale-110 hover:rotateY(15deg) animate-pulse">
+            <a href="https://www.facebook.com/profile.php?id=61576812787820" className="hover:text-green-300 transition-all duration-200 hover:scale-110 hover:rotateY(15deg) animate-pulse">
               <Facebook size={24} />
             </a>
-            <a href="#" className="hover:text-green-300 transition-all duration-200 hover:scale-110 hover:rotateY(15deg) animate-pulse">
+            {/* <a href="#" className="hover:text-green-300 transition-all duration-200 hover:scale-110 hover:rotateY(15deg) animate-pulse">
               <Instagram size={24} />
-            </a>
+            </a> */}
           </div>
           <div className="text-sm transform hover:translateZ(5px) transition-all duration-200">
             © 2023 GreenLiving.vn. All rights reserved.
