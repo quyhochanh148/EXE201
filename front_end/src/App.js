@@ -5,7 +5,7 @@ import LoginPage from "./pages/Login/Login";
 import RegisterPage from "./pages/Register/Register";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import IntroductionSection from './components/IntroductionSection'; // Đường dẫn đến IntroductionSection
+import IntroductionSection from './components/IntroductionSection';
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import ShopDetail from "./pages/ShopDetail/ShopDetail";
 import UserProfile from "./pages/UserProfile/UserProfile";
@@ -35,8 +35,7 @@ import MyShop from './Seller/MyShop';
 import OrderConfirmation from './pages/orderConfirm/OrderConfirmation';
 import PaymentCallback from './pages/checkout/payment/PaymentCallback';
 import MessageBubble from './pages/UserProfile/components/messageBubble';
-import RoleRedirect from './route/RoleRedirect'; // Import the new component
-
+import RoleRedirect from './route/RoleRedirect';
 import SellerSettings from './Seller/SellerChangePassword';
 import ProductReviews from './Seller/ProductReview';
 import ReviewDetail from './Seller/ReviewDetails';
@@ -49,232 +48,256 @@ function App() {
   const noHeaderPaths = ['/register', '/login', '/admin', '/forgot-password', '/reset-password'];
   const noHeaderPage = noHeaderPaths.includes(location.pathname) || location.pathname.startsWith('/admin/');
 
-  // Define paths that should not have role-based redirection
   const noRedirectPaths = ['/login', '/register', '/admin', '/seller-dashboard', '/forgot-password', '/reset-password'];
   const shouldRedirect = !noRedirectPaths.includes(location.pathname) &&
     !location.pathname.startsWith('/admin/') &&
     !location.pathname.startsWith('/seller-dashboard/');
 
+  // Google Tag Manager script integration
+  useEffect(() => {
+    // Create GTM script
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-KB9XHXDW';
+    script.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KB9XHXDW');`;
+    
+    document.head.appendChild(script);
+
+    // Cleanup script on component unmount
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   return (
     <div className="font-bold">
       <AuthProvider>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-KB9XHXDW"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
+        </noscript>
+        
         <main className={`main-content ${noHeaderPage ? 'no-header' : ''}`}>
-        {!noHeaderPage && <Header />}
-        <Routes>
-          {/* Public routes with role redirection */}
-          <Route path="/" element={
-            shouldRedirect ? (
-              <RoleRedirect>
+          {!noHeaderPage && <Header />}
+          <Routes>
+            {/* Public routes with role redirection */}
+            <Route path="/" element={
+              shouldRedirect ? (
+                <RoleRedirect>
+                  <Homepage />
+                </RoleRedirect>
+              ) : (
                 <Homepage />
-              </RoleRedirect>
-            ) : (
-              <Homepage />
-            )
-          } />
-          <Route path="/introduction" element={
-            shouldRedirect ? (
-              <RoleRedirect>
+              )
+            } />
+            <Route path="/introduction" element={
+              shouldRedirect ? (
+                <RoleRedirect>
+                  <IntroductionSection />
+                </RoleRedirect>
+              ) : (
                 <IntroductionSection />
-              </RoleRedirect>
-            ) : (
-              <IntroductionSection />
-            )
-          } />
-          <Route path="/product-detail" element={
-            shouldRedirect ? (
-              <RoleRedirect>
+              )
+            } />
+            <Route path="/product-detail" element={
+              shouldRedirect ? (
+                <RoleRedirect>
+                  <ProductDetail />
+                </RoleRedirect>
+              ) : (
                 <ProductDetail />
-              </RoleRedirect>
-            ) : (
-              <ProductDetail />
-            )
-          } />
-
-          <Route path="/shop-detail" element={
-            shouldRedirect ? (
-              <RoleRedirect>
+              )
+            } />
+            <Route path="/shop-detail" element={
+              shouldRedirect ? (
+                <RoleRedirect>
+                  <ShopDetail />
+                </RoleRedirect>
+              ) : (
                 <ShopDetail />
-              </RoleRedirect>
-            ) : (
-              <ShopDetail />
-            )
-          } />
-
-          <Route path="/categories" element={
-            shouldRedirect ? (
-              <RoleRedirect>
+              )
+            } />
+            <Route path="/categories" element={
+              shouldRedirect ? (
+                <RoleRedirect>
+                  <Categories />
+                </RoleRedirect>
+              ) : (
                 <Categories />
-              </RoleRedirect>
-            ) : (
-              <Categories />
-            )
-          } />
+              )
+            } />
 
-          {/* Public routes without role redirection */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/shop-registration" element={<ShopRegistration />} />
-          <Route path="/payment-callback" element={<PaymentCallback />} />
+            {/* Public routes without role redirection */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/shop-registration" element={<ShopRegistration />} />
+            <Route path="/payment-callback" element={<PaymentCallback />} />
 
-          {/* Protected routes - require authentication */}
-          <Route path="/user-profile/*" element={
-            <ProtectedRoute>
-              {shouldRedirect ? (
-                <RoleRedirect>
+            {/* Protected routes - require authentication */}
+            <Route path="/user-profile/*" element={
+              <ProtectedRoute>
+                {shouldRedirect ? (
+                  <RoleRedirect>
+                    <UserProfile />
+                  </RoleRedirect>
+                ) : (
                   <UserProfile />
-                </RoleRedirect>
-              ) : (
-                <UserProfile />
-              )}
-            </ProtectedRoute>
-          } />
-
-          <Route path="/order-confirmation" element={
-            <ProtectedRoute>
-              {shouldRedirect ? (
-                <RoleRedirect>
+                )}
+              </ProtectedRoute>
+            } />
+            <Route path="/order-confirmation" element={
+              <ProtectedRoute>
+                {shouldRedirect ? (
+                  <RoleRedirect>
+                    <OrderConfirmation />
+                  </RoleRedirect>
+                ) : (
                   <OrderConfirmation />
-                </RoleRedirect>
-              ) : (
-                <OrderConfirmation />
-              )}
-            </ProtectedRoute>
-          } />
-
-          <Route path="/cart" element={
-            <ProtectedRoute>
-              {shouldRedirect ? (
-                <RoleRedirect>
+                )}
+              </ProtectedRoute>
+            } />
+            <Route path="/cart" element={
+              <ProtectedRoute>
+                {shouldRedirect ? (
+                  <RoleRedirect>
+                    <Cart />
+                  </RoleRedirect>
+                ) : (
                   <Cart />
-                </RoleRedirect>
-              ) : (
-                <Cart />
-              )}
-            </ProtectedRoute>
-          } />
-
-          <Route path="/checkout" element={
-            <ProtectedRoute>
-              {shouldRedirect ? (
-                <RoleRedirect>
+                )}
+              </ProtectedRoute>
+            } />
+            <Route path="/checkout" element={
+              <ProtectedRoute>
+                {shouldRedirect ? (
+                  <RoleRedirect>
+                    <CheckoutPage />
+                  </RoleRedirect>
+                ) : (
                   <CheckoutPage />
+                )}
+              </ProtectedRoute>
+            } />
+
+            {/* Admin routes - require admin role */}
+            <Route path="/admin/*" element={
+              <AdminRoute>
+                <AdminLayout />
+              </AdminRoute>
+            } />
+
+            {/* Seller routes - require seller/mod role */}
+            <Route path="/seller-dashboard" element={
+              <SellerRoute>
+                <SellerDashboard />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/product" element={
+              <SellerRoute>
+                <ProductList />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/add-product" element={
+              <SellerRoute>
+                <AddProduct />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/discount-product" element={
+              <SellerRoute>
+                <DiscountProducts />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/add-discount" element={
+              <SellerRoute>
+                <AddDiscount />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/discounts" element={
+              <SellerRoute>
+                <AllDiscounts />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/inventory-stock" element={
+              <SellerRoute>
+                <InventoryStock />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/import-history" element={
+              <SellerRoute>
+                <ImportHistory />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/create-import" element={
+              <SellerRoute>
+                <AddStock />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/registed-user" element={
+              <SellerRoute>
+                <RegisteredUsers />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/orders" element={
+              <SellerRoute>
+                <AllOrders />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/my-shop" element={
+              <SellerRoute>
+                <MyShop />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/settings" element={
+              <SellerRoute>
+                <SellerSettings />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/reviews" element={
+              <SellerRoute>
+                <ProductReviews />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/reviews/:id" element={
+              <SellerRoute>
+                <ReviewDetail />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/revenue" element={
+              <SellerRoute>
+                <ShopRevenueDashboard />
+              </SellerRoute>
+            } />
+            <Route path="/seller-dashboard/bank-account" element={
+              <SellerRoute>
+                <BankAccountManagement />
+              </SellerRoute>
+            } />
+
+            {/* Catch-all route for 404 pages */}
+            <Route path="*" element={
+              shouldRedirect ? (
+                <RoleRedirect>
+                  <div className="text-center p-20">Page not found</div>
                 </RoleRedirect>
               ) : (
-                <CheckoutPage />
-              )}
-            </ProtectedRoute>
-          } />
-
-          {/* Admin routes - require admin role */}
-          <Route path="/admin/*" element={
-            <AdminRoute>
-              <AdminLayout />
-            </AdminRoute>
-          } />
-
-          {/* Seller routes - require seller/mod role */}
-          <Route path="/seller-dashboard" element={
-            <SellerRoute>
-              <SellerDashboard />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/product" element={
-            <SellerRoute>
-              <ProductList />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/add-product" element={
-            <SellerRoute>
-              <AddProduct />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/discount-product" element={
-            <SellerRoute>
-              <DiscountProducts />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/add-discount" element={
-            <SellerRoute>
-              <AddDiscount />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/discounts" element={
-            <SellerRoute>
-              <AllDiscounts />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/inventory-stock" element={
-            <SellerRoute>
-              <InventoryStock />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/import-history" element={
-            <SellerRoute>
-              <ImportHistory />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/create-import" element={
-            <SellerRoute>
-              <AddStock />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/registed-user" element={
-            <SellerRoute>
-              <RegisteredUsers />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/orders" element={
-            <SellerRoute>
-              <AllOrders />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/my-shop" element={
-            <SellerRoute>
-              <MyShop />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/settings" element={
-            <SellerRoute>
-              <SellerSettings />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/reviews" element={
-            <SellerRoute>
-              <ProductReviews />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/reviews/:id" element={
-            <SellerRoute>
-              <ReviewDetail />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/revenue" element={
-            <SellerRoute>
-              <ShopRevenueDashboard />
-            </SellerRoute>
-          } />
-          <Route path="/seller-dashboard/bank-account" element={
-            <SellerRoute>
-              <BankAccountManagement />
-            </SellerRoute>
-          } />
-
-          {/* Catch-all route for 404 pages */}
-          <Route path="*" element={
-            shouldRedirect ? (
-              <RoleRedirect>
                 <div className="text-center p-20">Page not found</div>
-              </RoleRedirect>
-            ) : (
-              <div className="text-center p-20">Page not found</div>
-            )
-          } />
-        </Routes>
-        {!noHeaderPage && <Footer />}
-        <ChatBot />
-        {<MessageBubble />}
+              )
+            } />
+          </Routes>
+          {!noHeaderPage && <Footer />}
+          <ChatBot />
+          <MessageBubble />
         </main>
       </AuthProvider>
     </div>
