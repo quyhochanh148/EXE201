@@ -46,7 +46,7 @@ const ImageSlider = ({ products }) => {
     };
 
     return (
-        <div className="relative w-full h-[500px] overflow-hidden group border-2 border-green-500 rounded-lg shadow-md hover:shadow-green-400/50 animate-glowGreen">
+        <div className="relative w-full h-[500px] overflow-hidden group border-2  rounded-lg shadow-md hover:shadow-green-400/50 animate-glowGreen">
             <div
                 className="w-full h-full flex transition-all duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -65,7 +65,7 @@ const ImageSlider = ({ products }) => {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-green-600/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
-                        <div className="absolute bottom-10 left-10 bg-green-700 bg-opacity-70 text-white p-4 rounded-lg max-w-lg animate-fadeIn border border-green-500">
+                        <div className="absolute bottom-10 left-10 bg-green-700 bg-opacity-70 text-white p-4 rounded-lg max-w-lg animate-fadeIn border ">
                             <h3 className="text-2xl font-bold mb-2">{product.title}</h3>
                             <ul className="list-disc list-inside text-sm space-y-1">
                                 {product.descriptions.map((desc, descIndex) => (

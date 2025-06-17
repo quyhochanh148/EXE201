@@ -275,7 +275,7 @@ const TroocEcommerce = () => {
       <Header />
       <main className="pt-16 pb-8">
         {showMessage && (
-          <div className="fixed top-16 right-4 bg-green-100 p-4 rounded-lg shadow-lg z-50 border-l-4 border-green-500 animate-slideInRight">
+          <div className="fixed top-16 right-4 bg-green-100 p-4 rounded-lg shadow-lg z-50 border-l-4  animate-slideInRight">
             <p className="text-green-700">{addCartMessage}</p>
           </div>
         )}

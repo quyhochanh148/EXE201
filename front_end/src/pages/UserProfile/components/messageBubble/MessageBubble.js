@@ -18,13 +18,13 @@ const MessageBubble = () => {
   const [error, setError] = useState(null);
   const [participants, setParticipants] = useState({});
   const [onlineStatuses, setOnlineStatuses] = useState({});
-  
+
   const messagesEndRef = useRef(null);
   const socketRef = useRef(null);
   const messageWindowRef = useRef(null);
   const currentUser = AuthService.getCurrentUser();
   const location = useLocation();
-  
+
   // Kiểm tra xem có đang ở trang user-profile không
   const isOnUserProfilePage = location.pathname.includes('/user-profile') || location.pathname.includes('/admin');
 
@@ -32,7 +32,7 @@ const MessageBubble = () => {
   useEffect(() => {
     const unsubscribe = MessageEventBus.subscribe('unreadCountChanged', (count) => {
       setUnreadCount(count);
-      
+
       // Kích hoạt animation khi có tin nhắn mới
       if (count > 0) {
         setIsAnimating(true);
@@ -62,8 +62,8 @@ const MessageBubble = () => {
   // Đóng chat khi click ngoài
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (messageWindowRef.current && !messageWindowRef.current.contains(event.target) && 
-          !event.target.closest('.message-bubble-button')) {
+      if (messageWindowRef.current && !messageWindowRef.current.contains(event.target) &&
+        !event.target.closest('.message-bubble-button')) {
         setIsOpen(false);
       }
     };
@@ -86,25 +86,25 @@ const MessageBubble = () => {
     try {
       setLoading(true);
       const response = await ApiService.get('/conversation/user', true);
-  
+
       // Format data và tính toán số tin nhắn chưa đọc
       let totalUnreadMessages = 0;
-      
+
       const formattedConversations = response.map(conv => {
         // Tìm người tham gia khác (với kiểm tra null)
         const otherParticipant = conv.participants.find(
           p => p && p._id && p._id.toString() !== currentUser.id.toString()
         );
-  
+
         // Lưu participantId (an toàn với null)
         const participantId = otherParticipant?._id;
-        
+
         // Đếm tin nhắn chưa đọc
         const unreadCount = conv.unread_count || 0;
         if (unreadCount > 0) {
           totalUnreadMessages += unreadCount;
         }
-  
+
         // Xác định người dùng có phải là chủ shop hay không (cẩn thận với null)
         let isShopOwner = false;
         if (conv.shop_id && conv.shop_id.user_id) {
@@ -114,10 +114,10 @@ const MessageBubble = () => {
         } else if (conv.isShopOwner) {
           isShopOwner = true;
         }
-  
+
         // Xác định tên hiển thị hợp lý
         let displayName;
-        
+
         if (conv.shop_id) {
           if (isShopOwner) {
             // Nếu là chủ shop, hiển thị tên khách hàng (cẩn thận với null)
@@ -136,7 +136,7 @@ const MessageBubble = () => {
         } else {
           displayName = "Người dùng không xác định";
         }
-  
+
         return {
           id: conv._id,
           name: displayName,
@@ -149,18 +149,18 @@ const MessageBubble = () => {
           shopId: conv.shop_id?._id
         };
       });
-  
+
       setConversations(formattedConversations);
-      
+
       // Thông báo Header về số tin nhắn chưa đọc
       MessageEventBus.publish('unreadCountChanged', totalUnreadMessages);
-  
+
       // Tự động chọn cuộc trò chuyện đầu tiên nếu có
       if (formattedConversations.length > 0 && !selectedConversation) {
         setSelectedConversation(formattedConversations[0].id);
         fetchMessages(formattedConversations[0].id);
       }
-  
+
       setLoading(false);
     } catch (error) {
       console.error('Error fetching conversations:', error);
@@ -204,7 +204,7 @@ const MessageBubble = () => {
   // Hàm gửi tin nhắn
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    
+
     // Kiểm tra và làm sạch nội dung tin nhắn
     const cleanMessage = newMessage.trim();
     if (!cleanMessage || !selectedConversation) return;
@@ -260,12 +260,12 @@ const MessageBubble = () => {
       <div className="relative">
         <button
           onClick={toggleChat}
-          className={`fixed bottom-24 right-6 w-14 h-14 rounded-full ${isOpen ? 'bg-red-500 hover:bg-red-600' : 'bg-indigo-600 hover:bg-indigo-700'} text-white flex items-center justify-center shadow-lg transition-colors z-50 ${isAnimating ? 'animate-bounce' : ''} message-bubble-button`}
+          className={`fixed bottom-24 right-6 w-14 h-14 rounded-full ${isOpen ? 'bg-red-500 hover:bg-red-600' : 'bg-green-600 hover:bg-green-700'} text-white flex items-center justify-center shadow-lg transition-colors z-50 ${isAnimating ? 'animate-bounce' : ''} message-bubble-button`}
           aria-label="Tin nhắn"
         >
           {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
         </button>
-        
+
         {/* Hiển thị số tin nhắn chưa đọc */}
         {!isOpen && unreadCount > 0 && (
           <div className="fixed bottom-24 right-6 transform translate-y-[-20px] translate-x-[20px] bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full z-50">
@@ -276,13 +276,13 @@ const MessageBubble = () => {
 
       {/* Cửa sổ chat */}
       {isOpen && (
-        <div 
+        <div
           ref={messageWindowRef}
           className="fixed bottom-40 right-6 w-80 md:w-96 h-[500px] bg-white rounded-lg shadow-xl flex flex-col z-40 overflow-hidden"
-        style={{zIndex: 1500}}
+          style={{ zIndex: 1500 }}
         >
           {/* Header */}
-          <div className="bg-indigo-600 text-white p-4 rounded-t-lg">
+          <div className="bg-green-600 text-white p-4 rounded-t-lg">
             <div className="flex justify-between items-center">
               <div>
                 <h3 className="font-medium">Tin nhắn của bạn</h3>
@@ -290,7 +290,7 @@ const MessageBubble = () => {
                   {selectedConversation ? 'Đang trò chuyện' : 'Chọn một cuộc trò chuyện'}
                 </p>
               </div>
-              <button className='bg-blue-400 p-2 rounded text-sm hover:bg-blue-500' onClick={() => window.location.href = '/user-profile/messages'}> Chuyển tới tin nhắn</button>
+              <button className='bg-green-400 p-2 rounded text-sm hover:bg-green-500' onClick={() => window.location.href = '/user-profile/messages'}> Chuyển tới tin nhắn</button>
             </div>
           </div>
 
@@ -353,11 +353,10 @@ const MessageBubble = () => {
                           className={`my-1 max-w-[90%] py-2 ${message.sender === 'me' ? 'ml-auto' : 'mr-auto'}`}
                         >
                           <div
-                            className={`p-2 rounded-lg ${
-                              message.sender === 'me'
-                                ? 'bg-indigo-600 text-white'
-                                : 'bg-gray-200 text-gray-800'
-                            }`}
+                            className={`p-2 rounded-lg ${message.sender === 'me'
+                              ? 'bg-green-600 text-white'
+                              : 'bg-gray-200 text-gray-800'
+                              }`}
                           >
                             <p className="text-sm">{message.text}</p>
                           </div>
@@ -378,7 +377,7 @@ const MessageBubble = () => {
                     />
                     <button
                       type="submit"
-                      className="bg-indigo-600 text-white px-3 py-2 rounded-r hover:bg-indigo-700"
+                      className="bg-green-600 text-white px-3 py-2 rounded-r hover:bg-green-700"
                     >
                       <Send size={16} />
                     </button>
@@ -393,7 +392,16 @@ const MessageBubble = () => {
           </div>
         </div>
       )}
+
+      <style>{`
+      .overflow-y-auto {
+          overflow-y: auto !important;
+          -webkit-overflow-scrolling: touch;
+  max-height: 80vh;;
+       `}
+      </style>
     </>
+
   );
 };
 

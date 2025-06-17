@@ -83,7 +83,7 @@ const Footer = () => {
                 className="flex-grow px-4 py-2 rounded-l-md bg-white text-gray-800 focus:outline-none border-2 border-green-500 transition-all duration-300 hover:shadow-green-400/50 animate-glowGreen hover:translateZ(15px)"
               />
               <button
-                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-md text-white transition-all duration-200 hover:scale-105 hover:rotateY(10deg) animate-pulse"
+                className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-r-md text-white transition-all duration-200 hover:scale-105 hover:rotateY(10deg) animate-pulse"
               >
                 Subscribe
               </button>

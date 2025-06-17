@@ -6,7 +6,7 @@ import clockBanner from '../../../assets/Banner/321928000_535011058576102_285937
 const PromotionalBanners = () => {
     return (
         <div className="grid grid-cols-3 gap-4 mt-8 px-4 animate-fadeIn">
-            <div className="bg-green-600 p-6 rounded-lg text-white relative overflow-hidden h-48 animate-wave border-2 border-green-500 hover:shadow-green-400/50">
+            <div className="bg-green-600 p-6 rounded-lg text-white relative overflow-hidden h-48 animate-wave border-2  hover:shadow-green-400/50">
                 <div className="z-10 relative animate-fadeIn">
                     <h3 className="text-xl font-bold mb-1">Cây Chậu</h3>
                     <p className="text-yellow-300 font-bold text-lg">Giảm 20%</p>
@@ -19,7 +19,7 @@ const PromotionalBanners = () => {
                     className="absolute right-0 bottom-0 w-2/3 h-full object-cover opacity-80 transition-transform duration-500 ease-out hover:scale-110 hover:rotate-2"
                 />
             </div>
-            <div className="bg-teal-500 p-6 rounded-lg text-white relative overflow-hidden h-48 animate-wave animation-delay-200 border-2 border-green-500 hover:shadow-green-400/50">
+            <div className="bg-teal-500 p-6 rounded-lg text-white relative overflow-hidden h-48 animate-wave animation-delay-200 border-2  hover:shadow-green-400/50">
                 <div className="z-10 relative animate-fadeIn">
                     <h3 className="text-xl font-bold mb-1">Công Cụ Làm Vườn</h3>
                     <p className="text-yellow-300 font-bold text-lg">Bảo hành 6 tháng</p>
@@ -32,7 +32,7 @@ const PromotionalBanners = () => {
                     className="absolute right-0 bottom-0 w-2/3 h-full object-cover opacity-80 transition-transform duration-500 ease-out hover:scale-110 hover:rotate-2"
                 />
             </div>
-            <div className="bg-orange-500 p-6 rounded-lg text-white relative overflow-hidden h-48 animate-wave animation-delay-400 border-2 border-green-500 hover:shadow-green-400/50">
+            <div className="bg-orange-500 p-6 rounded-lg text-white relative overflow-hidden h-48 animate-wave animation-delay-400 border-2  hover:shadow-green-400/50">
                 <div className="z-10 relative animate-fadeIn">
                     <h3 className="text-xl font-bold mb-1">Đất Trồng</h3>
                     <p className="text-yellow-300 font-bold text-lg">Chất lượng cao</p>
