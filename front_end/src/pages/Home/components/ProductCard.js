@@ -29,7 +29,7 @@ const ProductCard = ({
 
     return (
         <div
-            className={`border-2 border-green-500 rounded-lg bg-white overflow-hidden relative cursor-pointer shadow-md hover:shadow-xl transition-all duration-500 animate-glowGreen hover:scale-105 hover:shadow-green-400/50`}
+            className={`border-2  rounded-lg bg-white overflow-hidden relative cursor-pointer shadow-md hover:shadow-xl transition-all duration-500 animate-glowGreen hover:scale-105 hover:shadow-green-400/50`}
             style={{ animationDelay: `${animationDelay}ms` }}
             onMouseEnter={() => onHover(index)}
             onMouseLeave={() => onHover(null)}

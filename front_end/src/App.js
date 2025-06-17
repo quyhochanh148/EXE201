@@ -59,7 +59,7 @@ function App() {
     // Tạo script cho gtag.js
     const gtagScript = document.createElement('script');
     gtagScript.async = true;
-    gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-TZ2EV99J6D';
+    gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-M6PEXL46GJ';
     document.head.appendChild(gtagScript);
 
     // Tạo script inline cho gtag
@@ -68,7 +68,7 @@ function App() {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-TZ2EV99J6D');
+      gtag('config', 'G-M6PEXL46GJ');
     `;
     document.head.appendChild(inlineScript);
 

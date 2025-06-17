@@ -11,7 +11,7 @@ const styles = `
 
 .category-button {
   background: transparent;
-  border: 2px solid #22c55e;
+  // border: 2px solid #22c55e;
   padding: 8px 12px;
   font-size: 16px;
   font-weight: 500;
@@ -39,7 +39,7 @@ const styles = `
   left: 0;
   z-index: 2000;
   background: white;
-  border: 2px solid #22c55e;
+  border: 2px solid #FFFFFF;
   border-radius: 8px;
   box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
   min-width: 220px;

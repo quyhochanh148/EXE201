@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Search, User, ShoppingCart, Menu } from 'lucide-react';
 import CartModal from '../pages/cart/CartModal';
 import logo from '../assets/LogoNew1.jpg';
@@ -12,6 +12,7 @@ import ProductCategoriesSidebar from './ProductCategoriesSidebar';
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // Thêm useLocation để lấy URL hiện tại
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isCategoriesSidebarOpen, setIsCategoriesSidebarOpen] = useState(false);
@@ -146,7 +147,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-white shadow-md fixed top-0 left-0 right-0 z-50 animate-fadeIn border-b-2 border-green-500 perspective-1000">
+    <header className="bg-white shadow-md fixed top-0 left-0 right-0 z-50 animate-fadeIn perspective-1000">
       <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <button
@@ -163,29 +164,51 @@ const Header = () => {
         </div>
 
         <nav className="hidden md:flex items-center space-x-8 perspective-1000">
-          <a href="/introduction" className="text-green-600 hover:text-green-800 font-medium transition-all duration-200 hover:scale-105 hover:shadow-green-400/50 hover:rotateY(5deg)">Giới Thiệu</a>
+          <a
+            href="/introduction"
+            className={`transition-all duration-200 rounded-md px-2 py-1 ${location.pathname === '/introduction' || location.pathname === '/introduction/'
+                ? 'font-bold text-green-800 bg-green-100 border-b-2 border-green-800 shadow-md'
+                : 'font-medium text-green-600 hover:text-green-800 hover:scale-105 hover:shadow-green-400/50 hover:rotateY(5deg)'
+              }`}
+          >
+            Giới Thiệu
+          </a>
           <CategoryDropdown />
-          <a href="/categories" className="text-green-600 hover:text-green-800 font-medium transition-all duration-200 hover:scale-105 hover:shadow-green-400/50 hover:rotateY(5deg)">Sản Phẩm</a>
+          <a
+            href="/categories"
+            className={`transition-all duration-200 rounded-md px-2 py-1 ${location.pathname === '/categories' || location.pathname === '/categories/'
+                ? 'font-bold text-green-800 bg-green-100 border-b-2 border-green-800 shadow-md'
+                : 'font-medium text-green-600 hover:text-green-800 hover:scale-105 hover:shadow-green-400/50 hover:rotateY(5deg)'
+              }`}
+          >
+            Sản Phẩm
+          </a>
           {!isSeller() && (
-            <a href="/shop-registration" className="text-red-600 hover:text-red-800 font-medium transition-all duration-200 hover:scale-105 hover:shadow-red-400/50 hover:rotateY(5deg)">
+            <a
+              href="/shop-registration"
+              className={`transition-all duration-200 rounded-md px-2 py-1 ${location.pathname === '/shop-registration' || location.pathname === '/shop-registration/'
+                  ? 'font-bold text-red-800 bg-red-100 border-b-2 border-red-800 shadow-md'
+                  : 'font-medium text-red-600 hover:text-red-800 hover:scale-105 hover:shadow-red-400/50 hover:rotateY(5deg)'
+                }`}
+            >
               Đăng Ký Bán Hàng
             </a>
           )}
         </nav>
 
         <div className="flex items-center space-x-6 perspective-1000">
-          <div className="hidden md:flex relative">
+          <div className="hidden md:flex relative ">
             <input
               type="text"
               placeholder="Tìm kiếm sản phẩm..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSearch(e)}
-              className="px-4 py-2 border-2 border-green-500 rounded-full w-72 focus:outline-none focus:ring-2 focus:ring-green-600 transition-all duration-300 hover:shadow-green-400/50 animate-glowGreen hover:translateZ(5px)"
+              className="px-4 py-2 rounded-full w-72 focus:outline-none focus:ring-2 focus:ring-green-600 transition-all duration-300 border-green-500 !important"
             />
             <button
               onClick={handleSearch}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-600 hover:text-green-800 hover:scale-110 hover:rotateY(15deg) transition-all duration-200"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-600 hover:text-green-800   transition-all duration-200"
               aria-label="Tìm kiếm"
             >
               <Search size={18} />
@@ -196,7 +219,7 @@ const Header = () => {
             <button
               ref={userButtonRef}
               onClick={() => isLoggedIn ? setIsUserDropdownOpen(!isUserDropdownOpen) : navigate('/login')}
-              className="text-green-600 hover:text-green-800 transition-all duration-200 hover:animate-pulse animate-glowGreen hover:rotateY(15deg)"
+              className="text-green-600 hover:text-green-800 transition-all duration-200 hover:animate-pulse  "
               aria-label={isLoggedIn ? "Menu tài khoản" : "Đăng nhập"}
             >
               <User size={24} />
@@ -209,7 +232,7 @@ const Header = () => {
             {isLoggedIn && isUserDropdownOpen && (
               <div
                 ref={userDropdownRef}
-                className="absolute top-12 right-0 bg-white rounded-lg shadow-lg border-2 border-green-500 w-56 py-2 z-50 animate-slideDown animate-glowGreen transform-origin-top transform rotateX(-90deg) transition-transform duration-300"
+                className="absolute top-12 right-0 bg-white rounded-lg shadow-lg border-2 w-56 py-2 z-50 animate-slideDown  transform-origin-top transform rotateX(-90deg) transition-transform duration-300"
                 style={{ transform: isUserDropdownOpen ? 'rotateX(0deg)' : 'rotateX(-90deg)' }}
               >
                 <div className="px-4 py-2 text-sm text-gray-700 border-b border-green-200 bg-green-50 transform rotateY(0deg) hover:rotateY(5deg) transition-transform duration-200"> {currentUser?.email}</div>
@@ -236,7 +259,7 @@ const Header = () => {
           <div className="relative">
             <button
               onClick={() => setIsCartOpen(true)}
-              className="text-green-600 hover:text-green-800 transition-all duration-200 hover:animate-pulse animate-glowGreen hover:rotateY(15deg)"
+              className="text-green-600 hover:text-green-800 transition-all duration-200 hover:animate-pulse  "
               aria-label="Giỏ hàng"
             >
               <ShoppingCart size={24} />
@@ -269,9 +292,7 @@ const Header = () => {
           0%, 100% { box-shadow: 0 0 5px rgba(34, 197, 94, 0.3); }
           50% { box-shadow: 0 0 15px rgba(34, 197, 94, 0.6); }
         }
-        .animate-glowGreen {
-          animation: glowGreen 2s ease-in-out infinite;
-        }
+        
         .animate-fadeIn {
           animation: fadeIn 0.5s ease-out forwards;
         }
