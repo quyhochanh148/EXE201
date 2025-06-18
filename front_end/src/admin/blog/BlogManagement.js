@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Trash2, Edit, ChevronLeft, ChevronRight, RefreshCw, Plus } from 'lucide-react';
 import ApiService from '../../services/ApiService';
 import { Link, useNavigate } from 'react-router-dom';
-// import EditBlogModal from './modal/EditBlogModal';
-// import AddBlogModal from './AddBlogModal';
+import EditBlogModal from './modal/EditBlogModal';
+import AddBlogModal from './AddBlogModal';
 
 const BlogManagement = () => {
     // State cho dữ liệu blog
@@ -436,7 +436,7 @@ const BlogManagement = () => {
             </div>
 
             {/* Edit Blog Modal */}
-            {/* {showEditModal && (
+            {showEditModal && (
                 <EditBlogModal 
                     blog={editingBlog}
                     onClose={() => {
@@ -445,15 +445,15 @@ const BlogManagement = () => {
                     }}
                     onUpdate={handleUpdateBlog}
                 />
-            )} */}
+            )}
 
             {/* Add Blog Modal */}
-            {/* {showAddModal && (
+            {showAddModal && (
                 <AddBlogModal 
                     onClose={() => setShowAddModal(false)}
                     onAdd={handleAddBlog}
                 />
-            )} */}
+            )}
         </div>
     );
 };

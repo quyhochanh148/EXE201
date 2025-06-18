@@ -73,7 +73,7 @@ const AddBlogModal = ({ onClose, onAdd }) => {
             }
 
             // Send POST request with FormData
-            const newBlog = await ApiService.postFormData('/api/blog', formDataToSend);
+            const newBlog = await ApiService.postFormData('/blog', formDataToSend);
             
             // Call onAdd callback with new blog
             if (onAdd) {

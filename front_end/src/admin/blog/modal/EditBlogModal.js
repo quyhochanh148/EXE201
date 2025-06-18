@@ -80,7 +80,7 @@ const EditBlogModal = ({ blog, onClose, onUpdate }) => {
             }
 
             // Send PUT request with FormData
-            const updatedBlog = await ApiService.putFormData(`/api/blog/${blog._id}`, formDataToSend);
+            const updatedBlog = await ApiService.putFormData(`/blog/${blog._id}`, formDataToSend);
             
             // Call onUpdate callback with updated blog
             if (onUpdate) {
