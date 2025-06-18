@@ -173,6 +173,15 @@ const Header = () => {
           >
             Giới Thiệu
           </a>
+                    <a
+            href="/blog"
+            className={`transition-all duration-200 rounded-md px-2 py-1 ${location.pathname === '/blog' || location.pathname === '/blog/'
+                ? 'font-bold text-green-800 bg-green-100 border-b-2 border-green-800 shadow-md'
+                : 'font-medium text-green-600 hover:text-green-800 hover:scale-105 hover:shadow-green-400/50 hover:rotateY(5deg)'
+              }`}
+          >
+           Blog
+          </a>
           <CategoryDropdown />
           <a
             href="/categories"

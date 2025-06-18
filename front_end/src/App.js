@@ -41,6 +41,7 @@ import ProductReviews from './Seller/ProductReview';
 import ReviewDetail from './Seller/ReviewDetails';
 import ShopRevenueDashboard from './Seller/ShopRevenueDashboard';
 import BankAccountManagement from './Seller/BankAccountManagement';
+import BlogList from './components/BlogList';
 
 function App() {
   const location = useLocation();
@@ -54,7 +55,7 @@ function App() {
     !location.pathname.startsWith('/seller-dashboard/');
 
   // Google Tag Manager script integration
- // Google Analytics (gtag.js) integration
+  // Google Analytics (gtag.js) integration
   useEffect(() => {
     // Tạo script cho gtag.js
     const gtagScript = document.createElement('script');
@@ -91,7 +92,7 @@ function App() {
             style={{ display: 'none', visibility: 'hidden' }}
           ></iframe>
         </noscript>
-        
+
         <main className={`main-content ${noHeaderPage ? 'no-header' : ''}`}>
           {!noHeaderPage && <Header />}
           <Routes>
@@ -112,6 +113,15 @@ function App() {
                 </RoleRedirect>
               ) : (
                 <IntroductionSection />
+              )
+            } />
+            <Route path="/blog" element={
+              shouldRedirect ? (
+                <RoleRedirect>
+                  <BlogList />
+                </RoleRedirect>
+              ) : (
+                < BlogList />
               )
             } />
             <Route path="/product-detail" element={
