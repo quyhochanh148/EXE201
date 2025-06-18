@@ -327,10 +327,11 @@ const TroocEcommerce = () => {
   return (
     <div className="bg-green-50 min-h-screen">
       <Header />
+      {/* Bọc phần nội dung trong div padding, Header nằm ngoài */}
       <main className="pt-16 pb-8">
         {showMessage && (
-          <div className="fixed top-16 right-4 bg-green-100 p-4 rounded-lg shadow-lg z-50 border-l-4 border-green-500 animate-slideInRight max-w-xs md:max-w-md">
-            <p className="text-green-700 text-sm md:text-base">{addCartMessage}</p>
+          <div className="fixed top-16 right-2 sm:right-4 bg-green-100 p-3 sm:p-4 rounded-lg shadow-lg z-50 border-l-4 border-green-500 animate-slideInRight max-w-xs sm:max-w-sm md:max-w-md">
+            <p className="text-green-700 text-xs sm:text-sm md:text-base">{addCartMessage}</p>
           </div>
         )}
         <CartModal
@@ -339,19 +340,21 @@ const TroocEcommerce = () => {
           refreshTrigger={cartRefreshTrigger}
           style={{ zIndex: 1500 }}
         />
-        {/* Bọc toàn bộ nội dung trong một div có padding ngang */}
-        <div className="px-16">
-          {/* Hàng trên cùng: Sidebar bên trái, Banner bên phải */}
-          <div className="w-full flex flex-row items-start">
-            <div className="w-64 min-w-[220px]">
+        {/* Bọc toàn bộ nội dung trong một div có padding ngang responsive */}
+        <div className="px-3 sm:px-4 md:px-6 lg:px-8 xl:px-16">
+          {/* Hàng trên cùng: Sidebar bên trái, Banner bên phải - responsive */}
+          <div className="flex flex-col lg:flex-row items-start gap-4 lg:gap-6">
+            {/* Sidebar - ẩn trên mobile và tablet */}
+            <div className="w-full lg:w-64 lg:min-w-[220px] lg:block hidden">
               <CategorySidebar categories={categories} />
             </div>
-            <div className="flex-1 ml-4">
+            {/* Banner - chiếm toàn bộ trên mobile và tablet */}
+            <div className="flex-1 w-full lg:ml-4">
               <ImageSlider products={products1} />
             </div>
           </div>
           {/* Dưới: Nội dung chính */}
-          <div className="w-full mt-6 flex flex-col gap-6">
+          <div className="w-full mt-4 sm:mt-6 flex flex-col gap-4 sm:gap-6">
             {/* Sản phẩm mới */}
             <div ref={newProductsRef}>
               <ProductSection
@@ -366,33 +369,33 @@ const TroocEcommerce = () => {
             </div>
             {/* Blog nổi bật */}
             {randomBlog ? (
-              <div ref={blogRef} className="bg-white rounded-lg shadow-lg p-6">
-                <h2 className="text-2xl text-center font-bold text-green-700 mb-4">Blog Nổi Bật</h2>
-                <div className="bg-green-500 h-1 w-24 mx-auto mb-6"></div>
-                <div className="space-y-6">
+              <div ref={blogRef} className="bg-white rounded-lg shadow-lg p-3 sm:p-4 md:p-6">
+                <h2 className="text-lg sm:text-xl md:text-2xl text-center font-bold text-green-700 mb-3 sm:mb-4">Blog Nổi Bật</h2>
+                <div className="bg-green-500 h-1 w-16 sm:w-20 md:w-24 mx-auto mb-3 sm:mb-4 md:mb-6"></div>
+                <div className="space-y-3 sm:space-y-4 md:space-y-6">
                   {randomBlog.image && (
                     <img
                       src={randomBlog.image}
                       alt={randomBlog.title}
-                      className="w-full h-64 object-cover rounded-md"
+                      className="w-full h-40 sm:h-48 md:h-64 object-cover rounded-md"
                     />
                   )}
-                  <h3 className="text-xl font-semibold text-gray-800">{randomBlog.title}</h3>
-                  <div className="prose max-w-none text-gray-700 whitespace-pre-wrap">
+                  <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800">{randomBlog.title}</h3>
+                  <div className="prose max-w-none text-gray-700 whitespace-pre-wrap text-xs sm:text-sm md:text-base leading-relaxed">
                     {randomBlog.content}
                   </div>
                 </div>
               </div>
             ) : (
-              <div ref={blogRef} className="bg-white rounded-lg shadow-lg p-6 text-center text-gray-500">
+              <div ref={blogRef} className="bg-white rounded-lg shadow-lg p-3 sm:p-4 md:p-6 text-center text-gray-500 text-xs sm:text-sm md:text-base">
                 Không có blog nào để hiển thị
               </div>
             )}
             {/* Gợi ý hôm nay */}
-            <div ref={recommendedProductsRef} className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl text-center font-bold text-green-700 mb-4">Gợi Ý Hôm Nay</h2>
-              <div className="bg-green-500 h-1 w-24 mx-auto mb-6"></div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div ref={recommendedProductsRef} className="bg-white rounded-lg shadow-lg p-3 sm:p-4 md:p-6">
+              <h2 className="text-lg sm:text-xl md:text-2xl text-center font-bold text-green-700 mb-3 sm:mb-4">Gợi Ý Hôm Nay</h2>
+              <div className="bg-green-500 h-1 w-16 sm:w-20 md:w-24 mx-auto mb-3 sm:mb-4 md:mb-6"></div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
                 {recommendedProducts.map((product, index) => (
                   <ProductCard
                     key={product._id}

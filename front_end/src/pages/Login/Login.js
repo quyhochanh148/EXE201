@@ -192,13 +192,13 @@ const LoginPage = () => {
                     <div className="mt-4 sm:mt-6">
                         <div className="relative">
                             <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-gray-300"></div>
+                                {/* <div className="w-full border-t border-gray-300"></div> */}
                             </div>
-                            <div className="relative flex justify-center text-xs sm:text-sm">
+                            {/* <div className="relative flex justify-center text-xs sm:text-sm">
                                 <span className="px-4 bg-white text-gray-500">Hoặc đăng nhập bằng</span>
-                            </div>
+                            </div> */}
                         </div>
-                        <div className="mt-4 sm:mt-6 flex justify-center">
+                        {/* <div className="mt-4 sm:mt-6 flex justify-center">
                             <button
                                 type="button"
                                 onClick={handleGoogleRedirect}
@@ -213,7 +213,7 @@ const LoginPage = () => {
                                     </svg>
                                 </div>
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="mt-4 sm:mt-6 text-center">
                         <a href="/forgot-password" className="text-green-600 hover:underline text-xs sm:text-sm">

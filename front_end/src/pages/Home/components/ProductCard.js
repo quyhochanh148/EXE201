@@ -39,30 +39,30 @@ const ProductCard = ({
                 <img
                     src={product.thumbnail || dongho}
                     alt={product.name}
-                    className="w-full h-32 sm:h-40 md:h-48 object-cover transition-transform duration-500 ease-out hover:scale-110 hover:rotate-2"
+                    className="w-full h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 object-cover transition-transform duration-500 ease-out hover:scale-110 hover:rotate-2"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-green-600/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             {isHoveredProduct && (
                 <div
-                    className="absolute bottom-0 left-0 right-0 py-2 md:py-3 bg-white bg-opacity-95 flex items-center justify-center transition-transform duration-300"
+                    className="absolute bottom-0 left-0 right-0 py-1 sm:py-2 md:py-3 bg-white bg-opacity-95 flex items-center justify-center transition-transform duration-300"
                     onClick={(e) => {
                         e.stopPropagation();
                         onAddToCart(product);
                     }}
                 >
-                    <button className="bg-green-600 hover:bg-green-700 text-white py-1 md:py-2 px-3 md:px-6 rounded-md font-medium text-xs md:text-sm transition-transform duration-200 hover:scale-105">
+                    <button className="bg-green-600 hover:bg-green-700 text-white py-1 px-2 sm:px-3 md:px-4 lg:px-6 rounded-md font-medium text-xs sm:text-sm transition-transform duration-200 hover:scale-105">
                         Thêm vào giỏ
                     </button>
                 </div>
             )}
-            <div className="p-2 md:p-4">
-                <h3 className="text-sm md:text-base font-medium truncate">{product.name}</h3>
+            <div className="p-2 sm:p-3 md:p-4">
+                <h3 className="text-xs sm:text-sm md:text-base font-medium truncate leading-tight">{product.name}</h3>
                 <div className="text-xs text-gray-500 mt-1">{product.condition || "Mới 100%"}</div>
-                <div className="text-red-600 font-bold mt-2 text-base md:text-lg">{formatPrice(product.price)}</div>
-                <div className="flex items-center text-xs text-gray-500 mt-2">
-                    <ClockIcon size={10} className="mr-1 md:w-3 md:h-3" />
-                    <span className="text-xs">{formatTime(product.created_at)}</span>
+                <div className="text-red-600 font-bold mt-1 sm:mt-2 text-sm sm:text-base md:text-lg">{formatPrice(product.price)}</div>
+                <div className="flex items-center text-xs text-gray-500 mt-1 sm:mt-2">
+                    <ClockIcon size={8} className="mr-1 sm:w-2 sm:h-2 md:w-3 md:h-3" />
+                    <span className="text-xs truncate">{formatTime(product.created_at)}</span>
                     <span className="mx-1">•</span>
                     <span className="text-xs truncate">{product.shop_id?.name || "Hà Nội"}</span>
                 </div>
