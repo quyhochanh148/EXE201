@@ -22,6 +22,7 @@ const MessageBubble = () => {
   const messagesEndRef = useRef(null);
   const socketRef = useRef(null);
   const messageWindowRef = useRef(null);
+  const isFirstLoadRef = useRef(true); // Để theo dõi lần đầu load conversations
   const currentUser = AuthService.getCurrentUser();
   const location = useLocation();
   
@@ -80,6 +81,13 @@ const MessageBubble = () => {
       setIsOpen(false);
     }
   }, [isOnUserProfilePage]);
+
+  // Reset isFirstLoadRef khi đóng chat
+  useEffect(() => {
+    if (!isOpen) {
+      isFirstLoadRef.current = true;
+    }
+  }, [isOpen]);
 
   // Hàm lấy danh sách cuộc trò chuyện
   const fetchConversations = async () => {
@@ -155,10 +163,11 @@ const MessageBubble = () => {
       // Thông báo Header về số tin nhắn chưa đọc
       MessageEventBus.publish('unreadCountChanged', totalUnreadMessages);
   
-      // Tự động chọn cuộc trò chuyện đầu tiên nếu có
-      if (formattedConversations.length > 0 && !selectedConversation) {
+      // CHỈ tự động chọn cuộc trò chuyện đầu tiên khi lần đầu tiên mở chat
+      if (formattedConversations.length > 0 && isFirstLoadRef.current && !selectedConversation) {
         setSelectedConversation(formattedConversations[0].id);
         fetchMessages(formattedConversations[0].id);
+        isFirstLoadRef.current = false;
       }
   
       setLoading(false);
@@ -190,7 +199,8 @@ const MessageBubble = () => {
       // Đánh dấu là đã đọc
       try {
         await ApiService.put(`/conversation/${conversationId}/read`, {}, true);
-        fetchConversations(); // Refresh để cập nhật số tin nhắn chưa đọc
+        // Chỉ cập nhật unread count, không reload toàn bộ conversations
+        updateConversationUnreadStatus(conversationId);
       } catch (readError) {
         console.error('Error marking messages as read:', readError);
       }
@@ -199,6 +209,38 @@ const MessageBubble = () => {
       setError('Không thể tải tin nhắn');
       setLoading(false);
     }
+  };
+
+  // Hàm cập nhật trạng thái unread của conversation cụ thể
+  const updateConversationUnreadStatus = (conversationId) => {
+    setConversations(prev => {
+      const updated = prev.map(conv => 
+        conv.id === conversationId 
+          ? { ...conv, unread: false }
+          : conv
+      );
+      
+      // Tính lại tổng số tin nhắn chưa đọc
+      const totalUnread = updated.reduce((total, conv) => total + (conv.unread ? 1 : 0), 0);
+      MessageEventBus.publish('unreadCountChanged', totalUnread);
+      
+      return updated;
+    });
+  };
+
+  // Hàm cập nhật conversation sau khi gửi tin nhắn
+  const updateConversationAfterSend = (conversationId, lastMessage) => {
+    setConversations(prev => 
+      prev.map(conv => 
+        conv.id === conversationId 
+          ? { 
+              ...conv, 
+              lastMessage: lastMessage,
+              timestamp: new Date().toLocaleString()
+            }
+          : conv
+      )
+    );
   };
 
   // Hàm gửi tin nhắn
@@ -212,16 +254,17 @@ const MessageBubble = () => {
     // Reset input
     setNewMessage('');
 
+    // Tạo tin nhắn tạm thời
+    const tempMessage = {
+      id: Date.now().toString(),
+      sender: 'me',
+      text: cleanMessage,
+      timestamp: new Date().toLocaleString(),
+      isRead: false
+    };
+
     try {
       // Cập nhật giao diện với tin nhắn tạm thời
-      const tempMessage = {
-        id: Date.now().toString(),
-        sender: 'me',
-        text: cleanMessage,
-        timestamp: new Date().toLocaleString(),
-        isRead: false
-      };
-
       setMessages(prev => [...prev, tempMessage]);
 
       // Gửi tin nhắn qua API
@@ -230,14 +273,23 @@ const MessageBubble = () => {
         content: cleanMessage
       }, true);
 
-      // Refresh conversation list để cập nhật last_message
-      setTimeout(() => {
-        fetchConversations();
-      }, 500);
+      // Cập nhật conversation list mà không reload toàn bộ
+      updateConversationAfterSend(selectedConversation, cleanMessage);
 
     } catch (error) {
       console.error('Error sending message:', error);
       alert('Không thể gửi tin nhắn. Vui lòng thử lại sau.');
+      
+      // Remove tin nhắn tạm thời nếu gửi thất bại
+      setMessages(prev => prev.filter(msg => msg.id !== tempMessage.id));
+    }
+  };
+
+  // Hàm xử lý chọn conversation
+  const handleSelectConversation = (conversationId) => {
+    if (selectedConversation !== conversationId) {
+      setSelectedConversation(conversationId);
+      fetchMessages(conversationId);
     }
   };
 
@@ -246,6 +298,11 @@ const MessageBubble = () => {
     setIsOpen(!isOpen);
     if (!isOpen) {
       fetchConversations();
+    } else {
+      // Reset state khi đóng chat
+      setSelectedConversation(null);
+      setMessages([]);
+      setError(null);
     }
   };
 
@@ -279,7 +336,6 @@ const MessageBubble = () => {
         <div 
           ref={messageWindowRef}
           className="fixed bottom-40 right-6 w-80 md:w-96 h-[500px] bg-white rounded-lg shadow-xl flex flex-col z-40 overflow-hidden"
-        style={{zIndex: 1500}}
         >
           {/* Header */}
           <div className="bg-indigo-600 text-white p-4 rounded-t-lg">
@@ -290,14 +346,19 @@ const MessageBubble = () => {
                   {selectedConversation ? 'Đang trò chuyện' : 'Chọn một cuộc trò chuyện'}
                 </p>
               </div>
-              <button className='bg-blue-400 p-2 rounded text-sm hover:bg-blue-500' onClick={() => window.location.href = '/user-profile/messages'}> Chuyển tới tin nhắn</button>
+              <button 
+                className='bg-blue-400 p-2 rounded text-sm hover:bg-blue-500' 
+                onClick={() => window.location.href = '/user-profile/messages'}
+              > 
+                Chuyển tới tin nhắn
+              </button>
             </div>
           </div>
 
           {/* Phần nội dung */}
-          <div className="flex-1 flex">
+          <div className="flex-1 flex overflow-y-scroll">
             {/* Danh sách cuộc trò chuyện (1/3 chiều rộng) */}
-            <div className="w-1/3 border-r overflow-y-auto bg-gray-50">
+            <div className="w-1/3 border-r overflow-y bg-gray-50">
               {loading && conversations.length === 0 ? (
                 <div className="p-4 text-center text-gray-500">Đang tải...</div>
               ) : error ? (
@@ -309,10 +370,7 @@ const MessageBubble = () => {
                   <div
                     key={conv.id}
                     className={`p-2 flex items-center hover:bg-gray-100 cursor-pointer ${selectedConversation === conv.id ? 'bg-gray-200' : ''}`}
-                    onClick={() => {
-                      setSelectedConversation(conv.id);
-                      fetchMessages(conv.id);
-                    }}
+                    onClick={() => handleSelectConversation(conv.id)}
                   >
                     <div className="relative">
                       {/* <img
@@ -379,6 +437,7 @@ const MessageBubble = () => {
                     <button
                       type="submit"
                       className="bg-indigo-600 text-white px-3 py-2 rounded-r hover:bg-indigo-700"
+                      disabled={!newMessage.trim()}
                     >
                       <Send size={16} />
                     </button>
