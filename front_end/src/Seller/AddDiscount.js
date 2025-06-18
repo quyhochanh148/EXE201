@@ -279,23 +279,23 @@ const AddDiscount = () => {
       </div>
       
       {/* Nội dung chính - không có overflow */}
-      <div className="flex-1 p-6">
-        <div className="flex items-center mb-6">
+      <div className="flex-1 p-4 sm:p-6">
+        <div className="flex items-center mb-4 sm:mb-6">
           <button
             onClick={() => navigate('/seller-dashboard/discount-product')}
             className="mr-4 p-2 rounded-full hover:bg-gray-100"
           >
             <ArrowLeft size={20} />
           </button>
-          <h1 className="text-2xl font-semibold text-gray-800">
+          <h1 className="text-xl sm:text-2xl font-semibold text-gray-800">
             Thêm mã giảm giá mới
           </h1>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
           <form onSubmit={handleSubmit}>
             {/* Nội dung form giữ nguyên */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {/* Coupon Code */}
               <div className="col-span-1">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -306,12 +306,12 @@ const AddDiscount = () => {
                   name="code"
                   value={formData.code}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.code ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${errors.code ? 'border-red-500' : 'border-gray-300'
                     }`}
                   placeholder="Ví dụ: SUMMER2025"
                 />
                 {errors.code && (
-                  <p className="mt-1 text-sm text-red-500 flex items-center">
+                  <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                     <AlertCircle size={14} className="mr-1" />
                     {errors.code}
                   </p>
@@ -330,7 +330,7 @@ const AddDiscount = () => {
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
                   >
                     <option value="percentage">Phần trăm (%)</option>
                     <option value="fixed">Số tiền cố định (VND)</option>
@@ -350,16 +350,16 @@ const AddDiscount = () => {
                       onChange={handleChange}
                       min="0"
                       step={formData.type === 'percentage' ? '0.1' : '1000'}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.value ? 'border-red-500' : 'border-gray-300'
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${errors.value ? 'border-red-500' : 'border-gray-300'
                         }`}
                       placeholder={formData.type === 'percentage' ? 'Ví dụ: 10' : 'Ví dụ: 50000'}
                     />
-                    <span className="absolute right-3 top-2 text-gray-500">
+                    <span className="absolute right-3 top-2 text-gray-500 text-sm">
                       {formData.type === 'percentage' ? '%' : 'đ'}
                     </span>
                   </div>
                   {errors.value && (
-                    <p className="mt-1 text-sm text-red-500 flex items-center">
+                    <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                       <AlertCircle size={14} className="mr-1" />
                       {errors.value}
                     </p>
@@ -379,7 +379,7 @@ const AddDiscount = () => {
                       onChange={handleChange}
                       min="0"
                       step="1000"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
                       placeholder="Để trống nếu không giới hạn"
                     />
                     <p className="mt-1 text-xs text-gray-500">
@@ -400,7 +400,7 @@ const AddDiscount = () => {
                     onChange={handleChange}
                     min="0"
                     step="1000"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
                     placeholder="Ví dụ: 100000"
                   />
                   <p className="mt-1 text-xs text-gray-500">
@@ -418,11 +418,11 @@ const AddDiscount = () => {
                     name="start_date"
                     value={formData.start_date}
                     onChange={handleChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.start_date ? 'border-red-500' : 'border-gray-300'
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${errors.start_date ? 'border-red-500' : 'border-gray-300'
                       }`}
                   />
                   {errors.start_date && (
-                    <p className="mt-1 text-sm text-red-500 flex items-center">
+                    <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                       <AlertCircle size={14} className="mr-1" />
                       {errors.start_date}
                     </p>
@@ -440,11 +440,11 @@ const AddDiscount = () => {
                     value={formData.end_date}
                     onChange={handleChange}
                     min={formData.start_date}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.end_date ? 'border-red-500' : 'border-gray-300'
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${errors.end_date ? 'border-red-500' : 'border-gray-300'
                       }`}
                   />
                   {errors.end_date && (
-                    <p className="mt-1 text-sm text-red-500 flex items-center">
+                    <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                       <AlertCircle size={14} className="mr-1" />
                       {errors.end_date}
                     </p>
@@ -462,7 +462,7 @@ const AddDiscount = () => {
                     value={formData.max_uses}
                     onChange={handleChange}
                     min="0"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
                     placeholder="Nhập 0 cho không giới hạn"
                   />
                   <p className="mt-1 text-xs text-gray-500">
@@ -481,12 +481,12 @@ const AddDiscount = () => {
                     value={formData.max_uses_per_user}
                     onChange={handleChange}
                     min="0"
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.max_uses_per_user ? 'border-red-500' : 'border-gray-300'
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${errors.max_uses_per_user ? 'border-red-500' : 'border-gray-300'
                       }`}
                     placeholder="Mặc định: 1"
                   />
                   {errors.max_uses_per_user && (
-                    <p className="mt-1 text-sm text-red-500 flex items-center">
+                    <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                       <AlertCircle size={14} className="mr-1" />
                       {errors.max_uses_per_user}
                     </p>
@@ -502,7 +502,7 @@ const AddDiscount = () => {
                     name="category_id"
                     value={formData.category_id || ''}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
                   >
                     <option value="">Tất cả danh mục</option>
                     {categories.map((category) => (
@@ -523,7 +523,7 @@ const AddDiscount = () => {
                     value={formData.product_id || ''}
                     onChange={handleChange}
                     disabled={!formData.category_id || formData.category_id === ''}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${!formData.category_id || formData.category_id === '' ? 'bg-gray-100 cursor-not-allowed' : 'border-gray-300'
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${!formData.category_id || formData.category_id === '' ? 'bg-gray-100 cursor-not-allowed' : 'border-gray-300'
                       } ${errors.product_id ? 'border-red-500' : ''}`}
                   >
                     <option value="">
@@ -538,7 +538,7 @@ const AddDiscount = () => {
                     ))}
                   </select>
                   {errors.product_id && (
-                    <p className="mt-1 text-sm text-red-500 flex items-center">
+                    <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                       <AlertCircle size={14} className="mr-1" />
                       {errors.product_id}
                     </p>
@@ -551,7 +551,7 @@ const AddDiscount = () => {
                 </div>
 
                 {/* Description */}
-                <div className="col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Mô tả <span className="text-red-500">*</span>
                   </label>
@@ -560,12 +560,12 @@ const AddDiscount = () => {
                     value={formData.description}
                     onChange={handleChange}
                     rows="3"
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.description ? 'border-red-500' : 'border-gray-300'
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${errors.description ? 'border-red-500' : 'border-gray-300'
                       }`}
                     placeholder="Mô tả chi tiết về mã giảm giá và điều kiện áp dụng"
                   ></textarea>
                   {errors.description && (
-                    <p className="mt-1 text-sm text-red-500 flex items-center">
+                    <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                       <AlertCircle size={14} className="mr-1" />
                       {errors.description}
                     </p>
@@ -573,7 +573,7 @@ const AddDiscount = () => {
                 </div>
 
                 {/* Active Status */}
-                <div className="col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <div className="flex items-center">
                     <input
                       type="checkbox"
@@ -590,18 +590,18 @@ const AddDiscount = () => {
                 </div>
             </div>
 
-            <div className="mt-8 flex justify-end">
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3">
               <button
                 type="button"
                 onClick={() => navigate('/seller-dashboard/discounts')}
-                className="mr-3 px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 text-sm w-full sm:w-auto"
               >
                 Hủy
               </button>
               <button
                 type="submit"
                 disabled={submitting}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center"
+                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center justify-center text-sm w-full sm:w-auto"
               >
                 {submitting ? (
                   <>

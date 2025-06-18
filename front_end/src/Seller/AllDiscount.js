@@ -387,11 +387,11 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg shadow-xl max-w-5xl w-full max-h-[90vh] overflow-y-auto relative">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg shadow-xl max-w-5xl w-full max-w-[95vw] max-h-[90vh] overflow-y-auto relative">
         {/* Header */}
-        <div className="flex items-center justify-between border-b p-4 sticky top-0 bg-white z-10">
-          <h2 className="text-xl font-semibold text-gray-800">Chỉnh sửa mã giảm giá</h2>
+        <div className="flex items-center justify-between border-b p-3 sm:p-4 sticky top-0 bg-white z-10">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-800">Chỉnh sửa mã giảm giá</h2>
           <button
             onClick={onClose}
             className="p-2 rounded-full hover:bg-gray-100"
@@ -401,21 +401,21 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {loading ? (
-            <div className="flex justify-center items-center h-64">
+            <div className="flex justify-center items-center h-48 sm:h-64">
               <div className="text-center">
                 <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-500 border-t-transparent"></div>
-                <p className="mt-2 text-gray-600">Đang tải...</p>
+                <p className="mt-2 text-gray-600 text-sm sm:text-base">Đang tải...</p>
               </div>
             </div>
           ) : loadError ? (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 sm:p-6 text-center">
               <AlertCircle size={48} className="mx-auto text-red-500 mb-4" />
-              <p className="text-red-600 font-medium text-lg mb-4">{loadError}</p>
+              <p className="text-red-600 font-medium text-base sm:text-lg mb-4">{loadError}</p>
               <button
                 onClick={onClose}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 text-sm"
               >
                 Đóng
               </button>
@@ -423,18 +423,18 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
           ) : (
             <>
               {/* Coupon Summary Card */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
                 <div className="flex items-center text-blue-700 mb-2">
                   <Info size={20} className="mr-2" />
-                  <h2 className="text-lg font-medium">Thông tin mã giảm giá</h2>
+                  <h2 className="text-base sm:text-lg font-medium">Thông tin mã giảm giá</h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                   <div className="flex items-center">
                     <Tag size={18} className="mr-2 text-blue-600 flex-shrink-0" />
                     <div>
-                      <p className="font-medium">Mã giảm giá:</p>
-                      <p className="font-mono bg-blue-100 px-2 py-1 rounded text-blue-800 mt-1">
+                      <p className="font-medium text-sm">Mã giảm giá:</p>
+                      <p className="font-mono bg-blue-100 px-2 py-1 rounded text-blue-800 mt-1 text-xs sm:text-sm">
                         {couponOriginal?.code}
                       </p>
                     </div>
@@ -443,8 +443,8 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                   <div className="flex items-center">
                     <Coins size={18} className="mr-2 text-blue-600 flex-shrink-0" />
                     <div>
-                      <p className="font-medium">Giá trị:</p>
-                      <p className="mt-1">
+                      <p className="font-medium text-sm">Giá trị:</p>
+                      <p className="mt-1 text-xs sm:text-sm">
                         {formatValue(couponOriginal?.value, couponOriginal?.type)}
                         {couponOriginal?.type === 'percentage' && couponOriginal?.max_discount_value && (
                           <span className="text-gray-600 ml-1">
@@ -458,8 +458,8 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                   <div className="flex items-center">
                     <Calendar size={18} className="mr-2 text-blue-600 flex-shrink-0" />
                     <div>
-                      <p className="font-medium">Thời hạn:</p>
-                      <p className="mt-1">
+                      <p className="font-medium text-sm">Thời hạn:</p>
+                      <p className="mt-1 text-xs sm:text-sm">
                         {formatDateForDisplay(couponOriginal?.start_date)} - {formatDateForDisplay(couponOriginal?.end_date)}
                       </p>
                     </div>
@@ -468,8 +468,8 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                   <div className="flex items-center">
                     <Clock size={18} className="mr-2 text-blue-600 flex-shrink-0" />
                     <div>
-                      <p className="font-medium">Giới hạn sử dụng:</p>
-                      <p className="mt-1">
+                      <p className="font-medium text-sm">Giới hạn sử dụng:</p>
+                      <p className="mt-1 text-xs sm:text-sm">
                         {couponOriginal?.max_uses > 0
                           ? `${couponOriginal.max_uses} lần`
                           : "Không giới hạn"}
@@ -483,8 +483,8 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                   <div className="flex items-start">
                     <Package size={18} className="mr-2 mt-0.5 text-blue-600 flex-shrink-0" />
                     <div>
-                      <p className="font-medium">Áp dụng cho:</p>
-                      <p className="mt-1">
+                      <p className="font-medium text-sm">Áp dụng cho:</p>
+                      <p className="mt-1 text-xs sm:text-sm">
                         {couponOriginal?.category_id ? (
                           <>
                             Danh mục: <span className="font-medium">{getCategoryName(couponOriginal.category_id)}</span>
@@ -507,8 +507,8 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                   <div className="flex items-center">
                     <CheckCircle size={18} className="mr-2 text-blue-600 flex-shrink-0" />
                     <div>
-                      <p className="font-medium">Trạng thái:</p>
-                      <p className={`mt-1 ${couponOriginal?.is_active ? 'text-green-600' : 'text-gray-600'}`}>
+                      <p className="font-medium text-sm">Trạng thái:</p>
+                      <p className={`mt-1 text-xs sm:text-sm ${couponOriginal?.is_active ? 'text-green-600' : 'text-gray-600'}`}>
                         {couponOriginal?.is_active ? 'Đang kích hoạt' : 'Vô hiệu'}
                       </p>
                     </div>
@@ -518,7 +518,7 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
 
               <form onSubmit={handleSubmit}>
                 {/* Form fields remain the same */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   {/* Coupon Code (disabled, but still sent in form) */}
                   <div className="col-span-1">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -529,7 +529,7 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                       name="code"
                       value={formData.code}
                       disabled
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed text-sm"
                     />
                     <p className="mt-1 text-xs text-gray-500">
                       Mã giảm giá không thể thay đổi sau khi đã tạo
@@ -545,7 +545,7 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                       name="type"
                       value={formData.type}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
                     >
                       <option value="percentage">Phần trăm (%)</option>
                       <option value="fixed">Số tiền cố định (VND)</option>
@@ -565,15 +565,15 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                         onChange={handleChange}
                         min="0"
                         step={formData.type === 'percentage' ? '0.1' : '1000'}
-                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.value ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${errors.value ? 'border-red-500' : 'border-gray-300'}`}
                         placeholder={formData.type === 'percentage' ? 'Ví dụ: 10' : 'Ví dụ: 50000'}
                       />
-                      <span className="absolute right-3 top-2 text-gray-500">
+                      <span className="absolute right-3 top-2 text-gray-500 text-sm">
                         {formData.type === 'percentage' ? '%' : 'đ'}
                       </span>
                     </div>
                     {errors.value && (
-                      <p className="mt-1 text-sm text-red-500 flex items-center">
+                      <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                         <AlertCircle size={14} className="mr-1" />
                         {errors.value}
                       </p>
@@ -593,7 +593,7 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                         onChange={handleChange}
                         min="0"
                         step="1000"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
                         placeholder="Để trống nếu không giới hạn"
                       />
                       <p className="mt-1 text-xs text-gray-500">
@@ -614,7 +614,7 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                       onChange={handleChange}
                       min="0"
                       step="1000"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
                       placeholder="Ví dụ: 100000"
                     />
                     <p className="mt-1 text-xs text-gray-500">
@@ -632,10 +632,10 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                       name="start_date"
                       value={formData.start_date}
                       onChange={handleChange}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.start_date ? 'border-red-500' : 'border-gray-300'}`}
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${errors.start_date ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.start_date && (
-                      <p className="mt-1 text-sm text-red-500 flex items-center">
+                      <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                         <AlertCircle size={14} className="mr-1" />
                         {errors.start_date}
                       </p>
@@ -653,10 +653,10 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                       value={formData.end_date}
                       onChange={handleChange}
                       min={formData.start_date}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.end_date ? 'border-red-500' : 'border-gray-300'}`}
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${errors.end_date ? 'border-red-500' : 'border-gray-300'}`}
                     />
                     {errors.end_date && (
-                      <p className="mt-1 text-sm text-red-500 flex items-center">
+                      <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                         <AlertCircle size={14} className="mr-1" />
                         {errors.end_date}
                       </p>
@@ -674,7 +674,7 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                       value={formData.max_uses}
                       onChange={handleChange}
                       min="0"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
                       placeholder="Nhập 0 cho không giới hạn"
                     />
                     <p className="mt-1 text-xs text-gray-500">
@@ -693,11 +693,11 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                       value={formData.max_uses_per_user}
                       onChange={handleChange}
                       min="0"
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.max_uses_per_user ? 'border-red-500' : 'border-gray-300'}`}
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${errors.max_uses_per_user ? 'border-red-500' : 'border-gray-300'}`}
                       placeholder="Mặc định: 1"
                     />
                     {errors.max_uses_per_user && (
-                      <p className="mt-1 text-sm text-red-500 flex items-center">
+                      <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                         <AlertCircle size={14} className="mr-1" />
                         {errors.max_uses_per_user}
                       </p>
@@ -713,7 +713,7 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                       name="category_id"
                       value={formData.category_id || ''}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
                     >
                       <option value="">Tất cả danh mục</option>
                       {categories.map((category) => (
@@ -734,7 +734,7 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                       value={formData.product_id || ''}
                       onChange={handleChange}
                       disabled={!formData.category_id || formData.category_id === ''}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${!formData.category_id || formData.category_id === '' ? 'bg-gray-100 cursor-not-allowed' : 'border-gray-300'} ${errors.product_id ? 'border-red-500' : ''}`}
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${!formData.category_id || formData.category_id === '' ? 'bg-gray-100 cursor-not-allowed' : 'border-gray-300'} ${errors.product_id ? 'border-red-500' : ''}`}
                     >
                       <option value="">
                         {!formData.category_id || formData.category_id === ''
@@ -748,7 +748,7 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                       ))}
                     </select>
                     {errors.product_id && (
-                      <p className="mt-1 text-sm text-red-500 flex items-center">
+                      <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                         <AlertCircle size={14} className="mr-1" />
                         {errors.product_id}
                       </p>
@@ -770,11 +770,11 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                       value={formData.description}
                       onChange={handleChange}
                       rows="3"
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${errors.description ? 'border-red-500' : 'border-gray-300'}`}
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm ${errors.description ? 'border-red-500' : 'border-gray-300'}`}
                       placeholder="Mô tả chi tiết về mã giảm giá và điều kiện áp dụng"
                     ></textarea>
                     {errors.description && (
-                      <p className="mt-1 text-sm text-red-500 flex items-center">
+                      <p className="mt-1 text-xs sm:text-sm text-red-500 flex items-center">
                         <AlertCircle size={14} className="mr-1" />
                         {errors.description}
                       </p>
@@ -790,7 +790,7 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                         name="is_active"
                         checked={formData.is_active}
                         onChange={handleChange}
-                        className="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded"
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-400 border-gray-300 rounded text-sm"
                       />
                       <label htmlFor="is_active" className="ml-2 block text-sm text-gray-700">
                         Kích hoạt mã giảm giá
@@ -799,18 +799,18 @@ const EditCouponPopup = ({ isOpen, onClose, couponId, onCouponUpdated }) => {
                   </div>
                 </div>
 
-                <div className="mt-8 flex justify-end border-t pt-4">
+                <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-end border-t pt-4 space-y-2 sm:space-y-0 sm:space-x-3">
                   <button
                     type="button"
                     onClick={onClose}
-                    className="mr-3 px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                    className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 text-sm w-full sm:w-auto"
                   >
                     Hủy
                   </button>
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center justify-center text-sm w-full sm:w-auto"
                   >
                     {submitting ? (
                       <>

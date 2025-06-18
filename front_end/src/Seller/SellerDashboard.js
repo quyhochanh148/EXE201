@@ -555,15 +555,15 @@ const SellerDashboard = () => {
 
       {/* Main content area */}
       <div className="flex-1 flex flex-col overflow-auto">
-        <div className="flex-1 p-6">
+        <div className="flex-1 p-4 sm:p-6">
           {/* Header với bộ chọn thời gian */}
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold">Bảng điều khiển</h2>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 space-y-4 sm:space-y-0">
+            <h2 className="text-xl sm:text-2xl font-bold">Bảng điều khiển</h2>
             
-            <div className="flex items-center gap-4">
-              <div className="bg-white rounded-lg shadow py-1 px-2">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+              <div className="bg-white rounded-lg shadow py-1 px-2 w-full sm:w-auto">
                 <select 
-                  className="border-none focus:ring-0 text-sm" 
+                  className="border-none focus:ring-0 text-sm w-full sm:w-auto" 
                   value={selectedPeriod}
                   onChange={handlePeriodChange}
                 >
@@ -576,23 +576,27 @@ const SellerDashboard = () => {
               </div>
               
               {useCustomDate && (
-                <div className="flex items-center gap-2 bg-white rounded-lg shadow py-1 px-2">
-                  <span className="text-sm text-gray-500">Từ</span>
-                  <input 
-                    type="date" 
-                    className="text-sm border-none focus:ring-0" 
-                    value={startDate.toISOString().split('T')[0]}
-                    onChange={(e) => setStartDate(new Date(e.target.value))}
-                  />
-                  <span className="text-sm text-gray-500">đến</span>
-                  <input 
-                    type="date" 
-                    className="text-sm border-none focus:ring-0" 
-                    value={endDate.toISOString().split('T')[0]} 
-                    onChange={(e) => setEndDate(new Date(e.target.value))}
-                  />
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 bg-white rounded-lg shadow py-1 px-2 w-full sm:w-auto">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs sm:text-sm text-gray-500">Từ</span>
+                    <input 
+                      type="date" 
+                      className="text-xs sm:text-sm border-none focus:ring-0" 
+                      value={startDate.toISOString().split('T')[0]}
+                      onChange={(e) => setStartDate(new Date(e.target.value))}
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs sm:text-sm text-gray-500">đến</span>
+                    <input 
+                      type="date" 
+                      className="text-xs sm:text-sm border-none focus:ring-0" 
+                      value={endDate.toISOString().split('T')[0]} 
+                      onChange={(e) => setEndDate(new Date(e.target.value))}
+                    />
+                  </div>
                   <button 
-                    className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                    className="bg-blue-500 text-white px-2 py-1 rounded text-xs w-full sm:w-auto"
                     onClick={handleApplyCustomDate}
                   >
                     Áp dụng
@@ -600,19 +604,19 @@ const SellerDashboard = () => {
                 </div>
               )}
               
-              <div className="text-gray-500">{formatDate(currentDate)}</div>
+              <div className="text-gray-500 text-sm">{formatDate(currentDate)}</div>
             </div>
           </div>
 
           {/* Hiển thị khoảng thời gian đã chọn */}
           <div className="mb-4">
-            <div className="text-sm text-gray-500">
+            <div className="text-xs sm:text-sm text-gray-500">
               Đang xem dữ liệu <span className="font-medium">{dashboardData.periodLabel}</span>
             </div>
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-6">
             {[
               { 
                 value: dashboardData.totalOrders.toString(), 
@@ -630,16 +634,16 @@ const SellerDashboard = () => {
                 subtext: `Số tiền shop nhận được ${dashboardData.periodLabel} sau khi trừ phí hoa hồng` 
               }
             ].map((stat, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg shadow">
-                <div className="text-3xl font-bold text-gray-800">{stat.value}</div>
-                <div className="text-sm text-gray-600 mt-1">{stat.label}</div>
+              <div key={index} className="bg-white p-3 sm:p-4 rounded-lg shadow">
+                <div className="text-2xl sm:text-3xl font-bold text-gray-800">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-gray-600 mt-1">{stat.label}</div>
                 <div className="text-xs text-gray-500 mt-1">{stat.subtext}</div>
               </div>
             ))}
           </div>
 
           {/* Second Row Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[
               { 
                 value: formatCurrency(dashboardData.orderRevenue), 
@@ -657,20 +661,20 @@ const SellerDashboard = () => {
                 subtext: 'Tổng số đơn hàng đã được giao đến khách hàng' 
               }
             ].map((stat, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg shadow">
-                <div className="text-3xl font-bold text-gray-800">{stat.value}</div>
-                <div className="text-sm text-gray-600 mt-1">{stat.label}</div>
+              <div key={index} className="bg-white p-3 sm:p-4 rounded-lg shadow">
+                <div className="text-2xl sm:text-3xl font-bold text-gray-800">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-gray-600 mt-1">{stat.label}</div>
                 <div className="text-xs text-gray-500 mt-1">{stat.subtext}</div>
               </div>
             ))}
           </div>
 
           {/* Bottom Sections */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <div className="bg-white p-4 rounded-lg shadow">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold">Người theo dõi mới</h3>
-                <a href="#" className="text-blue-500 text-sm" onClick={(e) => {
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mt-4 sm:mt-6">
+            <div className="bg-white p-3 sm:p-4 rounded-lg shadow">
+              <div className="flex justify-between items-center mb-3 sm:mb-4">
+                <h3 className="text-base sm:text-lg font-semibold">Người theo dõi mới</h3>
+                <a href="#" className="text-blue-500 text-xs sm:text-sm" onClick={(e) => {
                   e.preventDefault();
                   navigate('/registed-user'); // Đường dẫn đến trang RegisteredUser
                 }}>Xem tất cả</a>
@@ -680,12 +684,12 @@ const SellerDashboard = () => {
                 <div className="divide-y">
                   {dashboardData.followers.map((follower, index) => (
                     <div key={index} className="py-2 flex items-center">
-                      <div className="w-10 h-10 rounded-full bg-gray-300 flex-shrink-0">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-300 flex-shrink-0">
                         {follower.avatar && <img src={follower.avatar} alt="Avatar" className="w-full h-full rounded-full" />}
                       </div>
-                      <div className="ml-3">
-                        <div className="font-medium">{follower.name}</div>
-                        {follower.email && <div className="text-sm text-gray-500">{follower.email}</div>}
+                      <div className="ml-2 sm:ml-3">
+                        <div className="font-medium text-sm sm:text-base">{follower.name}</div>
+                        {follower.email && <div className="text-xs sm:text-sm text-gray-500">{follower.email}</div>}
                         <div className="text-xs text-gray-500">
                           {follower.date ? formatShortDate(new Date(follower.date)) : ''}
                         </div>
@@ -694,13 +698,13 @@ const SellerDashboard = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-gray-500 text-center py-6">Không có người theo dõi mới</div>
+                <div className="text-gray-500 text-center py-4 sm:py-6 text-sm">Không có người theo dõi mới</div>
               )}
             </div>
-            <div className="bg-white p-4 rounded-lg shadow">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold">Đơn hàng mới cần xác nhận</h3>
-                <a href="#" className="text-blue-500 text-sm" onClick={(e) => {
+            <div className="bg-white p-3 sm:p-4 rounded-lg shadow">
+              <div className="flex justify-between items-center mb-3 sm:mb-4">
+                <h3 className="text-base sm:text-lg font-semibold">Đơn hàng mới cần xác nhận</h3>
+                <a href="#" className="text-blue-500 text-xs sm:text-sm" onClick={(e) => {
                   e.preventDefault();
                   navigate('/seller-dashboard/orders'); // Đường dẫn đến trang AllOrder
                 }}>Xem tất cả</a>
@@ -710,8 +714,8 @@ const SellerDashboard = () => {
                 <div className="divide-y">
                   {dashboardData.newOrders.map((order, index) => (
                     <div key={index} className="py-2">
-                      <div className="font-medium">Đơn hàng #{order.id}</div>
-                      <div className="flex justify-between text-sm">
+                      <div className="font-medium text-sm sm:text-base">Đơn hàng #{order.id}</div>
+                      <div className="flex justify-between text-xs sm:text-sm">
                         <span className="text-gray-500">
                           {order.date ? formatDatetime(new Date(order.date)) : ''}
                         </span>
@@ -721,7 +725,7 @@ const SellerDashboard = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-gray-500 text-center py-6">Không có đơn hàng mới</div>
+                <div className="text-gray-500 text-center py-4 sm:py-6 text-sm">Không có đơn hàng mới</div>
               )}
             </div>
           </div>

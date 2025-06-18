@@ -76,13 +76,13 @@ const BlogDetailModal = ({ blogId, onClose }) => {
             <h1 className="text-2xl font-bold text-gray-800">{blog.title}</h1>
 
             {/* Tác giả và ngày tạo */}
-            <div className="flex justify-between items-center text-sm text-gray-500">
+            {/* <div className="flex justify-between items-center text-sm text-gray-500">
               <span>By {blog.author}</span>
               <span>{formatDate(blog.created_at)}</span>
-            </div>
+            </div> */}
 
             {/* Nội dung */}
-            <div className="prose max-w-none text-gray-700">
+            <div className="prose max-w-none text-gray-700 whitespace-pre-wrap">
               {blog.content}
             </div>
           </div>

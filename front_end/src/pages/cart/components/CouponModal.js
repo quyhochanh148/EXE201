@@ -75,56 +75,57 @@ const CouponModal = ({
     const hasValidCoupons = availableCoupons.some(coupon => coupon.isValid);
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
-                <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-bold">Chọn mã giảm giá</h3>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-2 sm:px-0">
+            <div className="bg-white rounded-2xl p-3 sm:p-6 w-full max-w-xs sm:max-w-md md:max-w-lg max-h-[95vh] overflow-y-auto shadow-lg">
+                <div className="flex justify-between items-center mb-3 sm:mb-4">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold">Chọn mã giảm giá</h3>
                     <button
                         onClick={onClose}
-                        className="text-gray-600 hover:text-gray-900"
+                        className="text-gray-600 hover:text-gray-900 p-2 md:p-1 rounded-full focus:outline-none"
+                        aria-label="Đóng"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
                         </svg>
                     </button>
                 </div>
 
                 {error && (
-                    <div className="bg-red-50 border-l-4 border-red-500 p-3 mb-4">
-                        <p className="text-red-700">{error}</p>
+                    <div className="bg-red-50 border-l-4 border-red-500 p-3 mb-3 sm:mb-4">
+                        <p className="text-red-700 text-sm sm:text-base">{error}</p>
                     </div>
                 )}
 
                 {/* Hiển thị thông báo khi chưa chọn sản phẩm nào */}
                 {availableCoupons.length > 0 && availableCoupons.every(coupon => coupon.validationMessage.includes('chọn sản phẩm')) && (
-                    <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 mb-4 flex items-start">
-                        <AlertTriangle size={20} className="text-yellow-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 mb-3 sm:mb-4 flex items-start">
+                        <AlertTriangle size={18} className="text-yellow-500 mr-2 flex-shrink-0 mt-0.5" />
                         <div>
-                            <p className="font-medium text-yellow-800">Vui lòng chọn sản phẩm trước</p>
-                            <p className="text-sm text-yellow-700 mt-1">Hãy chọn ít nhất một sản phẩm trong giỏ hàng để áp dụng mã giảm giá.</p>
+                            <p className="font-medium text-yellow-800 text-sm sm:text-base">Vui lòng chọn sản phẩm trước</p>
+                            <p className="text-xs sm:text-sm text-yellow-700 mt-1">Hãy chọn ít nhất một sản phẩm trong giỏ hàng để áp dụng mã giảm giá.</p>
                         </div>
                     </div>
                 )}
 
                 {/* Hiển thị thông báo khi không có mã giảm giá nào hợp lệ */}
                 {availableCoupons.length > 0 && !hasValidCoupons && !availableCoupons.every(coupon => coupon.validationMessage.includes('chọn sản phẩm')) && (
-                    <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 mb-4 flex items-start">
-                        <AlertTriangle size={20} className="text-yellow-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 mb-3 sm:mb-4 flex items-start">
+                        <AlertTriangle size={18} className="text-yellow-500 mr-2 flex-shrink-0 mt-0.5" />
                         <div>
-                            <p className="font-medium text-yellow-800">Không có mã giảm giá phù hợp</p>
-                            <p className="text-sm text-yellow-700 mt-1">Không có mã giảm giá nào áp dụng được với các sản phẩm đã chọn. Vui lòng chọn thêm sản phẩm hoặc kiểm tra lại các điều kiện.</p>
+                            <p className="font-medium text-yellow-800 text-sm sm:text-base">Không có mã giảm giá phù hợp</p>
+                            <p className="text-xs sm:text-sm text-yellow-700 mt-1">Không có mã giảm giá nào áp dụng được với các sản phẩm đã chọn. Vui lòng chọn thêm sản phẩm hoặc kiểm tra lại các điều kiện.</p>
                         </div>
                     </div>
                 )}
 
                 {/* Tìm kiếm mã giảm giá */}
-                <div className="mb-4 relative">
+                <div className="mb-3 sm:mb-4 relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <Search size={16} className="text-gray-400" />
                     </div>
                     <input
                         type="text"
-                        className="pl-10 pr-4 py-2 border rounded-lg w-full"
+                        className="pl-10 pr-4 py-2 border rounded-lg w-full text-sm"
                         placeholder="Tìm mã giảm giá"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
@@ -132,29 +133,28 @@ const CouponModal = ({
                 </div>
 
                 {/* Bộ lọc và sắp xếp */}
-                <div className="flex justify-between items-center mb-4">
-                    <div className="flex space-x-2">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 sm:mb-4 gap-2 sm:gap-0">
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
                         <button
-                            className={`px-3 py-1 text-xs rounded-full ${filterType === 'all' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+                            className={`px-2 sm:px-3 py-1 text-xs rounded-full ${filterType === 'all' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700'}`}
                             onClick={() => setFilterType('all')}
                         >
                             Tất cả ({availableCoupons.length})
                         </button>
                         <button
-                            className={`px-3 py-1 text-xs rounded-full ${filterType === 'valid' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+                            className={`px-2 sm:px-3 py-1 text-xs rounded-full ${filterType === 'valid' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700'}`}
                             onClick={() => setFilterType('valid')}
                             disabled={validCount === 0}
                         >
                             Khả dụng ({validCount})
                         </button>
                         <button
-                            className={`px-3 py-1 text-xs rounded-full ${filterType === 'invalid' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+                            className={`px-2 sm:px-3 py-1 text-xs rounded-full ${filterType === 'invalid' ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700'}`}
                             onClick={() => setFilterType('invalid')}
                         >
                             Không khả dụng ({invalidCount})
                         </button>
                     </div>
-
                     <div className="relative">
                         <select
                             className="text-xs border rounded-md py-1 pl-2 pr-8 appearance-none bg-white"
@@ -172,16 +172,16 @@ const CouponModal = ({
                 </div>
 
                 {loading ? (
-                    <div className="text-center py-8">
+                    <div className="text-center py-6 sm:py-8">
                         <div className="inline-block animate-spin h-6 w-6 border-2 border-gray-300 border-t-purple-600 rounded-full"></div>
-                        <p className="mt-2">Đang tải mã giảm giá...</p>
+                        <p className="mt-2 text-sm">Đang tải mã giảm giá...</p>
                     </div>
                 ) : filteredCoupons.length === 0 ? (
-                    <div className="text-center py-8">
-                        <p>{searchQuery ? 'Không tìm thấy mã giảm giá phù hợp' : 'Không có mã giảm giá khả dụng'}</p>
+                    <div className="text-center py-6 sm:py-8">
+                        <p className="text-sm">{searchQuery ? 'Không tìm thấy mã giảm giá phù hợp' : 'Không có mã giảm giá khả dụng'}</p>
                     </div>
                 ) : (
-                    <div className="space-y-4">
+                    <div className="space-y-3 sm:space-y-4">
                         {filteredCoupons.map(coupon => {
                             // Định dạng ngày hết hạn
                             const endDate = new Date(coupon.end_date);
@@ -221,7 +221,7 @@ const CouponModal = ({
                                 <div
                                     key={coupon._id}
                                     className={`border border-dashed ${coupon.isValid ? 'border-purple-500 hover:bg-purple-50' : 'border-gray-400 hover:bg-gray-50'} 
-                                              rounded-lg p-4 transition relative
+                                              rounded-lg p-3 sm:p-4 transition relative
                                               ${!coupon.isValid ? 'opacity-80' : ''}`}
                                     onMouseEnter={() => setHoveredCoupon(coupon._id)}
                                     onMouseLeave={() => setHoveredCoupon(null)}
@@ -234,7 +234,7 @@ const CouponModal = ({
                                                     {statusText}
                                                 </span>
                                                 {hoveredCoupon === coupon._id && (
-                                                    <div className="absolute z-10 right-0 mt-1 w-48 bg-white text-xs text-gray-700 rounded-md shadow-lg p-2 border">
+                                                    <div className="absolute z-10 right-0 mt-1 w-40 sm:w-48 bg-white text-xs text-gray-700 rounded-md shadow-lg p-2 border">
                                                         {statusDetail}
                                                     </div>
                                                 )}
@@ -243,12 +243,12 @@ const CouponModal = ({
                                     )}
 
                                     {/* Nội dung mã giảm giá */}
-                                    <div className="flex justify-between items-center">
-                                        <div>
-                                            <h4 className={`font-bold ${coupon.isValid ? 'text-purple-600' : 'text-gray-600'}`}>
+                                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
+                                        <div className="flex-1">
+                                            <h4 className={`font-bold text-sm sm:text-base ${coupon.isValid ? 'text-purple-600' : 'text-gray-600'}`}>
                                                 {coupon.code}
                                             </h4>
-                                            <p className="text-sm">{coupon.description}</p>
+                                            <p className="text-xs sm:text-sm">{coupon.description}</p>
                                             <div className="mt-1 text-xs text-gray-500">
                                                 <p>Đơn tối thiểu: {coupon.min_order_value?.toLocaleString() || '0'}đ</p>
                                                 <p>
@@ -259,11 +259,11 @@ const CouponModal = ({
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className="relative">
+                                        <div className="relative w-full sm:w-auto">
                                             <button
                                                 onClick={() => coupon.isValid && applyCoupon(coupon.code)}
                                                 className={`${coupon.isValid ? 'bg-purple-600 hover:bg-purple-700' : 'bg-gray-400'} 
-                                                           text-white px-4 py-2 rounded-md truncate text-center`}
+                                                           text-white px-3 sm:px-4 py-2 rounded-md truncate text-center w-full sm:w-auto text-sm`}
                                                 disabled={!coupon.isValid}
                                                 aria-label={!coupon.isValid ? `Không thể áp dụng: ${statusDetail}` : "Áp dụng mã giảm giá"}
                                             >

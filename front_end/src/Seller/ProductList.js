@@ -128,17 +128,17 @@ const ProductDetailsModal = ({ product, onClose }) => {
 
   if (loading) {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-medium">Chi tiết sản phẩm</h3>
-            <button className="text-gray-400 hover:text-gray-600" onClick={onClose}>
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl max-w-[95vw] p-4 sm:p-6">
+          <div className="flex justify-between items-center mb-4 sm:mb-6">
+            <h3 className="text-lg sm:text-xl font-medium">Chi tiết sản phẩm</h3>
+            <button className="text-gray-400 hover:text-gray-600 p-2" onClick={onClose}>
               <X size={24} />
             </button>
           </div>
-          <div className="flex justify-center items-center py-10">
+          <div className="flex justify-center items-center py-8 sm:py-10">
             <Loader className="animate-spin mr-2" />
-            <p>Đang tải thông tin chi tiết...</p>
+            <p className="text-sm sm:text-base">Đang tải thông tin chi tiết...</p>
           </div>
         </div>
       </div>
@@ -146,28 +146,28 @@ const ProductDetailsModal = ({ product, onClose }) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-5xl p-6 max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-xl font-medium">Chi tiết sản phẩm</h3>
-          <button className="text-gray-400 hover:text-gray-600" onClick={onClose}>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-5xl max-w-[95vw] p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-4 sm:mb-6">
+          <h3 className="text-lg sm:text-xl font-medium">Chi tiết sản phẩm</h3>
+          <button className="text-gray-400 hover:text-gray-600 p-2" onClick={onClose}>
             <X size={24} />
           </button>
         </div>
 
         {error && (
-          <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded mb-6">
+          <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded mb-4 sm:mb-6 text-sm">
             {error}
           </div>
         )}
 
         {productDetails && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Product Information Section */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
               {/* Product Image */}
               <div className="col-span-1">
-                <div className="border rounded-md p-2 h-80 flex items-center justify-center">
+                <div className="border rounded-md p-2 h-60 sm:h-80 flex items-center justify-center">
                   {productDetails.thumbnail ? (
                     <img
                       src={productDetails.thumbnail}
@@ -180,51 +180,51 @@ const ProductDetailsModal = ({ product, onClose }) => {
                     />
                   ) : (
                     <div className="text-gray-300 text-center">
-                      <p>Không có hình ảnh</p>
+                      <p className="text-sm">Không có hình ảnh</p>
                     </div>
                   )}
                 </div>
               </div>
 
               {/* Product Info */}
-              <div className="col-span-2 space-y-4">
-                <h2 className="text-2xl font-bold">{productDetails.name}</h2>
+              <div className="col-span-1 lg:col-span-2 space-y-3 sm:space-y-4">
+                <h2 className="text-xl sm:text-2xl font-bold">{productDetails.name}</h2>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <p className="text-sm text-gray-500">Giá bán</p>
-                    <p className="text-xl font-semibold">{productDetails.price?.toLocaleString()}₫</p>
+                    <p className="text-xs sm:text-sm text-gray-500">Giá bán</p>
+                    <p className="text-lg sm:text-xl font-semibold">{productDetails.price?.toLocaleString()}₫</p>
                   </div>
 
                   <div>
-                    <p className="text-sm text-gray-500">Đã bán</p>
-                    <p>{productDetails.sold || 0}</p>
+                    <p className="text-xs sm:text-sm text-gray-500">Đã bán</p>
+                    <p className="text-sm sm:text-base">{productDetails.sold || 0}</p>
                   </div>
 
                   <div>
-                    <p className="text-sm text-gray-500">Slug</p>
-                    <p className="truncate">{productDetails.slug}</p>
+                    <p className="text-xs sm:text-sm text-gray-500">Slug</p>
+                    <p className="truncate text-sm sm:text-base">{productDetails.slug}</p>
                   </div>
 
                   <div>
-                    <p className="text-sm text-gray-500">Trạng thái</p>
+                    <p className="text-xs sm:text-sm text-gray-500">Trạng thái</p>
                     <div className="flex items-center">
                       <span className={`inline-block w-3 h-3 rounded-full mr-2 ${productDetails.is_active ? 'bg-green-500' : 'bg-red-500'}`}></span>
-                      <span>{productDetails.is_active ? 'Đang hoạt động' : 'Tạm ẩn'}</span>
+                      <span className="text-sm sm:text-base">{productDetails.is_active ? 'Đang hoạt động' : 'Tạm ẩn'}</span>
                     </div>
                   </div>
 
                   <div>
-                    <p className="text-sm text-gray-500">Khối lượng</p>
-                    <p>{productDetails.weight} gram</p>
+                    <p className="text-xs sm:text-sm text-gray-500">Khối lượng</p>
+                    <p className="text-sm sm:text-base">{productDetails.weight} gram</p>
                   </div>
 
                 
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">Mô tả</p>
-                  <p className="text-gray-700">{productDetails.description}</p>
+                  <p className="text-xs sm:text-sm text-gray-500">Mô tả</p>
+                  <p className="text-gray-700 text-sm sm:text-base">{productDetails.description}</p>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
@@ -238,24 +238,24 @@ const ProductDetailsModal = ({ product, onClose }) => {
               </div>
             </div>
 
-            <hr className="my-6" />
+            <hr className="my-4 sm:my-6" />
 
             {/* Product Detail Section */}
             <div style={{zIndex:2000}}>
-              <h4 className="text-lg font-medium mb-3">Chi tiết sản phẩm</h4>
-              <div className="prose max-w-none">
+              <h4 className="text-base sm:text-lg font-medium mb-3">Chi tiết sản phẩm</h4>
+              <div className="prose max-w-none text-sm sm:text-base">
                 <p>{productDetails.detail}</p>
               </div>
             </div>
 
-            <hr className="my-6" />
+            <hr className="my-4 sm:my-6" />
 
             {/* Product Variants Section */}
             <div style={{zIndex:2000}}>
-              <div className="flex justify-between items-center mb-4">
-                <h4 className="text-lg font-medium">Biến thể sản phẩm</h4>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                <h4 className="text-base sm:text-lg font-medium">Biến thể sản phẩm</h4>
                 <button
-                  className="bg-green-500 text-white px-3 py-1 rounded flex items-center text-sm"
+                  className="bg-green-500 text-white px-3 py-2 rounded flex items-center text-sm w-full sm:w-auto justify-center"
                   onClick={handleAddVariant}
                 >
                   <Plus size={16} className="mr-1" />
@@ -264,38 +264,38 @@ const ProductDetailsModal = ({ product, onClose }) => {
               </div>
 
               {variants.length === 0 ? (
-                <div className="text-center p-8 bg-gray-50 rounded-md">
-                  <p className="text-gray-500">Sản phẩm chưa có biến thể nào.</p>
-                  <p className="text-gray-500 text-sm mt-1">Nhấn "Thêm biến thể" để tạo biến thể mới.</p>
+                <div className="text-center p-6 sm:p-8 bg-gray-50 rounded-md">
+                  <p className="text-gray-500 text-sm sm:text-base">Sản phẩm chưa có biến thể nào.</p>
+                  <p className="text-gray-500 text-xs sm:text-sm mt-1">Nhấn "Thêm biến thể" để tạo biến thể mới.</p>
                 </div>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="min-w-full border-collapse">
+                  <table className="min-w-full border-collapse text-xs sm:text-sm">
                     <thead className="bg-gray-100">
                       <tr>
-                        <th className="py-2 px-4 text-left border">Biến thể</th>
-                        <th className="py-2 px-4 text-left border">Thuộc tính</th>
-                        <th className="py-2 px-4 text-left border">Giá</th>
-                        <th className="py-2 px-4 text-left border">Tồn kho</th>
-                        <th className="py-2 px-4 text-left border">Trạng thái</th>
-                        <th className="py-2 px-4 text-left border">Mặc định</th>
-                        <th className="py-2 px-4 text-left border">Thao tác</th>
+                        <th className="py-2 px-2 sm:px-4 text-left border">Biến thể</th>
+                        <th className="py-2 px-2 sm:px-4 text-left border">Thuộc tính</th>
+                        <th className="py-2 px-2 sm:px-4 text-left border">Giá</th>
+                        <th className="py-2 px-2 sm:px-4 text-left border">Tồn kho</th>
+                        <th className="py-2 px-2 sm:px-4 text-left border">Trạng thái</th>
+                        <th className="py-2 px-2 sm:px-4 text-left border">Mặc định</th>
+                        <th className="py-2 px-2 sm:px-4 text-left border">Thao tác</th>
                       </tr>
                     </thead>
                     <tbody>
                       {variants.map((variant) => (
                         <tr key={variant._id} className="hover:bg-gray-50">
-                          <td className="py-2 px-4 border">{variant.name}</td>
-                          <td className="py-2 px-4 border">
+                          <td className="py-2 px-2 sm:px-4 border">{variant.name}</td>
+                          <td className="py-2 px-2 sm:px-4 border">
                             {renderAttributes(variant.attributes)}
                           </td>
-                          <td className="py-2 px-4 border">{variant.price?.toLocaleString()}₫</td>
-                          <td className="py-2 px-4 border">{variant.stock}</td>
-                          <td className="py-2 px-4 border">
+                          <td className="py-2 px-2 sm:px-4 border">{variant.price?.toLocaleString()}₫</td>
+                          <td className="py-2 px-2 sm:px-4 border">{variant.stock}</td>
+                          <td className="py-2 px-2 sm:px-4 border">
                             <span className={`inline-block w-3 h-3 rounded-full mr-2 ${variant.is_active ? 'bg-green-500' : 'bg-red-500'}`}></span>
                             <span>{variant.is_active ? 'Hiện' : 'Ẩn'}</span>
                           </td>
-                          <td className="py-2 px-4 border">
+                          <td className="py-2 px-2 sm:px-4 border">
                             <input
                               type="radio"
                               checked={variant.is_default}
@@ -304,21 +304,21 @@ const ProductDetailsModal = ({ product, onClose }) => {
                             />
                             {variant.is_default ? 'Mặc định' : ''}
                           </td>
-                          <td className="py-2 px-4 border">
+                          <td className="py-2 px-2 sm:px-4 border">
                             <div className="flex space-x-2">
                               <button
                                 onClick={() => handleEditVariant(variant)}
-                                className="text-blue-500"
+                                className="text-blue-500 p-1"
                                 title="Sửa biến thể"
                               >
-                                <Edit size={18} />
+                                <Edit size={16} />
                               </button>
                               <button
                                 onClick={() => handleDeleteVariant(variant._id)}
-                                className="text-red-500"
+                                className="text-red-500 p-1"
                                 title="Xóa biến thể"
                               >
-                                <Trash2 size={18} />
+                                <Trash2 size={16} />
                               </button>
                             </div>
                           </td>
@@ -593,12 +593,12 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
   if (!editingProduct) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-xl font-medium">Chỉnh sửa sản phẩm</h3>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl max-w-[95vw] p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-4 sm:mb-6">
+          <h3 className="text-lg sm:text-xl font-medium">Chỉnh sửa sản phẩm</h3>
           <button
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 p-2"
             onClick={onClose}
           >
             <X size={24} />
@@ -606,19 +606,19 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
         </div>
 
         {loadingData ? (
-          <div className="flex justify-center items-center py-10">
+          <div className="flex justify-center items-center py-8 sm:py-10">
             <Loader className="animate-spin mr-2" />
-            <div className="text-gray-500">Đang tải dữ liệu...</div>
+            <div className="text-gray-500 text-sm sm:text-base">Đang tải dữ liệu...</div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {formErrors.submit && (
-              <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+              <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
                 {formErrors.submit}
               </div>
             )}
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {/* Tên sản phẩm */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -629,10 +629,10 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                   name="name"
                   value={editingProduct.name || ''}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 border ${formErrors.name ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                  className={`w-full px-3 py-2 border ${formErrors.name ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                 />
                 {formErrors.name && (
-                  <p className="mt-1 text-sm text-red-500">{formErrors.name}</p>
+                  <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.name}</p>
                 )}
               </div>
 
@@ -646,10 +646,10 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                   name="price"
                   value={editingProduct.price || ''}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 border ${formErrors.price ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                  className={`w-full px-3 py-2 border ${formErrors.price ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                 />
                 {formErrors.price && (
-                  <p className="mt-1 text-sm text-red-500">{formErrors.price}</p>
+                  <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.price}</p>
                 )}
               </div>
 
@@ -663,10 +663,10 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                   name="slug"
                   value={editingProduct.slug || ''}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 border ${formErrors.slug ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                  className={`w-full px-3 py-2 border ${formErrors.slug ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                 />
                 {formErrors.slug && (
-                  <p className="mt-1 text-sm text-red-500">{formErrors.slug}</p>
+                  <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.slug}</p>
                 )}
               </div>
 
@@ -703,22 +703,22 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                   name="weight"
                   value={editingProduct.weight || ''}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 border ${formErrors.weight ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                  className={`w-full px-3 py-2 border ${formErrors.weight ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                 />
                 {formErrors.weight && (
-                  <p className="mt-1 text-sm text-red-500">{formErrors.weight}</p>
+                  <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.weight}</p>
                 )}
               </div>
 
               {/* ĐÃ XÓA: Tình trạng */}
 
               {/* Danh mục - CHANGED to checkboxes */}
-              <div className="col-span-2">
+              <div className="col-span-1 sm:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Danh mục <span className="text-red-500">*</span>
                 </label>
                 <div className={`p-3 border ${formErrors.category_id ? 'border-red-500' : 'border-gray-300'} rounded-md bg-white max-h-60 overflow-y-auto`}>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                     {categories.map((category) => (
                       <div key={category._id} className="flex items-start mb-2">
                         <input
@@ -732,7 +732,7 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                         />
                         <label 
                           htmlFor={`category-${category._id}`}
-                          className="text-sm text-gray-700 cursor-pointer"
+                          className="text-xs sm:text-sm text-gray-700 cursor-pointer"
                         >
                           {category.name}
                         </label>
@@ -741,12 +741,12 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                   </div>
                 </div>
                 {formErrors.category_id && (
-                  <p className="mt-1 text-sm text-red-500">{formErrors.category_id}</p>
+                  <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.category_id}</p>
                 )}
               </div>
 
               {/* Mô tả */}
-              <div className="col-span-2">
+              <div className="col-span-1 sm:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Mô tả sản phẩm
                 </label>
@@ -755,12 +755,12 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                   value={editingProduct.description || ''}
                   onChange={handleInputChange}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                 />
               </div>
 
               {/* Chi tiết */}
-              <div className="col-span-2">
+              <div className="col-span-1 sm:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Chi tiết sản phẩm
                 </label>
@@ -769,12 +769,12 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                   value={editingProduct.detail || ''}
                   onChange={handleInputChange}
                   rows={5}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                 />
               </div>
 
               {/* Thumbnail */}
-              <div className="col-span-2">
+              <div className="col-span-1 sm:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Hình ảnh sản phẩm
                 </label>
@@ -787,18 +787,18 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                       <img
                         src={editingProduct.thumbnail}
                         alt="Product preview"
-                        className="max-h-48 mx-auto mb-2"
+                        className="max-h-32 sm:max-h-48 mx-auto mb-2"
                         onError={(e) => {
                           e.target.onerror = null;
                           e.target.src = "/api/placeholder/200/200";
                         }}
                       />
-                      <p className="text-sm text-gray-500">Nhấp để thay đổi hình ảnh</p>
+                      <p className="text-xs sm:text-sm text-gray-500">Nhấp để thay đổi hình ảnh</p>
                     </div>
                   ) : (
                     <div className="text-center">
-                      <Upload className="mx-auto mb-2 text-gray-400" size={32} />
-                      <p className="text-gray-500">Upload or drop a file right here</p>
+                      <Upload className="mx-auto mb-2 text-gray-400" size={24} />
+                      <p className="text-gray-500 text-xs sm:text-sm">Upload or drop a file right here</p>
                       <p className="text-xs text-gray-400 mt-1">JPEG, PNG, GIF, JPG...</p>
                     </div>
                   )}
@@ -822,7 +822,7 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                   name="meta_title"
                   value={editingProduct.meta_title || ''}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                 />
               </div>
 
@@ -835,11 +835,11 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                   name="meta_keyword"
                   value={editingProduct.meta_keyword || ''}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                 />
               </div>
 
-              <div className="col-span-2">
+              <div className="col-span-1 sm:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Meta Description
                 </label>
@@ -848,12 +848,12 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                   value={editingProduct.meta_description || ''}
                   onChange={handleInputChange}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                 />
               </div>
 
               {/* Status toggles */}
-              <div className="col-span-2 grid grid-cols-2 gap-4">
+              <div className="col-span-1 sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="flex items-center">
                   <input
                     type="checkbox"
@@ -863,7 +863,7 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                     onChange={handleToggleChange}
                     className="h-4 w-4 mr-2"
                   />
-                  <label htmlFor="is_active" className="text-sm font-medium text-gray-700">
+                  <label htmlFor="is_active" className="text-xs sm:text-sm font-medium text-gray-700">
                     Hiển thị trên cửa hàng
                   </label>
                 </div>
@@ -877,7 +877,7 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                     onChange={handleToggleChange}
                     className="h-4 w-4 mr-2"
                   />
-                  <label htmlFor="is_hot" className="text-sm font-medium text-gray-700">
+                  <label htmlFor="is_hot" className="text-xs sm:text-sm font-medium text-gray-700">
                     Sản phẩm nổi bật
                   </label>
                 </div>
@@ -891,7 +891,7 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                     onChange={handleToggleChange}
                     className="h-4 w-4 mr-2"
                   />
-                  <label htmlFor="is_feature" className="text-sm font-medium text-gray-700">
+                  <label htmlFor="is_feature" className="text-xs sm:text-sm font-medium text-gray-700">
                     Sản phẩm đặc trưng
                   </label>
                 </div>
@@ -905,24 +905,24 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
                     onChange={handleToggleChange}
                     className="h-4 w-4 mr-2"
                   />
-                  <label htmlFor="is_delete" className="text-sm font-medium text-gray-700">
+                  <label htmlFor="is_delete" className="text-xs sm:text-sm font-medium text-gray-700">
                     Xóa sản phẩm
                   </label>
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-end space-x-3 pt-5 border-t">
+            <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-5 border-t">
               <button
                 type="button"
-                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700"
+                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 text-sm w-full sm:w-auto"
                 onClick={onClose}
               >
                 Hủy
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm w-full sm:w-auto"
                 disabled={loading}
               >
                 {loading ? 'Đang lưu...' : 'Lưu thay đổi'}

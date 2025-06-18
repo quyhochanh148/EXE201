@@ -593,23 +593,23 @@ const ProductDetail = () => {
 
     return (
         <div className="bg-gradient-to-b from-[#e8f5e9] to-[#f1f8e9] min-h-screen">
-            <div className="max-w-6xl mx-auto py-10">
-                <div className="bg-white rounded-3xl shadow-2xl border border-green-100 p-8">
-                    <div className="flex flex-col md:flex-row gap-10">
+            <div className="max-w-6xl mx-auto py-4 md:py-10 px-4 md:px-0">
+                <div className="bg-white rounded-2xl md:rounded-3xl shadow-2xl border border-green-100 p-4 md:p-8">
+                    <div className="flex flex-col lg:flex-row gap-6 md:gap-10">
                         {/* Left side - Product images */}
-                        <div className="md:w-[60%] flex items-center justify-center">
+                        <div className="lg:w-[60%] flex items-center justify-center">
                             <ProductImages
                                 images={images}
                                 product={product}
                             />
                         </div>
                         {/* Right side - Product details */}
-                        <div className="md:w-[40%] flex flex-col justify-between">
+                        <div className="lg:w-[40%] flex flex-col justify-between">
                             <ProductHeader
                                 product={product}
                                 formatDate={formatDate}
                             />
-                            <div className="text-4xl font-extrabold text-green-600 mb-6 mt-2">
+                            <div className="text-2xl md:text-4xl font-extrabold text-green-600 mb-4 md:mb-6 mt-2">
                                 {selectedVariant
                                     ? formatPrice(selectedVariant.price)
                                     : formatPrice(product.price)}
@@ -626,7 +626,7 @@ const ProductDetail = () => {
                                 product={product}
                                 getShopId={getShopId}
                             />
-                            <div className="mt-8">
+                            <div className="mt-6 md:mt-8">
                                 <ActionButtons
                                     isAddingToCart={isAddingToCart}
                                     addToCart={addToCart}
@@ -637,30 +637,30 @@ const ProductDetail = () => {
                                     isOutOfStock={isOutOfStock}
                                 />
                             </div>
-                            <div className="mt-8 flex items-center justify-between">
-                                <div className="text-base text-gray-500">
+                            <div className="mt-6 md:mt-8 flex flex-col md:flex-row md:items-center justify-between space-y-4 md:space-y-0">
+                                <div className="text-sm md:text-base text-gray-500">
                                     <div className="flex items-center mb-1">
-                                        <MapPin size={16} className="mr-2 text-green-400" />
-                                        <span>{safeRender(shopData?.address || product.location, 'Vị trí không rõ')}</span>
+                                        <MapPin size={14} className="mr-2 text-green-400 md:w-4 md:h-4" />
+                                        <span className="text-xs md:text-sm">{safeRender(shopData?.address || product.location, 'Vị trí không rõ')}</span>
                                     </div>
                                     <div className="flex items-center">
-                                        <Clock size={16} className="mr-2 text-green-400" />
-                                        <span>{product.created_at ? getTimeAgo(product.created_at) : 'Vừa đăng'}</span>
+                                        <Clock size={14} className="mr-2 text-green-400 md:w-4 md:h-4" />
+                                        <span className="text-xs md:text-sm">{product.created_at ? getTimeAgo(product.created_at) : 'Vừa đăng'}</span>
                                     </div>
                                 </div>
                                 <button
                                     onClick={handleFollowShop}
-                                    className={`px-8 py-2 rounded-full font-bold shadow-md border border-green-200 transition-all duration-200 text-lg ${isFollowingShop
+                                    className={`px-4 md:px-8 py-2 rounded-full font-bold shadow-md border border-green-200 transition-all duration-200 text-sm md:text-lg ${isFollowingShop
                                         ? "bg-green-100 text-green-700 hover:bg-green-200"
                                         : "bg-white text-green-600 hover:bg-green-50"
-                                        } ${followLoading ? "opacity-50 cursor-not-allowed" : ""} flex items-center`}
+                                        } ${followLoading ? "opacity-50 cursor-not-allowed" : ""} flex items-center justify-center`}
                                     disabled={followLoading}
                                 >
                                     {followLoading && (
-                                        <span className="inline-block h-4 w-4 border-2 border-current border-r-transparent rounded-full animate-spin mr-2"></span>
+                                        <span className="inline-block h-3 w-3 md:h-4 md:w-4 border-2 border-current border-r-transparent rounded-full animate-spin mr-2"></span>
                                     )}
-                                    <Heart size={20} className={`mr-2 ${isFollowingShop ? "fill-green-600" : ""}`} />
-                                    {isFollowingShop ? "Đang theo dõi" : "Theo dõi shop"}
+                                    <Heart size={16} className={`mr-2 md:w-5 md:h-5 ${isFollowingShop ? "fill-green-600" : ""}`} />
+                                    <span className="text-xs md:text-base">{isFollowingShop ? "Đang theo dõi" : "Theo dõi shop"}</span>
                                 </button>
                             </div>
                         </div>
@@ -683,8 +683,8 @@ const ProductDetail = () => {
                 />
             </div>
             {showCartMessage && (
-                <div className="fixed top-5 right-5 bg-white p-4 rounded-lg shadow-lg z-50 border-l-4 border-green-500">
-                    <p>{cartMessage}</p>
+                <div className="fixed top-5 right-5 bg-white p-4 rounded-lg shadow-lg z-50 border-l-4 border-green-500 max-w-xs md:max-w-md">
+                    <p className="text-sm md:text-base">{cartMessage}</p>
                 </div>
             )}
         </div>

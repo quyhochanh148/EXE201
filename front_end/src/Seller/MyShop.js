@@ -513,9 +513,8 @@ const MyShop = () => {
           )}
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Thông tin cửa hàng */}
-          <div className="lg:w-2/3">
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex-1 bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6 lg:mb-0">
             {!editMode ? (
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <div className="flex items-start mb-6">
@@ -758,7 +757,7 @@ const MyShop = () => {
 
           {/* Thống kê và tính năng */}
           <div className="lg:w-1/3">
-            <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6">
               <h3 className="font-medium mb-4 flex items-center">
                 <FileText className="mr-2" size={20} />
                 Thông tin cửa hàng
@@ -809,7 +808,7 @@ const MyShop = () => {
 
       {/* Main content area */}
       <div className="flex-1 flex flex-col overflow-auto">
-        <div className="flex-1 p-6">
+        <div className="flex-1 p-4 sm:p-6">
           {renderMainContent()}
         </div>
       </div>

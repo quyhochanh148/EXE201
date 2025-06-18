@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Filter, X as XIcon, AlertCircle } from 'lucide-react';
+import { Filter, X as XIcon, AlertCircle, Leaf, Search, Sparkles } from 'lucide-react';
 import ApiService from '../../services/ApiService';
 import AuthService from '../../services/AuthService';
 import CartModal from '../cart/CartModal';
@@ -553,10 +553,20 @@ const Categories = () => {
     // Hiển thị trạng thái đang tải
     if (loading) {
         return (
-            <div className="max-w-7xl mx-auto px-4 py-8 flex justify-center items-center min-h-screen">
+            <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex justify-center items-center">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-700 mx-auto"></div>
-                    <p className="mt-4 text-gray-700">Đang tải dữ liệu...</p>
+                    <div className="relative">
+                        <div className="w-16 h-16 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mx-auto"></div>
+                        <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-green-400 rounded-full animate-spin mx-auto" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
+                    </div>
+                    <div className="mt-6">
+                        <div className="flex items-center justify-center space-x-2">
+                            <Leaf className="w-5 h-5 text-green-600 animate-pulse" />
+                            <p className="text-green-700 font-medium">Đang tải dữ liệu...</p>
+                            <Leaf className="w-5 h-5 text-green-600 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                        </div>
+                        <div className="mt-2 text-sm text-green-600">Khám phá thế giới cây cảnh xanh mát</div>
+                    </div>
                 </div>
             </div>
         );
@@ -565,15 +575,21 @@ const Categories = () => {
     // Hiển thị trạng thái lỗi
     if (error) {
         return (
-            <div className="max-w-7xl mx-auto px-4 py-8 flex justify-center items-center min-h-screen">
-                <div className="text-center">
-                    <div className="text-red-500 text-xl mb-4">❌ Đã xảy ra lỗi</div>
-                    <p className="text-gray-700">{error}</p>
+            <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-50 flex justify-center items-center">
+                <div className="text-center max-w-md mx-auto p-6">
+                    <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <AlertCircle className="w-10 h-10 text-red-600" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-red-800 mb-2">Đã xảy ra lỗi</h3>
+                    <p className="text-red-600 mb-6">{error}</p>
                     <button
                         onClick={() => window.location.reload()}
-                        className="mt-4 bg-[#2E7D32] text-white px-4 py-2 rounded hover:bg-[#2E7D32]"
+                        className="bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-full hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                     >
-                        Tải lại trang
+                        <span className="flex items-center">
+                            <Sparkles className="w-4 h-4 mr-2" />
+                            Tải lại trang
+                        </span>
                     </button>
                 </div>
             </div>
@@ -581,52 +597,69 @@ const Categories = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-8 relative">
-            {/* Cart Modal Component */}
-            <CartModal
-                isOpen={showCartModal}
-                onClose={() => setShowCartModal(false)}
-                refreshTrigger={cartRefreshTrigger}
-            />
+        <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
+            <div className="max-w-7xl mx-auto px-4 py-4 md:py-8 relative">
+                {/* Cart Modal Component */}
+                <CartModal
+                    isOpen={showCartModal}
+                    onClose={() => setShowCartModal(false)}
+                    refreshTrigger={cartRefreshTrigger}
+                />
 
-            {/* Success/Error Message */}
-            {showMessage && (
-                <div className="fixed top-5 right-5 bg-white p-4 rounded-lg shadow-lg z-50 border-l-4 border-green-500">
-                    <p>{addCartMessage}</p>
+                {/* Success/Error Message */}
+                {showMessage && (
+                    <div className="fixed top-5 right-5 bg-white p-4 rounded-2xl shadow-2xl z-50 border-l-4 border-green-500 max-w-xs md:max-w-md animate-slideInRight">
+                        <div className="flex items-center">
+                            <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                <Leaf className="w-4 h-4 text-green-600" />
+                            </div>
+                            <p className="text-sm md:text-base text-gray-800">{addCartMessage}</p>
+                        </div>
+                    </div>
+                )}
+
+                {/* Page Header */}
+                <div className="text-center mb-8">
+                    <h1 className="text-3xl md:text-4xl font-bold text-green-800 mb-2">
+                        <span className="flex items-center justify-center">
+                            <Leaf className="w-8 h-8 mr-3 text-green-600" />
+                            Khám phá cây cảnh
+                            <Leaf className="w-8 h-8 ml-3 text-green-600" />
+                        </span>
+                    </h1>
+                    <p className="text-green-600 text-lg">Tìm kiếm cây cảnh phù hợp với không gian của bạn</p>
                 </div>
-            )}
 
-            <div className="flex flex-col md:flex-row">
-                {/* Sidebar Categories - Sử dụng w-64 để đảm bảo chiều rộng cố định */}
-                <div className="md:w-64 flex-shrink-0 mb-6 md:mb-0">
-                    <CategorySidebar 
-                        categories={categories}
-                        selectedCategory={selectedCategory}
-                        handleCategorySelect={handleCategorySelect}
-                        priceRange={priceRange}
-                        handlePriceChange={handlePriceChange}
-                        applyPriceFilter={applyPriceFilter}
-                        clearFilters={clearFilters}
-                    />
-                </div>
-
-                {/* Product Listing */}
-                <div className="md:flex-grow md:pl-6">
-                    <div className="flex justify-between items-center mb-4">
-                        <div className="text-gray-700">
-                            <span>{totalItems} Sản phẩm</span>
+                {/* Mobile Layout */}
+                <div className="block lg:hidden">
+                    {/* Mobile Header */}
+                    <div className="bg-white rounded-2xl p-4 mb-6 shadow-lg border border-green-100">
+                        <div className="flex justify-between items-center mb-4">
+                            <div className="text-green-700 text-sm md:text-base font-medium">
+                                <span className="flex items-center">
+                                    <Search className="w-4 h-4 mr-2" />
+                                    {totalItems} Sản phẩm
+                                </span>
+                            </div>
+                            <ViewModeSelector 
+                                viewMode={viewMode}
+                                setViewMode={setViewMode}
+                                sortOption={sortOption}
+                                setSortOption={setSortOption}
+                            />
                         </div>
 
+                        {/* Mobile Search Results */}
                         {searchQuery && (
-                            <div className="mb-4 p-3 bg-[#2E7D32] rounded">
+                            <div className="mb-4 p-4 bg-gradient-to-r from-green-500 to-green-600 rounded-xl text-white">
                                 <div className="flex items-center">
-                                    <span className="text-sm font-medium text-purple-700">
+                                    <Search className="w-4 h-4 mr-2" />
+                                    <span className="text-sm font-medium">
                                         Kết quả tìm kiếm cho: "{searchQuery}"
                                     </span>
                                     <button
-                                        className="ml-auto text-xs pl-4 text-purple-500 hover:text-purple-700"
+                                        className="ml-auto text-sm hover:text-green-200 transition-colors"
                                         onClick={() => {
-                                            // Clear search by redirecting to categories without search param
                                             window.location.href = '/categories';
                                         }}
                                     >
@@ -635,39 +668,27 @@ const Categories = () => {
                                 </div>
                             </div>
                         )}
-                        
-                        <ViewModeSelector 
-                            viewMode={viewMode}
-                            setViewMode={setViewMode}
-                            sortOption={sortOption}
-                            setSortOption={setSortOption}
+                    </div>
+
+                    {/* Mobile Filter Display */}
+                    <div className="mb-6">
+                        <FilterDisplay 
+                            selectedCategory={selectedCategory}
+                            categories={categories}
+                            priceRange={priceRange}
+                            selectedLocations={selectedLocations}
+                            setPriceRange={setPriceRange}
+                            setSelectedLocations={setSelectedLocations}
+                            setSelectedCategory={setSelectedCategory}
+                            clearFilters={clearFilters}
+                            formatPrice={formatPrice}
                         />
                     </div>
 
-                    {/* Hiện thị bộ lọc đang áp dụng */}
-                    <FilterDisplay 
-                        selectedCategory={selectedCategory}
-                        categories={categories}
-                        priceRange={priceRange}
-                        selectedLocations={selectedLocations}
-                        setPriceRange={setPriceRange}
-                        setSelectedLocations={setSelectedLocations}
-                        setSelectedCategory={setSelectedCategory}
-                        clearFilters={clearFilters}
-                        formatPrice={formatPrice}
-                    />
-
+                    {/* Mobile Products Grid */}
                     {currentItems.length > 0 ? (
-                        <div
-                            className={`
-                                grid gap-4 
-                                ${viewMode === 'grid'
-                                    ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
-                                    : 'grid-cols-1'
-                                }
-                            `}
-                        >
-                            {currentItems.map(product => (
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                            {currentItems.map((product, index) => (
                                 <ProductCard
                                     key={product._id}
                                     product={product}
@@ -677,14 +698,18 @@ const Categories = () => {
                                     handleProductClick={handleProductClick}
                                     addToCart={addToCart}
                                     formatPrice={formatPrice}
+                                    animationDelay={index * 100}
                                 />
                             ))}
                         </div>
                     ) : (
-                        <div className="py-8 text-center">
-                            <p className="text-gray-500">Không tìm thấy sản phẩm phù hợp với bộ lọc hiện tại.</p>
+                        <div className="bg-white rounded-2xl p-8 text-center shadow-lg border border-green-100">
+                            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Leaf className="w-8 h-8 text-green-600" />
+                            </div>
+                            <p className="text-gray-600 text-lg mb-4">Không tìm thấy sản phẩm phù hợp</p>
                             <button
-                                className="mt-4 text-purple-600 hover:text-purple-800"
+                                className="bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-full hover:from-green-700 hover:to-green-800 transition-all duration-300"
                                 onClick={clearFilters}
                             >
                                 Xóa bộ lọc và thử lại
@@ -692,33 +717,184 @@ const Categories = () => {
                         </div>
                     )}
 
-                    {/* Pagination Component */}
+                    {/* Mobile Pagination */}
                     {totalItems > 0 && (
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={handlePageChange}
-                            showingFrom={showingFrom}
-                            showingTo={showingTo}
-                            totalItems={totalItems}
-                        />
+                        <div className="mt-8">
+                            <Pagination
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                onPageChange={handlePageChange}
+                                showingFrom={showingFrom}
+                                showingTo={showingTo}
+                                totalItems={totalItems}
+                            />
+                        </div>
                     )}
                 </div>
+
+                {/* Desktop Layout */}
+                <div className="hidden lg:block">
+                    <div className="flex gap-8">
+                        {/* Sidebar Categories */}
+                        <div className="w-80 flex-shrink-0">
+                            <div className="sticky top-8">
+                                <CategorySidebar 
+                                    categories={categories}
+                                    selectedCategory={selectedCategory}
+                                    handleCategorySelect={handleCategorySelect}
+                                    priceRange={priceRange}
+                                    handlePriceChange={handlePriceChange}
+                                    applyPriceFilter={applyPriceFilter}
+                                    clearFilters={clearFilters}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Product Listing */}
+                        <div className="flex-grow">
+                            <div className="bg-white rounded-2xl p-6 shadow-lg border border-green-100 mb-6">
+                                <div className="flex justify-between items-center mb-6">
+                                    <div className="text-green-700 font-medium">
+                                        <span className="flex items-center">
+                                            <Search className="w-5 h-5 mr-2" />
+                                            {totalItems} Sản phẩm
+                                        </span>
+                                    </div>
+                                    
+                                    <ViewModeSelector 
+                                        viewMode={viewMode}
+                                        setViewMode={setViewMode}
+                                        sortOption={sortOption}
+                                        setSortOption={setSortOption}
+                                    />
+                                </div>
+
+                                {searchQuery && (
+                                    <div className="mb-6 p-4 bg-gradient-to-r from-green-500 to-green-600 rounded-xl text-white">
+                                        <div className="flex items-center">
+                                            <Search className="w-5 h-5 mr-2" />
+                                            <span className="font-medium">
+                                                Kết quả tìm kiếm cho: "{searchQuery}"
+                                            </span>
+                                            <button
+                                                className="ml-auto hover:text-green-200 transition-colors"
+                                                onClick={() => {
+                                                    window.location.href = '/categories';
+                                                }}
+                                            >
+                                                Xóa tìm kiếm
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Filter Display */}
+                            <div className="mb-6">
+                                <FilterDisplay 
+                                    selectedCategory={selectedCategory}
+                                    categories={categories}
+                                    priceRange={priceRange}
+                                    selectedLocations={selectedLocations}
+                                    setPriceRange={setPriceRange}
+                                    setSelectedLocations={setSelectedLocations}
+                                    setSelectedCategory={setSelectedCategory}
+                                    clearFilters={clearFilters}
+                                    formatPrice={formatPrice}
+                                />
+                            </div>
+
+                            {currentItems.length > 0 ? (
+                                <div
+                                    className={`
+                                        grid gap-6 
+                                        ${viewMode === 'grid'
+                                            ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+                                            : 'grid-cols-1'
+                                        }
+                                    `}
+                                >
+                                    {currentItems.map((product, index) => (
+                                        <ProductCard
+                                            key={product._id}
+                                            product={product}
+                                            viewMode={viewMode}
+                                            hoveredProduct={hoveredProduct}
+                                            setHoveredProduct={setHoveredProduct}
+                                            handleProductClick={handleProductClick}
+                                            addToCart={addToCart}
+                                            formatPrice={formatPrice}
+                                            animationDelay={index * 100}
+                                        />
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="bg-white rounded-2xl p-12 text-center shadow-lg border border-green-100">
+                                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                        <Leaf className="w-10 h-10 text-green-600" />
+                                    </div>
+                                    <h3 className="text-xl font-semibold text-gray-800 mb-2">Không tìm thấy sản phẩm</h3>
+                                    <p className="text-gray-600 mb-6">Không có sản phẩm nào phù hợp với bộ lọc hiện tại</p>
+                                    <button
+                                        className="bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-3 rounded-full hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                                        onClick={clearFilters}
+                                    >
+                                        <span className="flex items-center">
+                                            <Sparkles className="w-4 h-4 mr-2" />
+                                            Xóa bộ lọc và thử lại
+                                        </span>
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* Pagination Component */}
+                            {totalItems > 0 && (
+                                <div className="mt-8">
+                                    <Pagination
+                                        currentPage={currentPage}
+                                        totalPages={totalPages}
+                                        onPageChange={handlePageChange}
+                                        showingFrom={showingFrom}
+                                        showingTo={showingTo}
+                                        totalItems={totalItems}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Product Modal with ProductVariantSelector */}
+                {showProductModal && selectedProduct && (
+                    <ProductModal
+                        selectedProduct={selectedProduct}
+                        selectedVariant={selectedVariant}
+                        quantity={quantity}
+                        formatPrice={formatPrice}
+                        handleVariantSelect={handleVariantSelect}
+                        handleQuantityChange={handleQuantityChange}
+                        addToCart={addToCart}
+                        closeModal={() => setShowProductModal(false)}
+                    />
+                )}
             </div>
 
-            {/* Product Modal with ProductVariantSelector */}
-            {showProductModal && selectedProduct && (
-                <ProductModal
-                    selectedProduct={selectedProduct}
-                    selectedVariant={selectedVariant}
-                    quantity={quantity}
-                    formatPrice={formatPrice}
-                    handleVariantSelect={handleVariantSelect}
-                    handleQuantityChange={handleQuantityChange}
-                    addToCart={addToCart}
-                    closeModal={() => setShowProductModal(false)}
-                />
-            )}
+            <style jsx>{`
+                @keyframes slideInRight {
+                    from {
+                        opacity: 0;
+                        transform: translateX(100%);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+                
+                .animate-slideInRight {
+                    animation: slideInRight 0.3s ease-out forwards;
+                }
+            `}</style>
         </div>
     );
 };

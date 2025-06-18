@@ -28,17 +28,19 @@ const TroocEcommerce = () => {
   const [newProducts, setNewProducts] = useState([]);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [randomBlog, setRandomBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const newProductsRef = useRef(null);
   const recommendedProductsRef = useRef(null);
+  const blogRef = useRef(null);
 
   const { currentUser, isLoggedIn } = useAuth();
   const userId = currentUser?.id || currentUser?._id || "";
 
-  // Thêm thông báo khi đăng nhập thành công
- useEffect(() => {
+  // Thông báo đăng nhập
+  useEffect(() => {
     if (isLoggedIn && currentUser) {
       const fullName = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() || 'Bạn';
       setAddCartMessage(`Chào mừng ${fullName} đã đăng nhập thành công!`);
@@ -47,8 +49,7 @@ const TroocEcommerce = () => {
     }
   }, [isLoggedIn, currentUser]);
 
-  
-
+  // Animation Intersection Observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -64,25 +65,30 @@ const TroocEcommerce = () => {
 
     if (newProductsRef.current) observer.observe(newProductsRef.current);
     if (recommendedProductsRef.current) observer.observe(recommendedProductsRef.current);
+    if (blogRef.current) observer.observe(blogRef.current);
 
     return () => {
       if (newProductsRef.current) observer.unobserve(newProductsRef.current);
       if (recommendedProductsRef.current) observer.unobserve(recommendedProductsRef.current);
+      if (blogRef.current) observer.unobserve(blogRef.current);
     };
   }, [loading]);
 
+  // Lấy đường dẫn ảnh
   const getImagePath = (imgPath) => {
     if (!imgPath) return "";
     if (imgPath.startsWith('http')) return imgPath;
     if (imgPath.startsWith('/Uploads')) return `${BE_API_URL}${imgPath}`;
     const fileName = imgPath.split("\\").pop();
-    return `${BE_API_URL}/Uploads/products/${fileName}`;
+    return `${BE_API_URL}/Uploads/blogs/${fileName}`; // Sửa để dùng thư mục blogs
   };
 
+  // Fetch dữ liệu
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
+        // Fetch sản phẩm
         const productsData = await ApiService.get('/product', true);
         const activeProducts = productsData.filter(product =>
           product.is_delete === false || product.is_delete === 'false' || product.is_delete === 0
@@ -114,12 +120,18 @@ const TroocEcommerce = () => {
           .filter(item => item.hasStock)
           .map(item => item.product);
         setProducts(productsInStock);
+
+        // Fetch danh mục
         const categoriesData = await ApiService.get('/categories', false);
         setCategories(categoriesData);
+
+        // Sản phẩm mới
         const sortedByDate = [...productsInStock].sort((a, b) =>
           new Date(b.created_at) - new Date(a.created_at)
         );
         setNewProducts(sortedByDate.slice(0, 8));
+
+        // Sản phẩm gợi ý
         const featuredProducts = productsInStock.filter(product => product.is_feature);
         const hotProducts = productsInStock.filter(product => product.is_hot);
         const sortedBySold = [...productsInStock].sort((a, b) => b.sold - a.sold);
@@ -134,6 +146,24 @@ const TroocEcommerce = () => {
           }
         }
         setRecommendedProducts(uniqueProducts);
+
+        // Fetch blog ngẫu nhiên
+        console.log('Fetching blogs from /api/blog...');
+        const blogsData = await ApiService.get('/blog', false);
+        console.log('Blogs data:', blogsData);
+        if (blogsData.length > 0) {
+          const randomIndex = Math.floor(Math.random() * blogsData.length);
+          const selectedBlog = {
+            ...blogsData[randomIndex],
+            image: getImagePath(blogsData[randomIndex].image)
+          };
+          console.log('Selected blog:', selectedBlog);
+          setRandomBlog(selectedBlog);
+        } else {
+          console.log('No blogs found');
+          setRandomBlog(null);
+        }
+
         setLoading(false);
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -144,19 +174,35 @@ const TroocEcommerce = () => {
     fetchData();
   }, []);
 
+  // Debug randomBlog state
+  useEffect(() => {
+    console.log('randomBlog state:', randomBlog);
+  }, [randomBlog]);
+
+  // Format giá
   const formatPrice = (price) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
       .format(price)
       .replace('₫', 'đ');
   };
 
+  // Format ngày
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('vi-VN', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+  };
+
+  // Thêm vào giỏ hàng
   const addToCart = async (product, quantity = 1, fromModal = false) => {
     if (!isLoggedIn) {
       window.location.href = "/login";
       return;
     }
-    if (fromModal) {
-      try {
+    try {
+      if (fromModal) {
         const variants = await ApiService.get(`/product-variant/product/${product._id}`, false);
         const activeVariants = variants.filter(variant =>
           variant.is_active === true || variant.is_active === 'true' || variant.is_active === 1
@@ -168,11 +214,7 @@ const TroocEcommerce = () => {
           setTimeout(() => setShowMessage(false), 3000);
           return;
         }
-      } catch (error) {
-        console.error("Error checking product variants:", error);
       }
-    }
-    try {
       let cartId;
       try {
         const cartResponse = await ApiService.get(`/cart/user/${userId}`, false);
@@ -287,8 +329,8 @@ const TroocEcommerce = () => {
       <Header />
       <main className="pt-16 pb-8">
         {showMessage && (
-          <div className="fixed top-16 right-4 bg-green-100 p-4 rounded-lg shadow-lg z-50 border-l-4 border-green-500 animate-slideInRight">
-            <p className="text-green-700">{addCartMessage}</p>
+          <div className="fixed top-16 right-4 bg-green-100 p-4 rounded-lg shadow-lg z-50 border-l-4 border-green-500 animate-slideInRight max-w-xs md:max-w-md">
+            <p className="text-green-700 text-sm md:text-base">{addCartMessage}</p>
           </div>
         )}
         <CartModal
@@ -297,13 +339,20 @@ const TroocEcommerce = () => {
           refreshTrigger={cartRefreshTrigger}
           style={{ zIndex: 1500 }}
         />
-        <div className="w-full px-4 sm:px-6 lg:px-8 flex gap-6">
-          <CategorySidebar categories={categories} />
-          <div className="flex-1">
-            <div className="pt-8 pb-4 animate-fadeIn">
+        {/* Bọc toàn bộ nội dung trong một div có padding ngang */}
+        <div className="px-16">
+          {/* Hàng trên cùng: Sidebar bên trái, Banner bên phải */}
+          <div className="w-full flex flex-row items-start">
+            <div className="w-64 min-w-[220px]">
+              <CategorySidebar categories={categories} />
+            </div>
+            <div className="flex-1 ml-4">
               <ImageSlider products={products1} />
             </div>
-            <PromotionalBanners />
+          </div>
+          {/* Dưới: Nội dung chính */}
+          <div className="w-full mt-6 flex flex-col gap-6">
+            {/* Sản phẩm mới */}
             <div ref={newProductsRef}>
               <ProductSection
                 title="Sản Phẩm Mới"
@@ -315,7 +364,32 @@ const TroocEcommerce = () => {
                 formatPrice={formatPrice}
               />
             </div>
-            <div ref={recommendedProductsRef} className="mt-12 bg-white rounded-lg shadow-lg p-6">
+            {/* Blog nổi bật */}
+            {randomBlog ? (
+              <div ref={blogRef} className="bg-white rounded-lg shadow-lg p-6">
+                <h2 className="text-2xl text-center font-bold text-green-700 mb-4">Blog Nổi Bật</h2>
+                <div className="bg-green-500 h-1 w-24 mx-auto mb-6"></div>
+                <div className="space-y-6">
+                  {randomBlog.image && (
+                    <img
+                      src={randomBlog.image}
+                      alt={randomBlog.title}
+                      className="w-full h-64 object-cover rounded-md"
+                    />
+                  )}
+                  <h3 className="text-xl font-semibold text-gray-800">{randomBlog.title}</h3>
+                  <div className="prose max-w-none text-gray-700 whitespace-pre-wrap">
+                    {randomBlog.content}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div ref={blogRef} className="bg-white rounded-lg shadow-lg p-6 text-center text-gray-500">
+                Không có blog nào để hiển thị
+              </div>
+            )}
+            {/* Gợi ý hôm nay */}
+            <div ref={recommendedProductsRef} className="bg-white rounded-lg shadow-lg p-6">
               <h2 className="text-2xl text-center font-bold text-green-700 mb-4">Gợi Ý Hôm Nay</h2>
               <div className="bg-green-500 h-1 w-24 mx-auto mb-6"></div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -336,6 +410,7 @@ const TroocEcommerce = () => {
             </div>
           </div>
         </div>
+
         {showProductModal && selectedProduct && (
           <ProductModal
             product={selectedProduct}

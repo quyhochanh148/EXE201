@@ -125,7 +125,7 @@ const UserProfile = () => {
   if (loading) {
     return (
       <div className="container mx-auto p-4 max-w-7xl flex justify-center items-center h-64">
-        <p>Đang tải thông tin...</p>
+        <p className="text-sm sm:text-base">Đang tải thông tin...</p>
       </div>
     );
   }
@@ -133,14 +133,14 @@ const UserProfile = () => {
   if (error && !profile) {
     return (
       <div className="container mx-auto p-4 max-w-7xl flex justify-center items-center h-64">
-        <p className="text-red-500">{error}</p>
+        <p className="text-red-500 text-sm sm:text-base">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto p-4 max-w-7xl">
-      <div className="flex gap-10 rounded-lg overflow-hidden">
+    <div className="container mx-auto p-2 sm:p-4 max-w-7xl">
+      <div className="flex flex-col lg:flex-row gap-4 sm:gap-10 rounded-lg overflow-hidden">
         <Sidebar profile={profile} />
         <div className="flex-1 bg-white border">
           <Routes>

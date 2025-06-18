@@ -36,13 +36,13 @@ const Sidebar = ({ profile }) => {
   ];
 
   return (
-    <div className="w-64 bg-white border p-4">
-      <div className="flex items-center space-x-4 mb-8">
-        <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+    <div className="w-full lg:w-64 bg-white border p-3 sm:p-4">
+      <div className="flex items-center space-x-3 sm:space-x-4 mb-6 sm:mb-8">
+        <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-200 rounded-full flex items-center justify-center">
           <img src={avatar} className='w-full h-full' alt="Profile" />
         </div>
         <div>
-          <p className="font-semibold">
+          <p className="font-semibold text-sm sm:text-base">
             {profile && (profile.lastName || profile.firstName) ?
               `${profile.lastName || ''} ${profile.firstName || ''}`.trim() :
               'Người dùng'}
@@ -50,19 +50,19 @@ const Sidebar = ({ profile }) => {
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-1 sm:space-y-2">
         {sidebarItems.map((item) => (
           <Link
             key={item.key}
             to={item.path}
             className={`
-              flex items-center w-full p-2 rounded relative
+              flex items-center w-full p-2 sm:p-2 rounded relative text-sm sm:text-base
               ${location.pathname === item.path
                 ? 'bg-purple-100 text-purple-600'
                 : 'hover:bg-gray-100'}
             `}
           >
-            <item.icon className="mr-3" size={20} />
+            <item.icon className="mr-2 sm:mr-3" size={18} />
             <span>{item.label}</span>
 
             {/* Badge hiển thị số lượng chưa đọc */}
@@ -76,9 +76,9 @@ const Sidebar = ({ profile }) => {
 
         <Link
           to="/"
-          className="flex items-center w-full p-2 rounded hover:bg-gray-100 text-red-500"
+          className="flex items-center w-full p-2 sm:p-2 rounded hover:bg-gray-100 text-red-500 text-sm sm:text-base"
         >
-          <LogOut className="mr-3" size={20} />
+          <LogOut className="mr-2 sm:mr-3" size={18} />
           <span>Thoát</span>
         </Link>
       </div>

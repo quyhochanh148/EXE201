@@ -15,6 +15,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../services/ApiService';
 import AuthService from '../services/AuthService';
+// import leafBg from '../assets/leaf-bg.png';
 
 const ShopRegistration = () => {
   const navigate = useNavigate();
@@ -520,9 +521,9 @@ const ShopRegistration = () => {
     if (!error) return null;
 
     return (
-      <div className="bg-red-300 border border-red-500 text-red-700 px-4 py-3 rounded mb-4 flex items-start animate-slide-in perspective-1000">
-        <AlertCircle className="mr-2 flex-shrink-0 mt-0.5 transform hover:rotateY(10deg)" size={18} />
-        <span className="transform hover:translateZ(5px)">{error}</span>
+      <div className="bg-red-300 border border-red-500 text-red-700 px-3 sm:px-4 py-2 sm:py-3 rounded mb-3 sm:mb-4 flex items-start animate-slide-in perspective-1000">
+        <AlertCircle className="mr-2 flex-shrink-0 mt-0.5 transform hover:rotateY(10deg) w-4 h-4 sm:w-5 sm:h-5" />
+        <span className="text-sm sm:text-base transform hover:translateZ(5px)">{error}</span>
       </div>
     );
   };
@@ -532,11 +533,11 @@ const ShopRegistration = () => {
     if (!success) return null;
 
     return (
-      <div className="bg-green-50 border border-green-500 text-green-700 px-4 py-3 rounded mb-4 flex items-start animate-slide-in perspective-1000">
-        <CheckCircle className="mr-2 flex-shrink-0 mt-0.5 transform hover:rotateY(10deg)" size={18} />
+      <div className="bg-green-50 border border-green-500 text-green-700 px-3 sm:px-4 py-2 sm:py-3 rounded mb-3 sm:mb-4 flex items-start animate-slide-in perspective-1000">
+        <CheckCircle className="mr-2 flex-shrink-0 mt-0.5 transform hover:rotateY(10deg) w-4 h-4 sm:w-5 sm:h-5" />
         <div className="transform hover:translateZ(5px)">
-          <p className="font-medium">Đăng ký cửa hàng thành công!</p>
-          <p>Chúng tôi đang xem xét thông tin của bạn và sẽ liên hệ trong vòng 24h. Bạn sẽ được chuyển hướng về trang chủ sau 5 giây...</p>
+          <p className="font-medium text-sm sm:text-base">Đăng ký cửa hàng thành công!</p>
+          <p className="text-xs sm:text-sm">Chúng tôi đang xem xét thông tin của bạn và sẽ liên hệ trong vòng 24h. Bạn sẽ được chuyển hướng về trang chủ sau 5 giây...</p>
         </div>
       </div>
     );
@@ -545,26 +546,26 @@ const ShopRegistration = () => {
   // Step 1: Chọn danh mục
   const renderCategorySelection = () => {
     return (
-      <div className="mt-8 animate-slide-up perspective-1000">
-        <h2 className="text-xl font-bold text-green-700 mb-4 transform hover:translateZ(10px)">Chọn danh mục sản phẩm bạn muốn bán</h2>
-        <p className="text-green-600 mb-6 transform hover:translateZ(5px)">Bạn có thể chọn nhiều danh mục phù hợp với sản phẩm của mình</p>
+      <div className="mt-6 sm:mt-8 animate-slide-up perspective-1000">
+        <h2 className="text-lg sm:text-xl font-bold text-emerald-700 mb-3 sm:mb-4 transform hover:translateZ(10px)">Chọn danh mục sản phẩm bạn muốn bán</h2>
+        <p className="text-sm sm:text-base text-emerald-600 mb-4 sm:mb-6 transform hover:translateZ(5px)">Bạn có thể chọn nhiều danh mục phù hợp với sản phẩm của mình</p>
 
         {loading && (
-          <div className="flex justify-center items-center py-10 animate-pulse">
-            <Loader className="animate-spin text-green-600 mr-2" />
-            <span>Đang tải danh mục...</span>
+          <div className="flex justify-center items-center py-8 sm:py-10 animate-pulse">
+            <Loader className="animate-spin text-emerald-600 mr-2 w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="text-sm sm:text-base">Đang tải danh mục...</span>
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {categories.map((category, index) => (
             <div
               key={category._id}
-              className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:rotateY(8deg) hover:shadow-green-400/50 animate-glowGreen
-                ${selectedCategories.includes(category._id) ? 'border-green-500 bg-green-50' : 'border-green-200 hover:border-green-300'}`}
+              className={`border rounded-lg p-3 sm:p-4 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:rotateY(8deg) hover:shadow-emerald-400/50 animate-glowGreen
+                ${selectedCategories.includes(category._id) ? 'border-emerald-500 bg-emerald-50' : 'border-emerald-200 hover:border-emerald-300'}`}
               onClick={() => handleCategorySelect(category._id)}
             >
-              <div className="relative h-40 mb-3 bg-green-100 flex items-center justify-center rounded transform hover:translateZ(10px)">
+              <div className="relative h-32 sm:h-40 mb-2 sm:mb-3 bg-emerald-100 flex items-center justify-center rounded transform hover:translateZ(10px)">
                 {category.image ? (
                   <img
                     src={category.image}
@@ -572,16 +573,16 @@ const ShopRegistration = () => {
                     className="w-full h-full object-cover rounded transition-transform duration-300 hover:scale-110"
                   />
                 ) : (
-                  <Package size={48} className="text-green-400" />
+                  <Package size={32} className="sm:w-12 sm:h-12 text-emerald-400" />
                 )}
                 {selectedCategories.includes(category._id) && (
-                  <div className="absolute top-2 right-2 bg-green-600 text-white rounded-full p-1 animate-pulse">
-                    <CheckCircle size={16} />
+                  <div className="absolute top-1 sm:top-2 right-1 sm:right-2 bg-emerald-600 text-white rounded-full p-1 animate-pulse">
+                    <CheckCircle size={12} className="sm:w-4 sm:h-4" />
                   </div>
                 )}
               </div>
-              <h3 className="font-bold text-center text-green-700">{category.name}</h3>
-              <p className="text-green-500 text-sm text-center">{category.count || 0} Sản phẩm</p>
+              <h3 className="font-bold text-center text-gray-800 text-base sm:text-lg">{category.name}</h3>
+              <p className="text-gray-500 text-xs sm:text-sm text-center">{category.count || 0} Sản phẩm</p>
             </div>
           ))}
         </div>
@@ -592,99 +593,99 @@ const ShopRegistration = () => {
   // Step 2: Thông tin cửa hàng
   const renderShopInfo = () => {
     return (
-      <div className="mt-8 animate-slide-up perspective-1000">
-        <h2 className="text-xl font-bold text-green-700 mb-4 transform hover:translateZ(10px)">Thông tin cửa hàng</h2>
-        <p className="text-green-600 mb-6 transform hover:translateZ(5px)">Vui lòng điền đầy đủ thông tin cửa hàng của bạn</p>
+      <div className="mt-6 sm:mt-8 animate-slide-up perspective-1000">
+        <h2 className="text-lg sm:text-xl font-bold text-emerald-700 mb-3 sm:mb-4 transform hover:translateZ(10px)">Thông tin cửa hàng</h2>
+        <p className="text-sm sm:text-base text-emerald-600 mb-4 sm:mb-6 transform hover:translateZ(5px)">Vui lòng điền đầy đủ thông tin cửa hàng của bạn</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+          <div className="space-y-3 sm:space-y-4">
             <div>
-              <label className="block text-sm font-medium text-green-700 mb-1 transform hover:translateZ(5px)">Tên cửa hàng *</label>
+              <label className="block text-sm font-medium text-emerald-700 mb-1 transform hover:translateZ(5px)">Tên cửa hàng *</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border-2 border-green-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 transition-all duration-300 hover:shadow-green-400/50 animate-glowGreen"
+                className="w-full px-3 py-2 text-sm sm:text-base border-2 border-emerald-500 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-600 transition-all duration-300 hover:shadow-emerald-400/50 animate-glowGreen"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-green-700 mb-1 transform hover:translateZ(5px)">Mô tả cửa hàng</label>
+              <label className="block text-sm font-medium text-emerald-700 mb-1 transform hover:translateZ(5px)">Mô tả cửa hàng</label>
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
                 rows={3}
-                className="w-full px-3 py-2 border-2 border-green-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 transition-all duration-300 hover:shadow-green-400/50 animate-glowGreen"
+                className="w-full px-3 py-2 text-sm sm:text-base border-2 border-emerald-500 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-600 transition-all duration-300 hover:shadow-emerald-400/50 animate-glowGreen"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-green-700 mb-1 transform hover:translateZ(5px)">Số điện thoại *</label>
+              <label className="block text-sm font-medium text-emerald-700 mb-1 transform hover:translateZ(5px)">Số điện thoại *</label>
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border-2 border-green-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 transition-all duration-300 hover:shadow-green-400/50 animate-glowGreen"
+                className="w-full px-3 py-2 text-sm sm:text-base border-2 border-emerald-500 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-600 transition-all duration-300 hover:shadow-emerald-400/50 animate-glowGreen"
                 required
                 placeholder="Nhập 10 số, bắt đầu bằng số 0"
               />
-              <p className="text-xs text-green-500 mt-1 transform hover:translateZ(5px)">Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0</p>
+              <p className="text-xs text-emerald-500 mt-1 transform hover:translateZ(5px)">Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0</p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-green-700 mb-1 transform hover:translateZ(5px)">Email *</label>
+              <label className="block text-sm font-medium text-emerald-700 mb-1 transform hover:translateZ(5px)">Email *</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border-2 border-green-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 transition-all duration-300 hover:shadow-green-400/50 animate-glowGreen"
+                className="w-full px-3 py-2 text-sm sm:text-base border-2 border-emerald-500 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-600 transition-all duration-300 hover:shadow-emerald-400/50 animate-glowGreen"
                 required
               />
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             <div>
-              <label className="block text-sm font-medium text-green-700 mb-1 transform hover:translateZ(5px)">Địa chỉ cửa hàng *</label>
+              <label className="block text-sm font-medium text-emerald-700 mb-1 transform hover:translateZ(5px)">Địa chỉ cửa hàng *</label>
               <input
                 type="text"
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border-2 border-green-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 transition-all duration-300 hover:shadow-green-400/50 animate-glowGreen"
+                className="w-full px-3 py-2 text-sm sm:text-base border-2 border-emerald-500 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-600 transition-all duration-300 hover:shadow-emerald-400/50 animate-glowGreen"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-green-700 mb-1 transform hover:translateZ(5px)">Số CMND/CCCD *</label>
+              <label className="block text-sm font-medium text-emerald-700 mb-1 transform hover:translateZ(5px)">Số CMND/CCCD *</label>
               <input
                 type="text"
                 name="CCCD"
                 value={formData.CCCD}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border-2 border-green-500 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 transition-all duration-300 hover:shadow-green-400/50 animate-glowGreen"
+                className="w-full px-3 py-2 text-sm sm:text-base border-2 border-emerald-500 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-600 transition-all duration-300 hover:shadow-emerald-400/50 animate-glowGreen"
                 required
                 placeholder="Nhập 12 chữ số"
               />
-              <p className="text-xs text-green-500 mt-1 transform hover:translateZ(5px)">Số CCCD phải có đúng 12 chữ số</p>
+              <p className="text-xs text-emerald-500 mt-1 transform hover:translateZ(5px)">Số CCCD phải có đúng 12 chữ số</p>
             </div>
           </div>
         </div>
 
-        <div className="mt-8">
-          <h3 className="text-lg font-medium text-green-700 mb-4 transform hover:translateZ(10px)">Tải lên hình ảnh</h3>
+        <div className="mt-6 sm:mt-8">
+          <h3 className="text-base sm:text-lg font-medium text-emerald-700 mb-3 sm:mb-4 transform hover:translateZ(10px)">Tải lên hình ảnh</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             <div className="perspective-1000">
-              <label className="block text-sm font-medium text-green-700 mb-1 transform hover:translateZ(5px)">Logo cửa hàng</label>
+              <label className="block text-sm font-medium text-emerald-700 mb-1 transform hover:translateZ(5px)">Logo cửa hàng</label>
               <div
-                className="border-2 border-dashed border-green-500 rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:shadow-green-400/50 hover:scale-105 hover:rotateY(8deg) animate-glowGreen"
+                className="border-2 border-dashed border-emerald-500 rounded-lg p-3 sm:p-4 text-center cursor-pointer transition-all duration-300 hover:shadow-emerald-400/50 hover:scale-105 hover:rotateY(8deg) animate-glowGreen"
                 onClick={() => document.getElementById('logo-upload').click()}
               >
                 {logoPreview ? (
@@ -692,7 +693,7 @@ const ShopRegistration = () => {
                     <img
                       src={logoPreview}
                       alt="Logo preview"
-                      className="max-h-48 mx-auto mb-2 transform transition-all duration-300 hover:scale-110"
+                      className="max-h-32 sm:max-h-48 mx-auto mb-2 transform transition-all duration-300 hover:scale-110"
                     />
                     <button
                       type="button"
@@ -700,16 +701,16 @@ const ShopRegistration = () => {
                         e.stopPropagation();
                         handleRemoveImage('logo');
                       }}
-                      className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 transform hover:scale-90"
+                      className="absolute top-1 sm:top-2 right-1 sm:right-2 bg-red-600 text-white rounded-full p-1 transform hover:scale-90"
                     >
-                      <X size={16} />
+                      <X size={12} className="sm:w-4 sm:h-4" />
                     </button>
-                    <p className="text-sm text-green-600">Nhấp để thay đổi</p>
+                    <p className="text-xs sm:text-sm text-emerald-600">Nhấp để thay đổi</p>
                   </div>
                 ) : (
                   <div className="transform hover:translateZ(10px)">
-                    <Upload className="mx-auto text-green-600 mb-2" />
-                    <p className="text-sm text-green-600">Kéo thả file hoặc click để tải lên</p>
+                    <Upload className="mx-auto text-emerald-600 mb-2 w-6 h-6 sm:w-8 sm:h-8" />
+                    <p className="text-xs sm:text-sm text-emerald-600">Kéo thả file hoặc click để tải lên</p>
                   </div>
                 )}
                 <input
@@ -724,9 +725,9 @@ const ShopRegistration = () => {
             </div>
 
             <div className="perspective-1000">
-              <label className="block text-sm font-medium text-green-700 mb-1 transform hover-translateZ(5px)">Ảnh bìa cửa hàng</label>
+              <label className="block text-sm font-medium text-emerald-700 mb-1 transform hover-translateZ(5px)">Ảnh bìa cửa hàng</label>
               <div
-                className="border-2 border-dashed border-green-500 rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:shadow-green-400/50 hover:scale-105 hover:rotateY(8deg) animate-glowGreen"
+                className="border-2 border-dashed border-emerald-500 rounded-lg p-3 sm:p-4 text-center cursor-pointer transition-all duration-300 hover:shadow-emerald-400/50 hover:scale-105 hover:rotateY(8deg) animate-glowGreen"
                 onClick={() => document.getElementById('cover-upload').click()}
               >
                 {coverPreview ? (
@@ -734,7 +735,7 @@ const ShopRegistration = () => {
                     <img
                       src={coverPreview}
                       alt="Cover preview"
-                      className="max-h-48 mx-auto mb-2 transform transition-all duration-300 hover:scale-110"
+                      className="max-h-32 sm:max-h-48 mx-auto mb-2 transform transition-all duration-300 hover:scale-110"
                     />
                     <button
                       type="button"
@@ -742,16 +743,16 @@ const ShopRegistration = () => {
                         e.stopPropagation();
                         handleRemoveImage('image_cover');
                       }}
-                      className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 transform hover:scale-90"
+                      className="absolute top-1 sm:top-2 right-1 sm:right-2 bg-red-600 text-white rounded-full p-1 transform hover:scale-90"
                     >
-                      <X size={16} />
+                      <X size={12} className="sm:w-4 sm:h-4" />
                     </button>
-                    <p className="text-sm text-green-600">Nhấp để thay đổi</p>
+                    <p className="text-xs sm:text-sm text-emerald-600">Nhấp để thay đổi</p>
                   </div>
                 ) : (
                   <div className="transform hover:translateZ(10px)">
-                    <Upload className="mx-auto text-green-600 mb-2" />
-                    <p className="text-sm text-green-600">Kéo thả file hoặc click để tải lên</p>
+                    <Upload className="mx-auto text-emerald-600 mb-2 w-6 h-6 sm:w-8 sm:h-8" />
+                    <p className="text-xs sm:text-sm text-emerald-600">Kéo thả file hoặc click để tải lên</p>
                   </div>
                 )}
                 <input
@@ -773,19 +774,19 @@ const ShopRegistration = () => {
   // Step 3: Giấy tờ và xác nhận
   const renderDocuments = () => {
     return (
-      <div className="mt-8 animate-slide-up perspective-1000">
-        <h2 className="text-xl font-bold text-green-700 mb-4 transform hover:translateZ(10px)">Tải lên giấy tờ xác thực</h2>
-        <p className="text-green-600 mb-6 transform hover:translateZ(5px)">Để đảm bảo tính xác thực, cung cấp các giấy tờ sau</p>
+      <div className="mt-6 sm:mt-8 animate-slide-up perspective-1000">
+        <h2 className="text-lg sm:text-xl font-bold text-emerald-700 mb-3 sm:mb-4 transform hover:translateZ(10px)">Tải lên giấy tờ xác thực</h2>
+        <p className="text-sm sm:text-base text-emerald-600 mb-4 sm:mb-6 transform hover:translateZ(5px)">Để đảm bảo tính xác thực, cung cấp các giấy tờ sau</p>
 
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold text-green-700 mb-3 transform hover:translateZ(5px)">CMND/CCCD (bắt buộc)</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mb-4 sm:mb-6">
+          <h3 className="text-base sm:text-lg font-semibold text-emerald-700 mb-2 sm:mb-3 transform hover:translateZ(5px)">CMND/CCCD (bắt buộc)</h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             <div className="perspective-1000">
-              <label className="block text-sm font-medium text-green-700 mb-1 transform hover:translateZ(5px)">
+              <label className="block text-sm font-medium text-emerald-700 mb-1 transform hover:translateZ(5px)">
                 Mặt trước CMND/CCCD <span className="text-red-600">*</span>
               </label>
               <div
-                className="border-2 border-dashed border-green-500 rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:shadow-green-400/50 hover:scale-105 hover:rotateY(8deg) animate-glowGreen"
+                className="border-2 border-dashed border-emerald-500 rounded-lg p-3 sm:p-4 text-center cursor-pointer transition-all duration-300 hover:shadow-emerald-400/50 hover:scale-105 hover:rotateY(8deg) animate-glowGreen"
                 onClick={() => document.getElementById('identity-front-upload').click()}
               >
                 {identityFrontPreview ? (
@@ -793,7 +794,7 @@ const ShopRegistration = () => {
                     <img
                       src={identityFrontPreview}
                       alt="Identity front preview"
-                      className="max-h-48 mx-auto mb-2 transform transition-all duration-300 hover:scale-110"
+                      className="max-h-32 sm:max-h-48 mx-auto mb-2 transform transition-all duration-300 hover:scale-110"
                     />
                     <button
                       type="button"
@@ -801,16 +802,16 @@ const ShopRegistration = () => {
                         e.stopPropagation();
                         handleRemoveImage('identityCardFront');
                       }}
-                      className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 transform hover:scale-90"
+                      className="absolute top-1 sm:top-2 right-1 sm:right-2 bg-red-600 text-white rounded-full p-1 transform hover:scale-90"
                     >
-                      <X size={16} />
+                      <X size={12} className="sm:w-4 sm:h-4" />
                     </button>
-                    <p className="text-sm text-green-600">Nhấp để thay đổi</p>
+                    <p className="text-xs sm:text-sm text-emerald-600">Nhấp để thay đổi</p>
                   </div>
                 ) : (
                   <div className="transform hover:translateZ(10px)">
-                    <Upload className="mx-auto text-green-600 mb-2" />
-                    <p className="text-sm text-green-600 text-center">Tải lên ảnh mặt trước CMND/CCCD</p>
+                    <Upload className="mx-auto text-emerald-600 mb-2 w-6 h-6 sm:w-8 sm:h-8" />
+                    <p className="text-xs sm:text-sm text-emerald-600 text-center">Tải lên ảnh mặt trước CMND/CCCD</p>
                     <p className="text-xs text-red-600 mt-1">Bắt buộc</p>
                   </div>
                 )}
@@ -827,11 +828,11 @@ const ShopRegistration = () => {
             </div>
 
             <div className="perspective-1000">
-              <label className="block text-sm font-medium text-green-700 mb-1 transform hover:translateZ(5px)">
+              <label className="block text-sm font-medium text-emerald-700 mb-1 transform hover:translateZ(5px)">
                 Mặt sau CMND/CCCD <span className="text-red-600">*</span>
               </label>
               <div
-                className="border-2 border-dashed border-green-500 rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:shadow-green-400/50 hover:scale-105 hover:rotateY(8deg) animate-glowGreen"
+                className="border-2 border-dashed border-emerald-500 rounded-lg p-3 sm:p-4 text-center cursor-pointer transition-all duration-300 hover:shadow-emerald-400/50 hover:scale-105 hover:rotateY(8deg) animate-glowGreen"
                 onClick={() => document.getElementById('identity-back-upload').click()}
               >
                 {identityBackPreview ? (
@@ -839,7 +840,7 @@ const ShopRegistration = () => {
                     <img
                       src={identityBackPreview}
                       alt="Identity back preview"
-                      className="max-h-48 mx-auto mb-2 transform transition-all duration-300 hover:scale-110"
+                      className="max-h-32 sm:max-h-48 mx-auto mb-2 transform transition-all duration-300 hover:scale-110"
                     />
                     <button
                       type="button"
@@ -847,16 +848,16 @@ const ShopRegistration = () => {
                         e.stopPropagation();
                         handleRemoveImage('identityCardBack');
                       }}
-                      className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 transform hover:scale-90"
+                      className="absolute top-1 sm:top-2 right-1 sm:right-2 bg-red-600 text-white rounded-full p-1 transform hover:scale-90"
                     >
-                      <X size={16} />
+                      <X size={12} className="sm:w-4 sm:h-4" />
                     </button>
-                    <p className="text-sm text-green-600">Nhấp để thay đổi</p>
+                    <p className="text-xs sm:text-sm text-emerald-600">Nhấp để thay đổi</p>
                   </div>
                 ) : (
                   <div className="transform hover:translateZ(10px)">
-                    <Upload className="mx-auto text-green-600 mb-2" />
-                    <p className="text-sm text-green-600">Tải lên ảnh mặt sau CMND/CCCD</p>
+                    <Upload className="mx-auto text-emerald-600 mb-2 w-6 h-6 sm:w-8 sm:h-8" />
+                    <p className="text-xs sm:text-sm text-emerald-600">Tải lên ảnh mặt sau CMND/CCCD</p>
                     <p className="text-xs text-red-600 mt-1">Bắt buộc</p>
                   </div>
                 )}
@@ -874,12 +875,12 @@ const ShopRegistration = () => {
           </div>
         </div>
 
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold text-green-700 mb-3 transform hover:translateZ(5px)">Giấy phép kinh doanh (không bắt buộc)</h3>
+        <div className="mb-4 sm:mb-6">
+          <h3 className="text-base sm:text-lg font-semibold text-emerald-700 mb-2 sm:mb-3 transform hover:translateZ(5px)">Giấy phép kinh doanh (không bắt buộc)</h3>
           <div className="perspective-1000">
-            <label className="block text-sm font-medium text-green-700 mb-1 transform hover:translateZ(5px)">Giấy phép kinh doanh (nếu có)</label>
+            <label className="block text-sm font-medium text-emerald-700 mb-1 transform hover:translateZ(5px)">Giấy phép kinh doanh (nếu có)</label>
             <div
-              className="border-2 border-dashed border-green-500 rounded-lg p-4 text-center cursor-pointer transition-all duration-300 hover:shadow-green-400/50 hover:scale-105 hover:rotateY(8deg) animate-glowGreen"
+              className="border-2 border-dashed border-emerald-500 rounded-lg p-3 sm:p-4 text-center cursor-pointer transition-all duration-300 hover:shadow-emerald-400/50 hover:scale-105 hover:rotateY(8deg) animate-glowGreen"
               onClick={() => document.getElementById('license-upload').click()}
             >
               {licensePreview ? (
@@ -887,7 +888,7 @@ const ShopRegistration = () => {
                   <img
                     src={licensePreview}
                     alt="License preview"
-                    className="max-h-48 mx-auto mb-2 transform transition-all duration-300 hover:scale-110"
+                    className="max-h-32 sm:max-h-48 mx-auto mb-2 transform transition-all duration-300 hover:scale-110"
                   />
                   <button
                     type="button"
@@ -895,16 +896,16 @@ const ShopRegistration = () => {
                       e.stopPropagation();
                       handleRemoveImage('businessLicense');
                     }}
-                    className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 transform hover:scale-90"
+                    className="absolute top-1 sm:top-2 right-1 sm:right-2 bg-red-600 text-white rounded-full p-1 transform hover:scale-90"
                   >
-                    <X size={16} />
+                    <X size={12} className="sm:w-4 sm:h-4" />
                   </button>
-                  <p className="text-sm text-green-600">Nhấp để thay đổi</p>
+                  <p className="text-xs sm:text-sm text-emerald-600">Nhấp để thay đổi</p>
                 </div>
               ) : (
                 <div className="transform hover:translateZ(10px)">
-                  <Upload className="mx-auto text-green-600 mb-2" />
-                  <p className="text-sm text-green-600">Kéo thả file hoặc click để tải lên</p>
+                  <Upload className="mx-auto text-emerald-600 mb-2 w-6 h-6 sm:w-8 sm:h-8" />
+                  <p className="text-xs sm:text-sm text-emerald-600">Kéo thả file hoặc click để tải lên</p>
                 </div>
               )}
               <input
@@ -919,12 +920,12 @@ const ShopRegistration = () => {
           </div>
         </div>
 
-        <div className="bg-yellow-100 border border-yellow-500 rounded-lg p-4 mb-6">
+        <div className="bg-yellow-100 border border-yellow-500 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
           <div className="flex items-start">
-            <Info className="text-yellow-500 mr-3 flex-shrink-0 mt-0.5 transform hover:scale-110" />
+            <Info className="text-yellow-500 mr-2 sm:mr-3 flex-shrink-0 mt-0.5 transform hover:scale-110 w-4 h-4 sm:w-5 sm:h-5" />
             <div className="transform hover:translateZ(5px)">
-              <h4 className="font-medium text-green-800">Lưu ý quan trọng</h4>
-              <ul className="list-disc pl-5 mt-2 text-sm text-green-700 space-y-1">
+              <h4 className="font-medium text-emerald-800 text-sm sm:text-base">Lưu ý quan trọng</h4>
+              <ul className="list-disc pl-4 sm:pl-5 mt-2 text-xs sm:text-sm text-emerald-700 space-y-1">
                 <li>Các thông tin và giấy tờ của bạn sẽ được bảo mật tuyệt đối</li>
                 <li>Ảnh CMND/CCCD phải rõ nét, đủ thông tin cả mặt trước và mặt sau</li>
                 <li>Quá trình xét duyệt có thể mất từ 1-3 ngày làm việc</li>
@@ -935,22 +936,22 @@ const ShopRegistration = () => {
           </div>
         </div>
 
-        <div className="border-t pt-6">
+        <div className="border-t pt-4 sm:pt-6">
           <div className="flex items-start cursor-pointer">
             <input
               type="checkbox"
               checked={terms}
               onChange={() => setTerms(!terms)}
-              className="mt-1 mr-3 border-green-500"
+              className="mt-1 mr-2 sm:mr-3 border-emerald-500"
             />
-            <span className="text-sm text-green-700 transform hover:translateZ(5px)">
+            <span className="text-xs sm:text-sm text-emerald-700 transform hover:translateZ(5px)">
               Tôi đã đọc và đồng ý với <a href="#" className="text-blue-600 hover:underline">Điều khoản dịch vụ</a> và{' '}
               <a href="#" className="text-blue-600 hover:underline">Chính sách bán hàng</a> của GreenGarden. Tôi cam kết tuân thủ các quy định về bán hàng và chịu trách nhiệm về các sản phẩm đăng bán.
             </span>
           </div>
 
           {progressPercent > 0 && (
-            <div className="mt-4">
+            <div className="mt-3 sm:mt-4">
               <ProgressBar percent={progressPercent} status={progressStatus} />
             </div>
           )}
@@ -961,32 +962,32 @@ const ShopRegistration = () => {
   // Hiển thị bước chỉ dẫn
   const renderStepIndicators = () => {
     const steps = [
-      { number: 1, title: 'Chọn danh mục', icon: Package },
-      { number: 2, title: 'Thông tin cửa hàng', icon: Store },
-      { number: 3, title: 'Xác nhận', icon: FileText },
+      { number: 1, title: 'Danh mục', icon: Package, width: 1 },
+      { number: 2, title: 'Thông tin', icon: Store, width: 2 },
+      { number: 3, title: 'Tài liệu', icon: FileText, width: 3 }
     ];
 
     return (
-      <div className="flex justify-center mb-10 perspective-1000">
+      <div className="flex justify-center mb-6 sm:mb-10 perspective-1000">
         {steps.map((step, index) => (
           <React.Fragment key={step.number}>
             <div className="flex flex-col items-center transform transition-all duration-300 hover:scale-110 hover:rotateY(10deg)">
               <div
                 className={`
-                  w-12 h-12 rounded-full flex items-center justify-center
-                  ${currentStep >= step.number ? 'bg-green-600 text-white' : 'bg-green-200 text-green-600'}
-                  animate-pulse shadow-green-400/50
+                  w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center
+                  ${currentStep >= step.number ? 'bg-emerald-600 text-white' : 'bg-emerald-200 text-emerald-600'}
+                  animate-pulse shadow-emerald-400/50
                 `}
               >
-                <step.icon size={24} />
+                <step.icon size={16} className="sm:w-6 sm:h-6" />
               </div>
-              <div className="text-sm font-medium text-green-600 mt-2 transform hover-translateZ(5px)">{step.title}</div>
+              <div className="text-xs sm:text-sm font-medium text-emerald-600 mt-1 sm:mt-2 transform hover-translateZ(5px)">{step.title}</div>
             </div>
 
             {index < steps.length - 1 && (
-              <div className="w-20 md:w-32 h-1 mt-5 mx-2 bg-green-100">
+              <div className="w-8 sm:w-20 md:w-32 h-1 mt-4 sm:mt-5 mx-1 sm:mx-2 bg-emerald-100">
                 <div
-                  className="h-full bg-green-600 transition-all duration-300"
+                  className="h-full bg-emerald-600 transition-all duration-300"
                   style={{ width: currentStep > step.width ? '100%' : '0%' }}
                 ></div>
               </div>
@@ -999,166 +1000,104 @@ const ShopRegistration = () => {
 
   // Main render
   return (
-    <div className="max-w-7xl mx-auto px-4 py-4 py-8">
-      <div className="text-center mb-8 text-center mb-4 animate-slide-in perspective-1000">
-        <h3 className="text-3xl font-bold text-green-700 transform hover:text-green-800 hover:scale-105 hover-rotateY(5deg)">Đăng ký trở thành người bán trên GreenGarden</h3>
-        <p className="text-green-600 mt-600 mt-2 transform hover-translateZ(5px)">Tiếp cận hàng triệu khách hàng và phát triển kinh doanh của bạn</p>
-      </div>
+    <div className="min-h-screen bg-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 py-4 sm:py-8 relative z-10">
+        <div className="text-center mb-4 sm:mb-8 animate-slide-in perspective-1000">
+          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-emerald-700 flex items-center justify-center gap-2">
+            <span>Đăng ký trở thành người bán trên GreenGarden</span>
+            <span className="text-amber-500 animate-bounce">🌱</span>
+          </h3>
+          <p className="text-amber-800 italic text-base mt-2">Gieo mầm xanh – Lan tỏa sức sống</p>
+          <p className="text-gray-700 mt-2">Tiếp cận hàng triệu khách hàng và phát triển kinh doanh của bạn</p>
+        </div>
 
-      {renderStepIndicators()}
+        {renderStepIndicators()}
 
-      {success ? (
-        renderSuccess()
-      ) : (
-        <div className="bg-white shadow-lg rounded-lg p-lg p-6 mb-6 mb-8 shadow-green-500/20 animate-slide-up perspective-1000">
-          {renderError()}
-
-          <div className="transform transition-all duration-300" style={{ transform: `rotateX(${currentStep === 1 ? '0deg' : '45deg'})`, opacity: currentStep === 1 ? 1 : 0 }}>
-            {currentStep === 1 && renderCategorySelection()}
+        {success ? (
+          renderSuccess()
+        ) : (
+          <div className="bg-white shadow-md rounded-2xl border border-gray-100 p-4 sm:p-6 mb-6 sm:mb-8 animate-slide-up perspective-1000">
+            {renderError()}
+            <div className="transform transition-all duration-300" style={{ transform: `rotateX(${currentStep === 1 ? '0deg' : '45deg'})`, opacity: currentStep === 1 ? 1 : 0 }}>
+              {currentStep === 1 && renderCategorySelection()}
+            </div>
+            <div className="transform transition-all duration-300" style={{ transform: `rotateX(${currentStep === 2 ? '0deg' : '45deg'})`, opacity: currentStep === 2 ? 1 : 0 }}>
+              {currentStep === 2 && renderShopInfo()}
+            </div>
+            <div className="transform transition-all duration-300" style={{ transform: `rotateX(${currentStep === 3 ? '0deg' : '45deg'})`, opacity: currentStep === 3 ? 1 : 0 }}>
+              {currentStep === 3 && renderDocuments()}
+            </div>
+            <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0 mt-6 sm:mt-10 perspective-1000">
+              <button
+                type="button"
+                onClick={handlePrevStep}
+                className={`px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base border-2 border-lime-300 rounded-full text-emerald-700 font-semibold transition-all duration-200 bg-gradient-to-r from-lime-100 to-amber-50 shadow flex items-center gap-2 ${currentStep === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:from-lime-200 hover:to-yellow-100 hover:scale-105'}`}
+                disabled={currentStep === 1 || loading}
+              >
+                <span className="text-amber-500 animate-wiggle">🌿</span> Quay lại
+              </button>
+              <button
+                type="button"
+                onClick={() => handleNextStep()}
+                className={`px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-lime-300 to-amber-200 text-emerald-900 font-semibold rounded-full flex items-center justify-center shadow hover:from-lime-400 hover:to-yellow-200 transition-all duration-300 gap-2 ${loading ? 'opacity-70 cursor-wait' : ''}`}
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <Loader className="animate-spin loading-spinner w-4 h-4 sm:w-5 sm:h-5 mr-2" name="loading-spinner" />
+                    Đang xử lý...
+                  </>
+                ) : (
+                  <>
+                    {currentStep === 3 ? 'Đăng ký cửa hàng' : 'Tiếp tục'} <span className="text-amber-500 animate-wiggle">🌱</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
-          <div className="transform transition-all duration-300" style={{ transform: `rotateX(${currentStep === 2 ? '0deg' : '45deg'})`, opacity: currentStep === 2 ? 1 : 0 }}>
-            {currentStep === 2 && renderShopInfo()}
-          </div>
-          <div className="transform transition-all duration-300" style={{ transform: `rotateX(${currentStep === 3 ? '0deg' : '45deg'})`, opacity: currentStep === 3 ? 1 : 0 }}>
-            {currentStep === 3 && renderDocuments()}
-          </div>
+        )}
 
-          <div className="flex justify-between mt-between mt-10 perspective-1000">
-            <button
-              type="button"
-              onClick={handlePrevStep}
-              className={`
-                px-6 py-3
-                border-2 border-green-500 rounded-full
-                text-green-700
-                transition-all duration-200
-                ${currentStep === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-100 hover:scale-50 hover:bg-green-105 hover:scale-Y(5deg)'}
-              `}
-              disabled={currentStep === 1 || loading}
-            >
-              Quay lại
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handleNextStep()}
-              className={`
-                px-6 py-2 py-3
-                bg-green-600 bg-green text-white rounded-full
-                flex items-center
-                justify-center
-                transition-all duration-300
-                hover:shadow
--green-700 hover:bg-green-105 hover:shadow-green-700
-                hover:scale-105 hover:bg-green-Y(10deg)
-                animate-pulse
-                ${loading ? 'opacity-70 cursor-wait' : ''}
-              `}
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <Loader className="animate-spin loading-spinner" name="loading-spinner"  />
-                  Đang xử lý...
-                </>
-              ) : (
-                currentStep === 3 ? 'Đăng ký cửa hàng' : 'Tiếp tục'
-              )}
-            </button>
+        <div className="bg-white rounded-2xl border border-lime-100 shadow-md p-4 sm:p-6 mb-6 animate-slide-up perspective-1000">
+          <h3 className="text-base sm:text-lg font-bold text-emerald-700 mb-4 flex items-center gap-2"><span>Lợi ích khi bán hàng trên GreenGarden</span> <span className="text-amber-500 animate-bounce">🌿</span></h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="flex items-start bg-white rounded-xl border border-lime-100 shadow p-4 gap-3">
+              <div className="w-10 h-10 bg-lime-100 rounded-full flex items-center justify-center">
+                <Store className="text-emerald-600" />
+              </div>
+              <div>
+                <h4 className="text-emerald-700 font-semibold flex items-center gap-1">Tiếp cận khách hàng <span className="text-amber-500">🌱</span></h4>
+                <p className="text-gray-600 text-sm">Kết nối với hàng triệu khách hàng tiềm năng trên nền tảng của chúng tôi</p>
+              </div>
+            </div>
+            <div className="flex items-start bg-white rounded-xl border border-lime-100 shadow p-4 gap-3">
+              <div className="w-10 h-10 bg-lime-100 rounded-full flex items-center justify-center">
+                <MapPin className="text-emerald-600" />
+              </div>
+              <div>
+                <h4 className="text-emerald-700 font-semibold flex items-center gap-1">Mở rộng thị trường <span className="text-amber-500">🌿</span></h4>
+                <p className="text-gray-600 text-sm">Bán hàng toàn quốc không giới hạn địa lý, mở rộng thị trường của bạn</p>
+              </div>
+            </div>
+            <div className="flex items-start bg-white rounded-xl border border-lime-100 shadow p-4 gap-3">
+              <div className="w-10 h-10 bg-lime-100 rounded-full flex items-center justify-center">
+                <CreditCard className="text-emerald-600" />
+              </div>
+              <div>
+                <h4 className="text-emerald-700 font-semibold flex items-center gap-1">Thanh toán an toàn <span className="text-amber-500">🌱</span></h4>
+                <p className="text-gray-600 text-sm">Hệ thống thanh toán bảo mật, đảm bảo quyền lợi cho người bán</p>
+              </div>
+            </div>
           </div>
         </div>
 
-      )}
-
-      <div className="bg-green-50 rounded-lg p-6 mb-6 animate-slide-up perspective-1000">
-        <h3 className="text-lg font-bold text-green-700 mb-4 transform hover:translateZ(10px)">Lợi ích khi bán hàng trên GreenGarden</h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="flex items-start transform perspective-200 transition-all duration-300 hover:scale-105 hover:rotateY(10deg)">
-            <div className="flex items-center justify-center mr-4 flex-shrink-0">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center animate-pulse">
-                <Store className="text-green-600" />
-              </div>
-            </div>
-            <div className="transform hover:translateZ(5px)">
-              <h3 className="font-semibold text-green-700 mb-1">Tiếp cận khách hàng</h3>
-              <p className="text-green-600 text-sm">Kết nối với hàng triệu khách hàng tiềm năng trên nền tảng của chúng tôi</p>
-            </div>
-          </div>
-
-          <div className="flex items-start transform perspective-200 transition-all duration-300 hover:scale-105 hover:rotateY(10deg)">
-            <div className="flex items-center justify-center mr-4 flex-shrink-0">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center animate-pulse">
-                <MapPin className="text-green-600" />
-              </div>
-            </div>
-            <div className="transform hover:translateZ(5px)">
-              <h3 className="font-semibold text-green-700 mb-1">Mở rộng thị trường</h3>
-              <p className="text-green-600 text-sm">Bán hàng toàn quốc không giới hạn địa lý, mở rộng thị trường của bạn</p>
-            </div>
-          </div>
-
-          <div className="flex items-start transform perspective-200 transition-all duration-300 hover:scale-105 hover:rotateY(10deg)">
-            <div className="flex items-center justify-center mr-4 flex-shrink-0">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center animate-pulse">
-                <CreditCard className="text-green-600" />
-              </div>
-            </div>
-            <div className="transform hover:translateZ(5px)">
-              <h3 className="font-semibold text-green-700 mb-1">Thanh toán an toàn</h3>
-              <p className="text-green-600 text-sm">Hệ thống thanh toán bảo mật, đảm bảo quyền lợi cho người bán</p>
-            </div>
-          </div>
-        </div>
+        <style jsx="true">{`
+          @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(10deg); }
+          }
+          .animate-wiggle { animation: wiggle 1s infinite; }
+        `}</style>
       </div>
-
-      <style jsx="true">{`
-        @keyframes slide-in {
-          from { opacity: 0; transform: translateY(-20px); }
-          to { opacity: to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slide-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: to { opacity: to 1; transform: translateY(0); }
-        }
-
-        @keyframes glowGreen {
-          from { box-shadow: from { box-shadow: 0 0 5px rgba(5px rgba(34, 205, 94, 0.3)); }
-          to { box-shadow: to { box-shadow: to 0 0 15px rgba(15px rgba(34, 205, 94, 0.6)); }
-        }
-
-        .animate-glowGreen {
-          animation: glowGreen 2s ease-in-out infinite;
-        }
-
-        .animate-slide-in {
-          animation: slide-in 0.5s-in 0.4s ease-out;
-        ease-out
-
-        .animate-slideUp {
-          animation: slideUp 0.5s ease-out;
-        }
-
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-
-        .perspective-200 {
-          perspective: 200px;
-        }
-
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-        }
-
-        .animate-pulse {
-          animation: pulse 1.5s infinite;
-          animation-name: pulse;
-        }
-      `}
-      </style>
     </div>
   );
 }
