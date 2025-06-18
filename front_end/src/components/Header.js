@@ -250,7 +250,7 @@ const Header = () => {
                 <a href="/user-profile/messages" className="block px-4 py-2 text-sm hover:bg-green-100 transition-all duration-200 hover:scale-105 hover:rotateY(5deg)">
                   Tin nhắn {unreadMessageCount > 0 && `(${unreadMessageCount})`}
                 </a>
-                <a href="/user-profile/addresses" className="block px-4 py-2 text-sm hover:bg-green-100 transition-all duration-200 hover:scale-105 hover:rotateY(5deg)">Địa chỉ</a>
+                <a href="/user-profile/addresses" className="block px-4 py-2 text-sm hover:bg-green-100 transition-all duration-200 hover:scale-105 hover:rotateY(5deg)">Địa Chỉ</a>
                 <a href="/user-profile/password" className="block px-4 py-2 text-sm hover:bg-green-100 transition-all duration-200 hover:scale-105 hover:rotateY(5deg)">Đổi mật khẩu</a>
                 {isSeller() && (
                   <a href="/seller-dashboard" className="block px-4 py-2 text-sm hover:bg-green-100 transition-all duration-200 hover:scale-105 hover:rotateY(5deg)">Quản lý cửa hàng</a>
