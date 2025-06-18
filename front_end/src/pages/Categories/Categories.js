@@ -78,7 +78,7 @@ const Categories = () => {
                 
                 // Lọc sản phẩm theo trạng thái is_active = true
                 const activeProducts = productsData.filter(product => 
-                     product.is_delete === false || product.is_delete === 'false' || product.is_delete === 0 
+                     product.is_active === true || product.is_active === 'true' || product.is_active === 1
                 );
 
                 // Kiểm tra hàng tồn kho của tất cả biến thể

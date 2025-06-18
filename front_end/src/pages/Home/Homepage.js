@@ -91,7 +91,7 @@ const TroocEcommerce = () => {
         // Fetch sản phẩm
         const productsData = await ApiService.get('/product', true);
         const activeProducts = productsData.filter(product =>
-          product.is_delete === false || product.is_delete === 'false' || product.is_delete === 0
+          product.is_active === true || product.is_active === 'true' || product.is_active === 1
         );
         const productsWithImages = activeProducts.map(product => ({
           ...product,

@@ -91,15 +91,7 @@ const ProductCard = ({
           {hoveredProduct === productId && (
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center transition-all duration-300 ease-out rounded-lg">
               <div className="flex space-x-2 animate-fadeIn">
-                <button
-                  className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-50 transition-all duration-200 hover:scale-110"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // Add to wishlist functionality
-                  }}
-                >
-                  <Heart size={18} className="text-gray-600 hover:text-red-500 transition-colors" />
-                </button>
+
                 <button
                   className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-50 transition-all duration-200 hover:scale-110"
                   onClick={(e) => {
