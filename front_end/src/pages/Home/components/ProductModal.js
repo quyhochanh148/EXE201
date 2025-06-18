@@ -50,21 +50,22 @@ const ProductModal = ({
     const isOutOfStock = selectedVariant && selectedVariant.stock !== undefined && selectedVariant.stock <= 0;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-fadeIn" style={{zIndex:1500}}>
-            <div className="bg-white rounded-lg w-11/12 max-w-4xl overflow-hidden relative animate-slideUp border-2  shadow-lg hover:shadow-green-400/50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-fadeIn px-2 sm:px-0" style={{zIndex:1500}}>
+            <div className="bg-white rounded-2xl w-full max-w-xs sm:max-w-2xl md:max-w-4xl overflow-y-auto max-h-[95vh] relative p-3 sm:p-6 shadow-lg">
                 <button
-                    className="absolute top-4 right-4 text-gray-800 hover:scale-110 transition-transform duration-200"
+                    className="absolute top-2 right-2 md:top-4 md:right-4 text-gray-800 hover:scale-110 transition-transform duration-200 p-2 md:p-1 rounded-full focus:outline-none"
                     onClick={onClose}
+                    aria-label="Đóng"
                 >
-                    <XIcon size={24} />
+                    <XIcon size={28} />
                 </button>
 
-                <div className="p-6 mt-10 mb-10">
-                    <h2 className="text-xl font-bold mb-6 animate-fadeIn text-green-700">CHỌN BIẾN THỂ SẢN PHẨM</h2>
+                <div className="p-3 sm:p-6 mt-8 sm:mt-10 mb-8 sm:mb-10">
+                    <h2 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 animate-fadeIn text-green-700">CHỌN BIẾN THỂ SẢN PHẨM</h2>
 
-                    <div className="flex flex-col md:flex-row gap-8">
+                    <div className="flex flex-col md:flex-row gap-4 sm:gap-8">
                         <div className="w-full md:w-1/3 relative">
-                            <div className="relative overflow-hidden rounded-lg border-2  animate-glowGreen">
+                            <div className="relative overflow-hidden rounded-lg border-2 animate-glowGreen">
                                 <img
                                     src={selectedVariant && selectedVariant.images && selectedVariant.images.length > 0 
                                         ? selectedVariant.images[0] 
@@ -74,10 +75,10 @@ const ProductModal = ({
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-green-600/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                             </div>
-                            <div className="flex gap-2 mt-4">
+                            <div className="flex gap-2 mt-3 sm:mt-4">
                                 {selectedVariant && selectedVariant.images && selectedVariant.images.length > 0 ? (
                                     selectedVariant.images.slice(0, 2).map((imgSrc, idx) => (
-                                        <div key={idx} className="border-2  p-1 w-16 h-16 animate-fadeIn hover:shadow-green-400/50" style={{ animationDelay: `${idx * 200}ms` }}>
+                                        <div key={idx} className="border-2 p-1 w-12 h-12 sm:w-16 sm:h-16 animate-fadeIn hover:shadow-green-400/50" style={{ animationDelay: `${idx * 200}ms` }}>
                                             <img
                                                 src={imgSrc}
                                                 alt={`Biến thể ${idx + 1}`}
@@ -87,14 +88,14 @@ const ProductModal = ({
                                     ))
                                 ) : (
                                     <>
-                                        <div className="border-2  p-1 w-16 h-16 animate-fadeIn hover:shadow-green-400/50">
+                                        <div className="border-2 p-1 w-12 h-12 sm:w-16 sm:h-16 animate-fadeIn hover:shadow-green-400/50">
                                             <img
                                                 src={product.thumbnail || dongho}
                                                 alt="Thumbnail"
                                                 className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
                                             />
                                         </div>
-                                        <div className="border-2  p-1 w-16 h-16 animate-fadeIn hover:shadow-green-400/50" style={{ animationDelay: '200ms' }}>
+                                        <div className="border-2 p-1 w-12 h-12 sm:w-16 sm:h-16 animate-fadeIn hover:shadow-green-400/50" style={{ animationDelay: '200ms' }}>
                                             <img
                                                 src={product.thumbnail || dongho}
                                                 alt="Thumbnail"
@@ -107,18 +108,18 @@ const ProductModal = ({
                         </div>
 
                         <div className="w-full md:w-2/3">
-                            <h3 className="text-lg font-bold mb-1 animate-fadeIn text-green-700">{product.name}</h3>
-                            <p className="text-red-500 font-bold text-lg mb-2 animate-fadeIn">
+                            <h3 className="text-base sm:text-lg font-bold mb-1 animate-fadeIn text-green-700">{product.name}</h3>
+                            <p className="text-red-500 font-bold text-base sm:text-lg mb-2 animate-fadeIn">
                                 {selectedVariant 
                                     ? formatPrice(selectedVariant.price) 
                                     : formatPrice(product.price)}
                             </p>
                             
                             {hasVariants && !variantSelected && (
-                                <div className="bg-green-50 border-l-4  p-3 mb-4 animate-fadeIn">
+                                <div className="bg-green-50 border-l-4 p-3 mb-3 sm:mb-4 animate-fadeIn">
                                     <div className="flex items-center">
-                                        <AlertCircle size={16} className="text-green-600 mr-2" />
-                                        <p className="text-green-700">Vui lòng chọn biến thể sản phẩm trước khi thêm vào giỏ hàng</p>
+                                        <AlertCircle size={14} className="text-green-600 mr-2" />
+                                        <p className="text-green-700 text-sm sm:text-base">Vui lòng chọn biến thể sản phẩm trước khi thêm vào giỏ hàng</p>
                                     </div>
                                 </div>
                             )}
@@ -126,11 +127,11 @@ const ProductModal = ({
                             {loading ? (
                                 <div className="text-center py-4">
                                     <div className="inline-block animate-spin h-6 w-6 border-2 border-green-50 border-t-green-700 rounded-full"></div>
-                                    <p className="mt-2 text-sm text-gray-500 animate-fadeIn">Đang tải biến thể sản phẩm...</p>
+                                    <p className="mt-2 text-xs sm:text-sm text-gray-500 animate-fadeIn">Đang tải biến thể sản phẩm...</p>
                                 </div>
                             ) : error ? (
                                 <div className="text-center py-4">
-                                    <p className="text-sm text-red-500 animate-fadeIn">{error}</p>
+                                    <p className="text-xs sm:text-sm text-red-500 animate-fadeIn">{error}</p>
                                 </div>
                             ) : (
                                 <ProductVariantSelector
@@ -143,9 +144,9 @@ const ProductModal = ({
                         </div>
                     </div>
 
-                    <div className='flex gap-4 mt-6'>
+                    <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-6'>
                         <button
-                            className={`w-full text-white py-3 rounded-md font-medium transition-all duration-200 ${
+                            className={`w-full text-white py-2 sm:py-3 rounded-md font-medium transition-all duration-200 text-sm sm:text-base ${
                                 (hasVariants && !variantSelected) || isOutOfStock
                                 ? 'bg-gray-400 cursor-not-allowed' 
                                 : 'bg-green-600 hover:bg-green-700 animate-pulse'
@@ -163,7 +164,7 @@ const ProductModal = ({
                             onClick={() => {
                                 window.location.href = `/product-detail?id=${product._id}`;
                             }}
-                            className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-md font-medium transition-all duration-200 hover:scale-105"
+                            className="w-full bg-green-600 hover:bg-green-700 text-white py-2 sm:py-3 rounded-md font-medium transition-all duration-200 hover:scale-105 text-sm sm:text-base"
                         >
                             Xem thông tin chi tiết
                         </button>

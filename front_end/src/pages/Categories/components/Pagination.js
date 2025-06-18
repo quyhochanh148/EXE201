@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Leaf } from 'lucide-react';
 
 const Pagination = ({ 
     currentPage, 
@@ -44,45 +44,71 @@ const Pagination = ({
     };
 
     return (
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center mt-8 text-sm">
-            <div className="text-gray-600 mb-4 md:mb-0">
-                Hiển thị <span className="font-medium">{showingTo}</span> trên <span className="font-medium">{totalItems}</span> sản phẩm
+        <div className="bg-white rounded-2xl p-6 shadow-lg border border-green-100">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center text-sm">
+                <div className="text-green-700 mb-4 md:mb-0 flex items-center">
+                    <Leaf className="w-4 h-4 mr-2 text-green-600" />
+                    Hiển thị <span className="font-semibold mx-1">{showingFrom}-{showingTo}</span> 
+                    trên <span className="font-semibold mx-1">{totalItems}</span> sản phẩm
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                    <button 
+                        className={`p-3 rounded-xl transition-all duration-300 ${
+                            currentPage === 1 
+                                ? 'text-gray-400 cursor-not-allowed bg-gray-100' 
+                                : 'text-green-700 hover:bg-green-50 hover:shadow-md transform hover:scale-105'
+                        }`}
+                        onClick={() => onPageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                    >
+                        <ChevronLeft size={20} />
+                    </button>
+                    
+                    {getPageNumbers().map((pageNumber, index) => (
+                        <button
+                            key={index}
+                            className={`
+                                w-12 h-12 flex items-center justify-center rounded-xl transition-all duration-300
+                                ${pageNumber === currentPage 
+                                    ? 'bg-gradient-to-r from-green-600 to-green-700 text-white shadow-lg transform scale-110' 
+                                    : pageNumber === '...' 
+                                        ? 'cursor-default text-gray-400' 
+                                        : 'text-green-700 hover:bg-green-50 hover:shadow-md transform hover:scale-105'}
+                            `}
+                            onClick={() => pageNumber !== '...' && onPageChange(pageNumber)}
+                            disabled={pageNumber === '...'}
+                        >
+                            {pageNumber}
+                        </button>
+                    ))}
+                    
+                    <button 
+                        className={`p-3 rounded-xl transition-all duration-300 ${
+                            currentPage === totalPages || totalPages === 0 
+                                ? 'text-gray-400 cursor-not-allowed bg-gray-100' 
+                                : 'text-green-700 hover:bg-green-50 hover:shadow-md transform hover:scale-105'
+                        }`}
+                        onClick={() => onPageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages || totalPages === 0}
+                    >
+                        <ChevronRight size={20} />
+                    </button>
+                </div>
             </div>
             
-            <div className="flex items-center space-x-1">
-                <button 
-                    className={`p-2 rounded ${currentPage === 1 ? 'text-gray-400 cursor-not-allowed' : 'text-gray-700 hover:bg-gray-100'}`}
-                    onClick={() => onPageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                >
-                    <ChevronLeft size={20} />
-                </button>
-                
-                {getPageNumbers().map((pageNumber, index) => (
-                    <button
-                        key={index}
-                        className={`
-                            w-10 h-10 flex items-center justify-center rounded
-                            ${pageNumber === currentPage 
-                                ? 'bg-[#2E7D32] text-white' 
-                                : pageNumber === '...' 
-                                    ? 'cursor-default' 
-                                    : 'text-gray-700 hover:bg-gray-100'}
-                        `}
-                        onClick={() => pageNumber !== '...' && onPageChange(pageNumber)}
-                        disabled={pageNumber === '...'}
-                    >
-                        {pageNumber}
-                    </button>
-                ))}
-                
-                <button 
-                    className={`p-2 rounded ${currentPage === totalPages || totalPages === 0 ? 'text-gray-400 cursor-not-allowed' : 'text-gray-700 hover:bg-gray-100'}`}
-                    onClick={() => onPageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages || totalPages === 0}
-                >
-                    <ChevronRight size={20} />
-                </button>
+            {/* Progress indicator */}
+            <div className="mt-4">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div 
+                        className="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full transition-all duration-500 ease-out"
+                        style={{ width: `${(currentPage / totalPages) * 100}%` }}
+                    ></div>
+                </div>
+                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>Trang {currentPage}</span>
+                    <span>Trang {totalPages}</span>
+                </div>
             </div>
         </div>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 
-const CategorySidebar = ({ categories }) => {
+const CategorySidebar = ({ categories, className = "" }) => {
     const navigate = useNavigate();
 
     const handleCategoryClick = (categoryId) => {
@@ -13,7 +13,7 @@ const CategorySidebar = ({ categories }) => {
     const hasMoreCategories = categories.length > 6;
 
     return (
-        <div className="w-64 bg-white shadow-lg rounded-lg overflow-hidden sticky top-4 animate-slideInLeft hover:scale-102 transition-all duration-300">
+        <div className={`w-64 bg-white shadow-lg rounded-lg overflow-hidden sticky top-4 animate-slideInLeft hover:scale-102 transition-all duration-300 ${className}`}>
             <div className="p-4 bg-gradient-to-r from-green-600 to-green-700">
                 <h3 className="font-bold text-lg text-white">Danh Mục Sản Phẩm</h3>
             </div>

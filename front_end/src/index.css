@@ -26,6 +26,329 @@ main.no-header, .main-content.no-header {
     padding-top: 0; /* Không có padding-top cho các trang không có header */
   }
 }
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Mobile-first responsive text sizes */
+.text-responsive-xs {
+  font-size: 0.75rem; /* 12px */
+}
+
+.text-responsive-sm {
+  font-size: 0.875rem; /* 14px */
+}
+
+.text-responsive-base {
+  font-size: 1rem; /* 16px */
+}
+
+.text-responsive-lg {
+  font-size: 1.125rem; /* 18px */
+}
+
+.text-responsive-xl {
+  font-size: 1.25rem; /* 20px */
+}
+
+.text-responsive-2xl {
+  font-size: 1.5rem; /* 24px */
+}
+
+@media (min-width: 768px) {
+  .text-responsive-xs {
+    font-size: 0.875rem; /* 14px */
+  }
+  
+  .text-responsive-sm {
+    font-size: 1rem; /* 16px */
+  }
+  
+  .text-responsive-base {
+    font-size: 1.125rem; /* 18px */
+  }
+  
+  .text-responsive-lg {
+    font-size: 1.25rem; /* 20px */
+  }
+  
+  .text-responsive-xl {
+    font-size: 1.5rem; /* 24px */
+  }
+  
+  .text-responsive-2xl {
+    font-size: 1.875rem; /* 30px */
+  }
+}
+
+/* Mobile-friendly spacing */
+.mobile-p-2 {
+  padding: 0.5rem;
+}
+
+.mobile-p-4 {
+  padding: 1rem;
+}
+
+.mobile-m-2 {
+  margin: 0.5rem;
+}
+
+.mobile-m-4 {
+  margin: 1rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-p-2 {
+    padding: 1rem;
+  }
+  
+  .mobile-p-4 {
+    padding: 1.5rem;
+  }
+  
+  .mobile-m-2 {
+    margin: 1rem;
+  }
+  
+  .mobile-m-4 {
+    margin: 1.5rem;
+  }
+}
+
+/* Mobile-friendly grid */
+.mobile-grid-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.mobile-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .mobile-grid-1 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .mobile-grid-2 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-grid-1 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  .mobile-grid-2 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Mobile-friendly buttons */
+.mobile-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+  }
+}
+
+/* Mobile-friendly cards */
+.mobile-card {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 768px) {
+  .mobile-card {
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* Mobile-friendly modals */
+.mobile-modal {
+  margin: 1rem;
+  border-radius: 0.5rem;
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100vh - 2rem);
+}
+
+@media (min-width: 768px) {
+  .mobile-modal {
+    margin: 2rem;
+    border-radius: 0.75rem;
+    max-width: calc(100vw - 4rem);
+    max-height: calc(100vh - 4rem);
+  }
+}
+
+/* Plant-themed animations and effects */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes leafShake {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-2deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes waterDrop {
+  0% {
+    transform: translateY(-20px) scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes natureGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-grow {
+  animation: grow 0.6s ease-out forwards;
+}
+
+.animate-leaf-shake {
+  animation: leafShake 2s ease-in-out infinite;
+}
+
+.animate-water-drop {
+  animation: waterDrop 2s ease-in-out infinite;
+}
+
+.animate-nature-glow {
+  animation: natureGlow 2s ease-in-out infinite;
+}
+
+/* Plant-themed gradients */
+.bg-nature-gradient {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+}
+
+.bg-forest-gradient {
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%);
+}
+
+.bg-leaf-gradient {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+}
+
+/* Plant-themed shadows */
+.shadow-nature {
+  box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.1), 0 10px 10px -5px rgba(34, 197, 94, 0.04);
+}
+
+.shadow-forest {
+  box-shadow: 0 20px 25px -5px rgba(6, 78, 59, 0.1), 0 10px 10px -5px rgba(6, 78, 59, 0.04);
+}
+
+/* Plant-themed borders */
+.border-nature {
+  border: 2px solid rgba(34, 197, 94, 0.2);
+}
+
+.border-forest {
+  border: 2px solid rgba(6, 78, 59, 0.3);
+}
+
+/* Hover effects for plant theme */
+.hover-nature:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(34, 197, 94, 0.15), 0 10px 10px -5px rgba(34, 197, 94, 0.06);
+}
+
+.hover-forest:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.25);
+}
+
+/* Plant-themed text effects */
+.text-nature {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Loading animations for plant theme */
+.loading-plant {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-plant::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.2), transparent);
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

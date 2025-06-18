@@ -217,19 +217,19 @@ const PasswordChange = () => {
     };
 
     return (
-        <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Đổi Mật Khẩu</h2>
+        <div className="p-4 sm:p-6">
+            <h2 className="text-lg sm:text-xl font-semibold mb-4">Đổi Mật Khẩu</h2>
 
             {/* Hiển thị thông báo lỗi */}
             {error && (
-                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
                     {error}
                 </div>
             )}
 
             {/* Hiển thị thông báo thành công */}
             {success && (
-                <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+                <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
                     {success}
                 </div>
             )}
@@ -238,7 +238,7 @@ const PasswordChange = () => {
             {step === 1 && (
                 <form className="space-y-4" onSubmit={handleVerifyEmail}>
                     <div>
-                        <p className="text-gray-600 mb-4">
+                        <p className="text-gray-600 mb-4 text-sm">
                             Để đảm bảo an toàn cho tài khoản của bạn, vui lòng xác nhận email trước khi đổi mật khẩu.
                         </p>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -248,7 +248,7 @@ const PasswordChange = () => {
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                             disabled={loading}
                             required
                         />
@@ -256,7 +256,7 @@ const PasswordChange = () => {
                     <div className="flex justify-end">
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50"
+                            className="px-4 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50 w-full sm:w-auto"
                             disabled={loading}
                         >
                             {loading ? "Đang xử lý..." : "Gửi mã xác nhận"}
@@ -269,7 +269,7 @@ const PasswordChange = () => {
             {step === 2 && (
                 <form className="space-y-4" onSubmit={handleVerifyOtp}>
                     <div>
-                        <p className="text-gray-600 mb-4">
+                        <p className="text-gray-600 mb-4 text-sm">
                             Mã OTP đã được gửi đến email {email}. Vui lòng kiểm tra và nhập mã xác nhận.
                         </p>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -281,26 +281,26 @@ const PasswordChange = () => {
                             placeholder="Nhập mã 6 chữ số"
                             value={otp}
                             onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                             disabled={loading}
                             required
                         />
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-xs sm:text-sm text-gray-500 mt-1">
                             Mã OTP có hiệu lực trong 10 phút
                         </p>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex flex-col sm:flex-row justify-between space-y-2 sm:space-y-0 sm:space-x-4">
                         <button
                             type="button"
                             onClick={() => setStep(1)}
-                            className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500 w-full sm:w-auto"
                             disabled={loading}
                         >
                             Quay lại
                         </button>
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50"
+                            className="px-4 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50 w-full sm:w-auto"
                             disabled={loading}
                         >
                             {loading ? "Đang xử lý..." : "Xác nhận"}
@@ -322,7 +322,7 @@ const PasswordChange = () => {
                             placeholder="Nhập mật khẩu mới"
                             value={formData.newPassword}
                             onChange={handleInputChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                             disabled={loading}
                             required
                         />
@@ -341,23 +341,23 @@ const PasswordChange = () => {
                             placeholder="Nhập lại mật khẩu mới"
                             value={formData.confirmPassword}
                             onChange={handleInputChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                             disabled={loading}
                             required
                         />
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex flex-col sm:flex-row justify-between space-y-2 sm:space-y-0 sm:space-x-4">
                         <button
                             type="button"
                             onClick={() => setStep(2)}
-                            className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500 w-full sm:w-auto"
                             disabled={loading}
                         >
                             Quay lại
                         </button>
                         <button
                             type="submit"
-                            className="px-4 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50"
+                            className="px-4 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50 w-full sm:w-auto"
                             disabled={loading}
                         >
                             {loading ? "Đang xử lý..." : "Đổi mật khẩu"}

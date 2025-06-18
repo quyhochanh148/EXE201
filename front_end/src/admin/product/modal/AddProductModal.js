@@ -144,15 +144,16 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 max-h-[90vh] overflow-y-auto">
-                <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-xl font-medium">Thêm sản phẩm mới</h3>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-2 sm:px-0">
+            <div className="bg-white rounded-2xl shadow-lg w-full max-w-xs sm:max-w-4xl p-3 sm:p-6 max-h-[95vh] overflow-y-auto">
+                <div className="flex justify-between items-center mb-4 sm:mb-6">
+                    <h3 className="text-lg sm:text-xl font-medium">Thêm sản phẩm mới</h3>
                     <button
-                        className="text-gray-400 hover:text-gray-600"
+                        className="text-gray-400 hover:text-gray-600 p-2 -mr-2 sm:mr-0"
                         onClick={onClose}
+                        aria-label="Đóng"
                     >
-                        <X size={24} />
+                        <X size={28} />
                     </button>
                 </div>
                 
@@ -161,14 +162,14 @@ const AddProductModal = ({ onClose, onProductAdded }) => {
                         <div className="text-gray-500">Đang tải dữ liệu...</div>
                     </div>
                 ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                         {formErrors.submit && (
                             <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded">
                                 {formErrors.submit}
                             </div>
                         )}
                         
-                        <div className="grid grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6">
                             {/* Tên sản phẩm */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">

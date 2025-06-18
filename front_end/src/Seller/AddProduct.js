@@ -391,25 +391,25 @@ const AddProduct = () => {
       {/* Main content */}
       <div className="flex-1 overflow-auto">
         <div className="p-6 bg-gray-100 min-h-screen">
-          {/* Header with back button and action buttons */}
-          <div className="flex justify-between items-center mb-6">
+          {/* Header with navigation and action buttons */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 space-y-4 sm:space-y-0">
             <button
-              className="flex items-center text-gray-600"
-              onClick={() => navigate('/seller-dashboard/product')}
+              onClick={() => navigate('/seller/products')}
+              className="flex items-center text-gray-600 hover:text-gray-800"
             >
               <ArrowLeft className="mr-2" />
               Quay lại
             </button>
-            <div className="flex space-x-4">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
               <button
-                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 disabled:opacity-50"
+                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 disabled:opacity-50 text-sm w-full sm:w-auto"
                 onClick={handleSave}
                 disabled={loading}
               >
                 {loading ? 'Đang lưu...' : 'Lưu nháp'}
               </button>
               <button
-                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:opacity-50"
+                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:opacity-50 text-sm w-full sm:w-auto"
                 onClick={handleSaveAndDisplay}
                 disabled={loading}
               >
@@ -419,19 +419,19 @@ const AddProduct = () => {
           </div>
 
           {/* Form content with similar layout to the modal */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-xl font-medium mb-6">
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
+            <h3 className="text-lg sm:text-xl font-medium mb-4 sm:mb-6">
               {editMode ? 'Chỉnh sửa sản phẩm' : 'Thêm sản phẩm mới'}
             </h3>
 
             {formErrors.submit && (
-              <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded mb-6">
+              <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded mb-4 sm:mb-6 text-sm">
                 {formErrors.submit}
               </div>
             )}
 
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {/* Tên sản phẩm */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -442,10 +442,10 @@ const AddProduct = () => {
                     name="name"
                     value={newProduct.name}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border ${formErrors.name ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                    className={`w-full px-3 py-2 border ${formErrors.name ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                   />
                   {formErrors.name && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.name}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.name}</p>
                   )}
                 </div>
 
@@ -459,10 +459,10 @@ const AddProduct = () => {
                     name="price"
                     value={newProduct.price}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border ${formErrors.price ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                    className={`w-full px-3 py-2 border ${formErrors.price ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                   />
                   {formErrors.price && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.price}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.price}</p>
                   )}
                 </div>
 
@@ -476,10 +476,10 @@ const AddProduct = () => {
                     name="slug"
                     value={newProduct.slug}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border ${formErrors.slug ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                    className={`w-full px-3 py-2 border ${formErrors.slug ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                   />
                   {formErrors.slug && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.slug}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.slug}</p>
                   )}
                 </div>
 
@@ -487,12 +487,12 @@ const AddProduct = () => {
 
 
                 {/* Danh mục - CHANGED to checkboxes */}
-                <div className="md:col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Danh mục <span className="text-red-500">*</span>
                   </label>
                   <div className={`p-3 border ${formErrors.category_id ? 'border-red-500' : 'border-gray-300'} rounded-md bg-white max-h-60 overflow-y-auto`}>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                       {categories.map((category) => (
                         <div key={category._id} className="flex items-start mb-2">
                           <input
@@ -506,7 +506,7 @@ const AddProduct = () => {
                           />
                           <label 
                             htmlFor={`category-${category._id}`}
-                            className="text-sm text-gray-700 cursor-pointer"
+                            className="text-xs sm:text-sm text-gray-700 cursor-pointer"
                           >
                             {category.name}
                           </label>
@@ -515,7 +515,7 @@ const AddProduct = () => {
                     </div>
                   </div>
                   {formErrors.category_id && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.category_id}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.category_id}</p>
                   )}
                 </div>
 
@@ -529,10 +529,10 @@ const AddProduct = () => {
                     name="weight"
                     value={newProduct.weight}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border ${formErrors.weight ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                    className={`w-full px-3 py-2 border ${formErrors.weight ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                   />
                   {formErrors.weight && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.weight}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.weight}</p>
                   )}
                 </div>
 
@@ -545,7 +545,7 @@ const AddProduct = () => {
                     name="condition"
                     value={newProduct.condition}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                   >
                     <option value="Mới">Mới</option>
                     <option value="Đã qua sử dụng">Đã qua sử dụng</option>
@@ -553,7 +553,7 @@ const AddProduct = () => {
                 </div>
 
                 {/* Mô tả */}
-                <div className="md:col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Mô tả sản phẩm <span className="text-red-500">*</span>
                   </label>
@@ -562,15 +562,15 @@ const AddProduct = () => {
                     value={newProduct.description}
                     onChange={handleInputChange}
                     rows={3}
-                    className={`w-full px-3 py-2 border ${formErrors.description ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                    className={`w-full px-3 py-2 border ${formErrors.description ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                   />
                   {formErrors.description && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.description}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.description}</p>
                   )}
                 </div>
 
                 {/* Chi tiết */}
-                <div className="md:col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Chi tiết sản phẩm <span className="text-red-500">*</span>
                   </label>
@@ -579,10 +579,10 @@ const AddProduct = () => {
                     value={newProduct.detail}
                     onChange={handleInputChange}
                     rows={5}
-                    className={`w-full px-3 py-2 border ${formErrors.detail ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                    className={`w-full px-3 py-2 border ${formErrors.detail ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                   />
                   {formErrors.detail && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.detail}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.detail}</p>
                   )}
                 </div>
 
@@ -600,14 +600,14 @@ const AddProduct = () => {
                         <img
                           src={newProduct.thumbnail}
                           alt="Product preview"
-                          className="max-h-48 mx-auto mb-2"
+                          className="max-h-32 sm:max-h-48 mx-auto mb-2"
                         />
-                        <p className="text-sm text-gray-500">Nhấp để thay đổi hình ảnh</p>
+                        <p className="text-xs sm:text-sm text-gray-500">Nhấp để thay đổi hình ảnh</p>
                       </div>
                     ) : (
                       <div className="text-center">
-                        <Upload className="mx-auto mb-2 text-gray-400" size={32} />
-                        <p className="text-gray-500">Upload or drop a file right here</p>
+                        <Upload className="mx-auto mb-2 text-gray-400" size={24} />
+                        <p className="text-gray-500 text-xs sm:text-sm">Upload or drop a file right here</p>
                         <p className="text-xs text-gray-400 mt-1">JPEG, PNG, GIF, JPG...</p>
                       </div>
                     )}
@@ -631,10 +631,10 @@ const AddProduct = () => {
                     name="meta_title"
                     value={newProduct.meta_title}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border ${formErrors.meta_title ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                    className={`w-full px-3 py-2 border ${formErrors.meta_title ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                   />
                   {formErrors.meta_title && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.meta_title}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.meta_title}</p>
                   )}
                 </div>
 
@@ -648,15 +648,15 @@ const AddProduct = () => {
                     name="meta_keyword"
                     value={newProduct.meta_keyword}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border ${formErrors.meta_keyword ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                    className={`w-full px-3 py-2 border ${formErrors.meta_keyword ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                   />
                   {formErrors.meta_keyword && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.meta_keyword}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.meta_keyword}</p>
                   )}
                 </div>
 
                 {/* Meta Description */}
-                <div className="md:col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Meta Description <span className="text-red-500">*</span>
                   </label>
@@ -665,15 +665,15 @@ const AddProduct = () => {
                     value={newProduct.meta_description}
                     onChange={handleInputChange}
                     rows={2}
-                    className={`w-full px-3 py-2 border ${formErrors.meta_description ? 'border-red-500' : 'border-gray-300'} rounded-md`}
+                    className={`w-full px-3 py-2 border ${formErrors.meta_description ? 'border-red-500' : 'border-gray-300'} rounded-md text-sm`}
                   />
                   {formErrors.meta_description && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.meta_description}</p>
+                    <p className="mt-1 text-xs sm:text-sm text-red-500">{formErrors.meta_description}</p>
                   )}
                 </div>
 
                 {/* Status toggles */}
-                <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="col-span-1 sm:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                   <div className="flex items-center">
                     <input
                       type="checkbox"
@@ -683,7 +683,7 @@ const AddProduct = () => {
                       onChange={handleToggleChange}
                       className="h-4 w-4 mr-2"
                     />
-                    <label htmlFor="is_active" className="text-sm font-medium text-gray-700">
+                    <label htmlFor="is_active" className="text-xs sm:text-sm font-medium text-gray-700">
                       Hiển thị trên cửa hàng
                     </label>
                   </div>
@@ -697,7 +697,7 @@ const AddProduct = () => {
                       onChange={handleToggleChange}
                       className="h-4 w-4 mr-2"
                     />
-                    <label htmlFor="is_hot" className="text-sm font-medium text-gray-700">
+                    <label htmlFor="is_hot" className="text-xs sm:text-sm font-medium text-gray-700">
                       Sản phẩm nổi bật
                     </label>
                   </div>
@@ -711,7 +711,7 @@ const AddProduct = () => {
                       onChange={handleToggleChange}
                       className="h-4 w-4 mr-2"
                     />
-                    <label htmlFor="is_feature" className="text-sm font-medium text-gray-700">
+                    <label htmlFor="is_feature" className="text-xs sm:text-sm font-medium text-gray-700">
                       Sản phẩm đặc trưng
                     </label>
                   </div>

@@ -80,12 +80,12 @@ const OrderDetailModal = ({ orderId, onClose }) => {
   const effectiveStatus = orderData?.order?.order_status || orderData?.order?.status_id;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-xl font-medium">Chi Tiết Đơn Hàng</h3>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl max-w-[95vw] p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-4 sm:mb-6">
+          <h3 className="text-lg sm:text-xl font-medium">Chi Tiết Đơn Hàng</h3>
           <button
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 p-2"
             onClick={onClose}
           >
             <X size={24} />
@@ -93,143 +93,145 @@ const OrderDetailModal = ({ orderId, onClose }) => {
         </div>
 
         {loading && (
-          <div className="flex justify-center items-center py-10">
+          <div className="flex justify-center items-center py-8 sm:py-10">
             <Loader className="animate-spin mr-2" />
-            <div className="text-gray-500">Đang tải dữ liệu...</div>
+            <div className="text-gray-500 text-sm sm:text-base">Đang tải dữ liệu...</div>
           </div>
         )}
 
         {error && (
-          <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded mb-4">
+          <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded mb-4 text-sm">
             {error}
           </div>
         )}
 
         {!loading && !error && orderData && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Thông tin đơn hàng */}
-            <div className="border rounded-lg p-4">
-              <h4 className="font-medium mb-3 text-lg border-b pb-2">Thông Tin Đơn Hàng</h4>
-              <div className="grid grid-cols-2 gap-4">
+            <div className="border rounded-lg p-3 sm:p-4">
+              <h4 className="font-medium mb-3 text-base sm:text-lg border-b pb-2">Thông Tin Đơn Hàng</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Mã đơn hàng:</p>
-                  <p className="font-medium">{orderData.order.id}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Mã đơn hàng:</p>
+                  <p className="font-medium text-sm sm:text-base">{orderData.order.id}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Trạng thái:</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Trạng thái:</p>
                   <span className={`px-2 py-1 text-xs font-semibold rounded-full text-white ${getStatusClass(effectiveStatus)}`}>
                     {translateStatus(effectiveStatus)}
                   </span>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600">Ngày đặt hàng:</p>
-                  <p className="font-medium">{formatDate(orderData.order.created_at)}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Ngày đặt hàng:</p>
+                  <p className="font-medium text-sm sm:text-base">{formatDate(orderData.order.created_at)}</p>
                 </div>
                 {orderData.order.order_delivered_at && (
                   <div>
-                    <p className="text-sm text-gray-600">Ngày giao hàng:</p>
-                    <p className="font-medium">{formatDate(orderData.order.order_delivered_at)}</p>
+                    <p className="text-xs sm:text-sm text-gray-600">Ngày giao hàng:</p>
+                    <p className="font-medium text-sm sm:text-base">{formatDate(orderData.order.order_delivered_at)}</p>
                   </div>
                 )}
                 <div>
-                  <p className="text-sm text-gray-600">Phương thức thanh toán:</p>
-                  <p className="font-medium">{orderData.order.payment_method || 'Không có thông tin'}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Phương thức thanh toán:</p>
+                  <p className="font-medium text-sm sm:text-base">{orderData.order.payment_method || 'Không có thông tin'}</p>
                 </div>
               </div>
             </div>
 
             {/* Thông tin khách hàng */}
-            <div className="border rounded-lg p-4">
-              <h4 className="font-medium mb-3 text-lg border-b pb-2">Thông Tin Khách Hàng</h4>
+            <div className="border rounded-lg p-3 sm:p-4">
+              <h4 className="font-medium mb-3 text-base sm:text-lg border-b pb-2">Thông Tin Khách Hàng</h4>
               {orderData.order.customer_id ? (
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <p className="text-sm text-gray-600">Họ và tên:</p>
-                    <p className="font-medium">
+                    <p className="text-xs sm:text-sm text-gray-600">Họ và tên:</p>
+                    <p className="font-medium text-sm sm:text-base">
                       {orderData.order.customer_id.firstName} {orderData.order.customer_id.lastName}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Email:</p>
-                    <p className="font-medium">{orderData.order.customer_id.email}</p>
+                    <p className="text-xs sm:text-sm text-gray-600">Email:</p>
+                    <p className="font-medium text-sm sm:text-base">{orderData.order.customer_id.email}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Số điện thoại:</p>
-                    <p className="font-medium">{orderData.order.customer_id.phone || 'Không có thông tin'}</p>
+                    <p className="text-xs sm:text-sm text-gray-600">Số điện thoại:</p>
+                    <p className="font-medium text-sm sm:text-base">{orderData.order.customer_id.phone || 'Không có thông tin'}</p>
                   </div>
                 </div>
               ) : (
-                <p className="text-gray-500">Không có thông tin khách hàng</p>
+                <p className="text-gray-500 text-sm sm:text-base">Không có thông tin khách hàng</p>
               )}
             </div>
 
             {/* Địa chỉ giao hàng */}
-            <div className="border rounded-lg p-4">
-              <h4 className="font-medium mb-3 text-lg border-b pb-2">Địa Chỉ Giao Hàng</h4>
+            <div className="border rounded-lg p-3 sm:p-4">
+              <h4 className="font-medium mb-3 text-base sm:text-lg border-b pb-2">Địa Chỉ Giao Hàng</h4>
               {orderData.order.user_address_id ? (
-                <div>
+                <div className="text-sm sm:text-base">
                   <p className="mb-1">{orderData.order.user_address_id.street}, {orderData.order.user_address_id.ward}</p>
                   <p className="mb-1">{orderData.order.user_address_id.district}, {orderData.order.user_address_id.city}</p>
                   <p>Người nhận: {orderData.order.user_address_id.recipient_name} - {orderData.order.user_address_id.phone}</p>
                 </div>
               ) : (
-                <p className="text-gray-500">Không có thông tin địa chỉ giao hàng</p>
+                <p className="text-gray-500 text-sm sm:text-base">Không có thông tin địa chỉ giao hàng</p>
               )}
             </div>
 
             {/* Chi tiết sản phẩm */}
-            <div className="border rounded-lg p-4">
-              <h4 className="font-medium mb-3 text-lg border-b pb-2">Sản Phẩm</h4>
-              <table className="w-full">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sản phẩm</th>
-                    <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Đơn giá</th>
-                    <th className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Số lượng</th>
-                    <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Thành tiền</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {orderData.orderDetails.map((detail) => (
-                    <tr key={detail._id}>
-                      <td className="px-3 py-3">
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 flex-shrink-0 mr-3 bg-gray-200 rounded">
-                            {detail.product_id?.thumbnail && (
-                              <img 
-                                src={detail.product_id.thumbnail} 
-                                alt={detail.product_id.name} 
-                                className="w-10 h-10 object-cover rounded"
-                                onError={(e) => {
-                                  e.target.src = "/api/placeholder/50/50";
-                                }} 
-                              />
-                            )}
-                          </div>
-                          <div>
-                            <p className="font-medium">{detail.product_id?.name || 'Sản phẩm không còn tồn tại'}</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-3 py-3 text-right">
-                        {formatPrice(detail.price)}
-                      </td>
-                      <td className="px-3 py-3 text-center">
-                        {detail.quantity}
-                      </td>
-                      <td className="px-3 py-3 text-right font-medium">
-                        {formatPrice(detail.price * detail.quantity)}
-                      </td>
+            <div className="border rounded-lg p-3 sm:p-4">
+              <h4 className="font-medium mb-3 text-base sm:text-lg border-b pb-2">Sản Phẩm</h4>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs sm:text-sm">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-2 sm:px-3 py-2 text-left font-medium text-gray-500 uppercase tracking-wider">Sản phẩm</th>
+                      <th className="px-2 sm:px-3 py-2 text-right font-medium text-gray-500 uppercase tracking-wider">Đơn giá</th>
+                      <th className="px-2 sm:px-3 py-2 text-center font-medium text-gray-500 uppercase tracking-wider">Số lượng</th>
+                      <th className="px-2 sm:px-3 py-2 text-right font-medium text-gray-500 uppercase tracking-wider">Thành tiền</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {orderData.orderDetails.map((detail) => (
+                      <tr key={detail._id}>
+                        <td className="px-2 sm:px-3 py-3">
+                          <div className="flex items-center">
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 mr-2 sm:mr-3 bg-gray-200 rounded">
+                              {detail.product_id?.thumbnail && (
+                                <img 
+                                  src={detail.product_id.thumbnail} 
+                                  alt={detail.product_id.name} 
+                                  className="w-8 h-8 sm:w-10 sm:h-10 object-cover rounded"
+                                  onError={(e) => {
+                                    e.target.src = "/api/placeholder/50/50";
+                                  }} 
+                                />
+                              )}
+                            </div>
+                            <div>
+                              <p className="font-medium text-xs sm:text-sm">{detail.product_id?.name || 'Sản phẩm không còn tồn tại'}</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-2 sm:px-3 py-3 text-right text-xs sm:text-sm">
+                          {formatPrice(detail.price)}
+                        </td>
+                        <td className="px-2 sm:px-3 py-3 text-center text-xs sm:text-sm">
+                          {detail.quantity}
+                        </td>
+                        <td className="px-2 sm:px-3 py-3 text-right font-medium text-xs sm:text-sm">
+                          {formatPrice(detail.price * detail.quantity)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             {/* Thông tin thanh toán */}
-            <div className="border rounded-lg p-4">
-              <h4 className="font-medium mb-3 text-lg border-b pb-2">Thông Tin Thanh Toán</h4>
-              <div className="space-y-2">
+            <div className="border rounded-lg p-3 sm:p-4">
+              <h4 className="font-medium mb-3 text-base sm:text-lg border-b pb-2">Thông Tin Thanh Toán</h4>
+              <div className="space-y-2 text-sm sm:text-base">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Tổng tiền hàng:</span>
                   <span>{formatPrice(orderData.order.original_price || 0)}</span>
@@ -249,7 +251,7 @@ const OrderDetailModal = ({ orderId, onClose }) => {
                   </div>
                 )}
 
-                <div className="flex justify-between pt-2 border-t font-medium text-lg">
+                <div className="flex justify-between pt-2 border-t font-medium text-base sm:text-lg">
                   <span>Tổng thanh toán:</span>
                   <span className="text-pink-600">{formatPrice(orderData.order.total_price)}</span>
                 </div>
@@ -265,31 +267,31 @@ const OrderDetailModal = ({ orderId, onClose }) => {
 // Reject Order Confirmation Modal
 const RejectOrderModal = ({ onClose, onConfirm }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-md max-w-[95vw] p-4 sm:p-6">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-medium">Xác nhận từ chối đơn hàng</h3>
+          <h3 className="text-lg sm:text-xl font-medium">Xác nhận từ chối đơn hàng</h3>
           <button
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 p-2"
             onClick={onClose}
           >
             <X size={24} />
           </button>
         </div>
         
-        <div className="mb-6">
-          <p className="text-gray-600 mb-4">Bạn có chắc chắn muốn từ chối đơn hàng này không? Hành động này không thể hoàn tác.</p>
+        <div className="mb-4 sm:mb-6">
+          <p className="text-gray-600 mb-4 text-sm sm:text-base">Bạn có chắc chắn muốn từ chối đơn hàng này không? Hành động này không thể hoàn tác.</p>
         </div>
         
-        <div className="flex justify-end space-x-3">
+        <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3">
           <button
-            className="px-4 py-2 border rounded-md hover:bg-gray-100"
+            className="px-4 py-2 border rounded-md hover:bg-gray-100 text-sm w-full sm:w-auto"
             onClick={onClose}
           >
             Hủy
           </button>
           <button
-            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 text-sm w-full sm:w-auto"
             onClick={() => onConfirm()}
           >
             Xác nhận từ chối
@@ -367,12 +369,12 @@ const EditOrderStatusModal = ({ orderId, currentStatus, onClose, onUpdate, getSh
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-md max-w-[95vw] p-4 sm:p-6">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-medium">Cập nhật trạng thái đơn hàng</h3>
+          <h3 className="text-lg sm:text-xl font-medium">Cập nhật trạng thái đơn hàng</h3>
           <button
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 p-2"
             onClick={onClose}
           >
             <X size={24} />
@@ -380,17 +382,17 @@ const EditOrderStatusModal = ({ orderId, currentStatus, onClose, onUpdate, getSh
         </div>
         
         {error && (
-          <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded mb-4">
+          <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded mb-4 text-sm">
             {error}
           </div>
         )}
         
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Trạng thái đơn hàng
           </label>
           <select
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
             disabled={loading}
@@ -401,21 +403,21 @@ const EditOrderStatusModal = ({ orderId, currentStatus, onClose, onUpdate, getSh
               </option>
             ))}
           </select>
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-xs sm:text-sm text-gray-500 mt-2">
             Vui lòng chọn trạng thái mới cho đơn hàng
           </p>
         </div>
         
-        <div className="flex justify-end space-x-3">
+        <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3">
           <button
-            className="px-4 py-2 border rounded-md hover:bg-gray-100"
+            className="px-4 py-2 border rounded-md hover:bg-gray-100 text-sm w-full sm:w-auto"
             onClick={onClose}
             disabled={loading}
           >
             Hủy
           </button>
           <button
-            className="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600 flex items-center"
+            className="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600 flex items-center justify-center text-sm w-full sm:w-auto"
             onClick={handleUpdateStatus}
             disabled={loading || selectedStatus === currentStatus}
           >

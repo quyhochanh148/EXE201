@@ -248,12 +248,12 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex h-screen w-full">
+    <div className="flex flex-col lg:flex-row h-screen w-full">
       {/* Left side with title and plant image */}
-      <div className="w-5/12 bg-green-600 flex items-center p-16 relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-5/12 bg-green-600 items-center p-8 lg:p-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-20"></div>
         <div className="relative z-10">
-          <h1 className="text-white text-6xl font-bold leading-tight">
+          <h1 className="text-white text-4xl lg:text-6xl font-bold leading-tight">
             The Real
             <br />
             Options On
@@ -269,22 +269,22 @@ const RegisterPage = () => {
       </div>
 
       {/* Right side with registration form */}
-      <div className="w-7/12 flex items-center justify-center">
-        <div className="w-full max-w-md px-8">
-          <h2 className="text-3xl font-bold text-green-600 mb-8">
+      <div className="w-full lg:w-7/12 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div className="w-full max-w-md">
+          <h2 className="text-2xl sm:text-3xl font-bold text-green-600 mb-6 sm:mb-8 text-center lg:text-left">
             Đăng ký tài khoản
           </h2>
 
           {generalError && (
-            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
               {generalError}
             </div>
           )}
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
             <div>
               <label className="block mb-1">
-                <span className="font-medium">
+                <span className="font-medium text-sm sm:text-base">
                   Họ <span className="text-red-500">*</span>
                 </span>
               </label>
@@ -292,20 +292,20 @@ const RegisterPage = () => {
                 type="text"
                 name="lastName"
                 placeholder="Nhập họ"
-                className={`w-full px-3 py-2 border ${touched.lastName && errors.lastName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
+                className={`w-full px-3 py-2 text-sm sm:text-base border ${touched.lastName && errors.lastName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={formData.lastName}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 required
               />
               {touched.lastName && errors.lastName && (
-                <p className="mt-1 text-sm text-red-500">{errors.lastName}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.lastName}</p>
               )}
             </div>
 
             <div>
               <label className="block mb-1">
-                <span className="font-medium">
+                <span className="font-medium text-sm sm:text-base">
                   Tên <span className="text-red-500">*</span>
                 </span>
               </label>
@@ -313,20 +313,20 @@ const RegisterPage = () => {
                 type="text"
                 name="firstName"
                 placeholder="Nhập tên"
-                className={`w-full px-3 py-2 border ${touched.firstName && errors.firstName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
+                className={`w-full px-3 py-2 text-sm sm:text-base border ${touched.firstName && errors.firstName ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={formData.firstName}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 required
               />
               {touched.firstName && errors.firstName && (
-                <p className="mt-1 text-sm text-red-500">{errors.firstName}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.firstName}</p>
               )}
             </div>
 
             <div>
               <label className="block mb-1">
-                <span className="font-medium">
+                <span className="font-medium text-sm sm:text-base">
                   Số điện thoại <span className="text-red-500">*</span>
                 </span>
               </label>
@@ -334,7 +334,7 @@ const RegisterPage = () => {
                 type="tel"
                 name="phone"
                 placeholder="Nhập số điện thoại"
-                className={`w-full px-3 py-2 border ${touched.phone && errors.phone ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
+                className={`w-full px-3 py-2 text-sm sm:text-base border ${touched.phone && errors.phone ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={formData.phone}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -342,13 +342,13 @@ const RegisterPage = () => {
               />
               <p className="text-xs text-gray-500 mt-1">Định dạng: 0912345678 hoặc 84912345678</p>
               {touched.phone && errors.phone && (
-                <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.phone}</p>
               )}
             </div>
 
             <div>
               <label className="block mb-1">
-                <span className="font-medium">
+                <span className="font-medium text-sm sm:text-base">
                   Email <span className="text-red-500">*</span>
                 </span>
               </label>
@@ -356,20 +356,20 @@ const RegisterPage = () => {
                 type="email"
                 name="email"
                 placeholder="Nhập email"
-                className={`w-full px-3 py-2 border ${touched.email && errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
+                className={`w-full px-3 py-2 text-sm sm:text-base border ${touched.email && errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={formData.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 required
               />
               {touched.email && errors.email && (
-                <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.email}</p>
               )}
             </div>
 
             <div>
               <label className="block mb-1">
-                <span className="font-medium">
+                <span className="font-medium text-sm sm:text-base">
                   Mật khẩu <span className="text-red-500">*</span>
                 </span>
               </label>
@@ -377,7 +377,7 @@ const RegisterPage = () => {
                 type="password"
                 name="password"
                 placeholder="Nhập mật khẩu"
-                className={`w-full px-3 py-2 border ${touched.password && errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
+                className={`w-full px-3 py-2 text-sm sm:text-base border ${touched.password && errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={formData.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -388,13 +388,13 @@ const RegisterPage = () => {
                 Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ và số
               </p>
               {touched.password && errors.password && (
-                <p className="mt-1 text-sm text-red-500">{errors.password}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.password}</p>
               )}
             </div>
 
             <button
               type="submit"
-              className="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md transition flex items-center justify-center"
+              className="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md transition flex items-center justify-center text-sm sm:text-base"
               disabled={loading}
             >
               {loading ? (
@@ -409,9 +409,9 @@ const RegisterPage = () => {
             </button>
           </form>
 
-          <div className="mt-6 text-center">
+          <div className="mt-4 sm:mt-6 text-center">
             <div className="mt-1">
-              <a href="/login" className="text-green-600 hover:underline text-sm">
+              <a href="/login" className="text-green-600 hover:underline text-xs sm:text-sm">
                 Bạn đã có tài khoản? Đăng nhập ngay
               </a>
             </div>

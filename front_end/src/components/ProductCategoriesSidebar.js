@@ -58,44 +58,48 @@ const ProductCategoriesSidebar = ({ isOpen, onClose, buttonRef }) => {
           ${isOpen ? 'translate-x-0' : '-translate-x-full'} border-r-2 border-green-500 animate-glowGreen perspective-1000
         `}
       >
-        <div className="flex items-center justify-between p-4 border-b border-green-200 bg-gradient-to-r from-green-600 to-green-700 transform rotateY(0deg) transition-transform duration-300">
+        <div className="flex items-center justify-between p-4 border-b border-green-200 bg-gradient-to-r from-green-600 to-green-700">
           <h3 className="text-lg font-semibold text-white animate-fadeIn">Danh Mục</h3>
-          <button onClick={onClose} className="text-white hover:text-green-300 transition-all duration-200 hover:scale-110 hover:rotateY(15deg)">
-            <X size={20} />
+          <button onClick={onClose} className="text-white hover:text-green-300 transition-all duration-200 hover:scale-110">
+            <X size={24} />
           </button>
         </div>
-        {loading ? (
-          <div className="p-4 text-center">
-            <div className="animate-spin h-6 w-6 border-t-2 border-green-500 rounded-full mx-auto"></div>
-            <p className="mt-2 text-sm text-gray-600 animate-fadeIn">Đang tải...</p>
-          </div>
-        ) : (
-          <ul className="py-2 perspective-1000">
-            <li
-              onClick={() => {
-                navigate('/categories');
-                onClose();
-              }}
-              className="px-4 py-3 hover:bg-green-100 text-green-700 cursor-pointer transition-all duration-200 hover:scale-105 hover:rotateY(10deg) hover:shadow-green-400/50 animate-fadeIn"
-            >
-              Tất cả danh mục
-            </li>
-            {categories.map((category, index) => (
-              <li
-                key={category._id}
-                onClick={() => handleCategoryClick(category._id)}
-                className={`px-4 py-3 hover:bg-green-100 text-gray-700 cursor-pointer transition-all duration-200 hover:scale-105 hover:rotateY(10deg) hover:shadow-green-400/50 animate-fadeIn animation-delay-${index * 100}`}
-              >
-                {category.name}
-              </li>
-            ))}
-            {!categories.length && (
-              <li className="px-4 py-3 text-gray-500 text-center animate-fadeIn">
-                Không có danh mục
-              </li>
+        <div className="overflow-y-auto max-h-[calc(100vh-56px)] p-2">
+          <div className="bg-white rounded-2xl border border-green-200 shadow-lg p-2 md:p-4">
+            {loading ? (
+              <div className="p-4 text-center">
+                <div className="animate-spin h-6 w-6 border-t-2 border-green-500 rounded-full mx-auto"></div>
+                <p className="mt-2 text-sm text-gray-600 animate-fadeIn">Đang tải...</p>
+              </div>
+            ) : (
+              <ul className="py-2">
+                <li
+                  onClick={() => {
+                    navigate('/categories');
+                    onClose();
+                  }}
+                  className="px-4 py-3 mb-2 bg-green-50 rounded-lg hover:bg-green-100 text-green-700 cursor-pointer transition-all duration-200 font-semibold shadow-sm border border-green-100"
+                >
+                  Tất cả danh mục
+                </li>
+                {categories.map((category, index) => (
+                  <li
+                    key={category._id}
+                    onClick={() => handleCategoryClick(category._id)}
+                    className="px-4 py-3 mb-2 bg-white rounded-lg hover:bg-green-100 text-gray-800 cursor-pointer transition-all duration-200 shadow-sm border border-green-100"
+                  >
+                    {category.name}
+                  </li>
+                ))}
+                {!categories.length && (
+                  <li className="px-4 py-3 text-gray-500 text-center animate-fadeIn">
+                    Không có danh mục
+                  </li>
+                )}
+              </ul>
             )}
-          </ul>
-        )}
+          </div>
+        </div>
       </div>
       <style>{`
         @keyframes fadeIn {

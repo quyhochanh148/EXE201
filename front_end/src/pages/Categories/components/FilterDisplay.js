@@ -1,5 +1,5 @@
 import React from 'react';
-import { X as XIcon } from 'lucide-react';
+import { X as XIcon, Filter, Sparkles } from 'lucide-react';
 
 const FilterDisplay = ({
     selectedCategory,
@@ -18,16 +18,20 @@ const FilterDisplay = ({
     }
 
     return (
-        <div className="mb-4 p-3 bg-gray-100 rounded">
-            <div className="flex flex-wrap gap-2 items-center">
-                <span className="text-sm font-medium text-gray-700">Bộ lọc đang áp dụng:</span>
-
+        <div className="bg-white rounded-2xl p-4 shadow-lg border border-green-100 mb-6">
+            <div className="flex items-center mb-3">
+                <Filter className="w-4 h-4 text-green-600 mr-2" />
+                <span className="text-sm font-semibold text-green-800">Bộ lọc đang áp dụng:</span>
+            </div>
+            
+            <div className="flex flex-wrap gap-3 items-center">
                 {selectedCategory && (
-                    <div className="bg-[#2E7D32] text-white px-2 py-1 rounded text-xs flex items-center">
+                    <div className="bg-gradient-to-r from-green-600 to-green-700 text-white px-3 py-2 rounded-full text-sm flex items-center shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                        <span className="w-2 h-2 bg-white rounded-full mr-2"></span>
                         {categories.find(c => c._id === selectedCategory)?.name}
                         <XIcon
                             size={14}
-                            className="ml-1 cursor-pointer"
+                            className="ml-2 cursor-pointer hover:text-green-200 transition-colors"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedCategory(null);
@@ -37,11 +41,12 @@ const FilterDisplay = ({
                 )}
 
                 {(priceRange.min || priceRange.max) && (
-                    <div className=" text-purple-700 px-2 py-1 rounded text-xs flex items-center">
+                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-2 rounded-full text-sm flex items-center shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                        <span className="w-2 h-2 bg-white rounded-full mr-2"></span>
                         Giá: {priceRange.min ? formatPrice(priceRange.min) : '0đ'} - {priceRange.max ? formatPrice(priceRange.max) : '∞'}
                         <XIcon
                             size={14}
-                            className="ml-1 cursor-pointer"
+                            className="ml-2 cursor-pointer hover:text-blue-200 transition-colors"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setPriceRange({ min: '', max: '' });
@@ -51,13 +56,14 @@ const FilterDisplay = ({
                 )}
 
                 {selectedLocations.length > 0 && (
-                    <div className=" text-purple-700 px-2 py-1 rounded text-xs flex items-center">
+                    <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-3 py-2 rounded-full text-sm flex items-center shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                        <span className="w-2 h-2 bg-white rounded-full mr-2"></span>
                         Địa điểm: {selectedLocations.length > 2
                             ? `${selectedLocations.slice(0, 2).join(', ')} +${selectedLocations.length - 2}`
                             : selectedLocations.join(', ')}
                         <XIcon
                             size={14}
-                            className="ml-1 cursor-pointer"
+                            className="ml-2 cursor-pointer hover:text-purple-200 transition-colors"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedLocations([]);
@@ -67,9 +73,10 @@ const FilterDisplay = ({
                 )}
 
                 <button
-                    className="text-xs text-red-500 hover:text-red-700 ml-auto"
+                    className="bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-full text-sm flex items-center shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 ml-auto"
                     onClick={clearFilters}
                 >
+                    <Sparkles className="w-3 h-3 mr-2" />
                     Xóa tất cả
                 </button>
             </div>

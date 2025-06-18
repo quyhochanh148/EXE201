@@ -155,20 +155,21 @@ const CartModal = ({ isOpen, onClose, refreshTrigger = 0 }) => {
 
     return (
 <div
-    className="fixed top-0 right-0 w-96 h-full bg-white shadow-xl z-50 
-    transition-transform duration-300 ease-in-out transform translate-x-0 border-l-4 border-purple-200"
+    className="fixed top-0 right-0 w-full max-w-md md:w-96 h-full bg-white shadow-xl z-50 \
+    transition-transform duration-300 ease-in-out transform translate-x-0 border-l-4 border-purple-200 rounded-l-2xl md:rounded-none"
+    style={{ maxWidth: '95vw' }}
 >
-    <div className="p-4 border-b-2 border-gray-200 flex justify-between items-center bg-gray-50">
+    <div className="p-3 md:p-4 border-b-2 border-gray-200 flex justify-between items-center bg-gray-50">
         <div className="flex items-center">
             <ShoppingCart size={24} className="mr-3 text-purple-700" />
-            <h2 className="text-2xl font-bold text-purple-900">Giỏ Hàng</h2>
+            <h2 className="text-lg md:text-2xl font-bold text-purple-900">Giỏ Hàng</h2>
         </div>
-        <button onClick={onClose} className="text-gray-600 hover:text-red-500 transition-colors">
-            <CircleX size={24} />
+        <button onClick={onClose} className="text-gray-600 hover:text-red-500 transition-colors p-2 md:p-1 rounded-full focus:outline-none">
+            <CircleX size={28} />
         </button>
     </div>
 
-    <div className="p-4 overflow-y-auto max-h-[calc(100vh-220px)] bg-gray-100">
+    <div className="p-2 md:p-4 overflow-y-auto max-h-[calc(100vh-180px)] bg-gray-100">
         {loading ? (
             <div className="text-center py-6">
                 <div className="inline-block animate-spin h-8 w-8 border-4 border-gray-400 border-t-purple-700 rounded-full"></div>

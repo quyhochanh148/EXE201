@@ -5,12 +5,12 @@ import clockBanner from '../../../assets/Banner/321928000_535011058576102_285937
 
 const PromotionalBanners = () => {
     return (
-        <div className="grid grid-cols-3 gap-4 mt-8 px-4 animate-fadeIn">
-            <div className="bg-green-600 p-6 rounded-lg text-white relative overflow-hidden h-48 animate-wave border-2  hover:shadow-green-400/50">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mt-6 md:mt-8 px-4 animate-fadeIn">
+            <div className="bg-green-600 p-4 md:p-6 rounded-lg text-white relative overflow-hidden h-32 md:h-48 animate-wave border-2 hover:shadow-green-400/50">
                 <div className="z-10 relative animate-fadeIn">
-                    <h3 className="text-xl font-bold mb-1">Cây Chậu</h3>
-                    <p className="text-yellow-300 font-bold text-lg">Giảm 20%</p>
-                    <p className="text-sm mt-1">Miễn phí vận chuyển</p>
+                    <h3 className="text-lg md:text-xl font-bold mb-1">Cây Chậu</h3>
+                    <p className="text-yellow-300 font-bold text-base md:text-lg">Giảm 20%</p>
+                    <p className="text-xs md:text-sm mt-1">Miễn phí vận chuyển</p>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-green-700/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                 <img
@@ -19,11 +19,11 @@ const PromotionalBanners = () => {
                     className="absolute right-0 bottom-0 w-2/3 h-full object-cover opacity-80 transition-transform duration-500 ease-out hover:scale-110 hover:rotate-2"
                 />
             </div>
-            <div className="bg-teal-500 p-6 rounded-lg text-white relative overflow-hidden h-48 animate-wave animation-delay-200 border-2  hover:shadow-green-400/50">
+            <div className="bg-teal-500 p-4 md:p-6 rounded-lg text-white relative overflow-hidden h-32 md:h-48 animate-wave animation-delay-200 border-2 hover:shadow-green-400/50">
                 <div className="z-10 relative animate-fadeIn">
-                    <h3 className="text-xl font-bold mb-1">Công Cụ Làm Vườn</h3>
-                    <p className="text-yellow-300 font-bold text-lg">Bảo hành 6 tháng</p>
-                    <p className="text-sm mt-1">Miễn phí giao hàng</p>
+                    <h3 className="text-lg md:text-xl font-bold mb-1">Công Cụ Làm Vườn</h3>
+                    <p className="text-yellow-300 font-bold text-base md:text-lg">Bảo hành 6 tháng</p>
+                    <p className="text-xs md:text-sm mt-1">Miễn phí giao hàng</p>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-green-700/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                 <img
@@ -32,11 +32,11 @@ const PromotionalBanners = () => {
                     className="absolute right-0 bottom-0 w-2/3 h-full object-cover opacity-80 transition-transform duration-500 ease-out hover:scale-110 hover:rotate-2"
                 />
             </div>
-            <div className="bg-orange-500 p-6 rounded-lg text-white relative overflow-hidden h-48 animate-wave animation-delay-400 border-2  hover:shadow-green-400/50">
+            <div className="bg-orange-500 p-4 md:p-6 rounded-lg text-white relative overflow-hidden h-32 md:h-48 animate-wave animation-delay-400 border-2 hover:shadow-green-400/50 md:col-span-2 lg:col-span-1">
                 <div className="z-10 relative animate-fadeIn">
-                    <h3 className="text-xl font-bold mb-1">Đất Trồng</h3>
-                    <p className="text-yellow-300 font-bold text-lg">Chất lượng cao</p>
-                    <p className="text-sm mt-1">Giao hàng tận nơi</p>
+                    <h3 className="text-lg md:text-xl font-bold mb-1">Đất Trồng</h3>
+                    <p className="text-yellow-300 font-bold text-base md:text-lg">Chất lượng cao</p>
+                    <p className="text-xs md:text-sm mt-1">Giao hàng tận nơi</p>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-green-700/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                 <img

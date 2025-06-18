@@ -621,7 +621,7 @@ const Cart = () => {
     }
 
     return (
-        <div className='flex gap-10 max-w-7xl mx-auto'>
+        <div className='flex flex-col lg:flex-row gap-4 md:gap-10 max-w-7xl mx-auto px-4 md:px-0'>
             {/* Modal chọn mã giảm giá */}
             <CouponModal
                 show={showCouponModal}
@@ -633,7 +633,43 @@ const Cart = () => {
                 error={couponError}
             />
 
-            <div className="w-2/3 flex flex-col bg-white shadow-md rounded-lg p-4 mt-8 mb-8">
+            {/* Mobile Layout */}
+            <div className="block lg:hidden w-full">
+                {/* Mobile Cart Sidebar */}
+                <CartSidebar
+                    totalAmount={totalAmount}
+                    appliedCoupon={appliedCoupon}
+                    setAppliedCoupon={setAppliedCoupon}
+                    setShowCouponModal={setShowCouponModal}
+                    hasSelectedItems={hasSelectedItems}
+                    selectedItems={selectedItems}
+                    cartItems={cartItems}
+                />
+
+                {/* Mobile Cart Items */}
+                <div className="w-full flex flex-col bg-white shadow-md rounded-lg p-3 md:p-4 mt-4 md:mt-8 mb-4 md:mb-8">
+                    <CartHeader clearCart={clearCart} />
+
+                    {shops.map((shop, index) => (
+                        <ShopGroup
+                            key={shop.shop_id}
+                            shop={shop}
+                            index={index}
+                            shopsLength={shops.length}
+                            selectedItems={selectedItems}
+                            areAllShopItemsSelected={() => areAllShopItemsSelected(shop.items)}
+                            handleSelectAllShopItems={(isSelected) => handleSelectAllShopItems(shop.items, isSelected)}
+                            handleSelectItem={handleSelectItem}
+                            updateQuantity={updateQuantity}
+                            removeItem={removeItem}
+                            getItemPrice={getItemPrice}
+                        />
+                    ))}
+                </div>
+            </div>
+
+            {/* Desktop Layout */}
+            <div className="hidden lg:block w-2/3 flex flex-col bg-white shadow-md rounded-lg p-4 mt-8 mb-8">
                 <CartHeader clearCart={clearCart} />
 
                 {shops.map((shop, index) => (
@@ -653,15 +689,17 @@ const Cart = () => {
                 ))}
             </div>
 
-            <CartSidebar
-                totalAmount={totalAmount}
-                appliedCoupon={appliedCoupon}
-                setAppliedCoupon={setAppliedCoupon}
-                setShowCouponModal={setShowCouponModal}
-                hasSelectedItems={hasSelectedItems}
-                selectedItems={selectedItems}
-                cartItems={cartItems}
-            />
+            <div className="hidden lg:block">
+                <CartSidebar
+                    totalAmount={totalAmount}
+                    appliedCoupon={appliedCoupon}
+                    setAppliedCoupon={setAppliedCoupon}
+                    setShowCouponModal={setShowCouponModal}
+                    hasSelectedItems={hasSelectedItems}
+                    selectedItems={selectedItems}
+                    cartItems={cartItems}
+                />
+            </div>
         </div>
     );
 };

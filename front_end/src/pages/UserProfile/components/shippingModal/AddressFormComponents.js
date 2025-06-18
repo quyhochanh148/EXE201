@@ -245,10 +245,10 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded-md w-full max-w-lg max-h-90vh overflow-y-auto">
-        <h2 className="text-lg font-semibold mb-4">Thêm địa chỉ nhận hàng</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-2 sm:px-0">
+      <div className="bg-white p-3 sm:p-6 rounded-2xl w-full max-w-xs sm:max-w-lg max-h-[95vh] overflow-y-auto">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Thêm địa chỉ nhận hàng</h2>
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
           {/* Quốc gia - đặt trước số điện thoại */}
           <div>
             <label htmlFor="country" className="block text-sm text-gray-600 mb-1">Quốc gia</label>
@@ -257,19 +257,18 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
               name="country"
               value={formData.country}
               onChange={handleCountryChange}
-              className="border p-2 rounded-md w-full"
+              className="border p-2 rounded-md w-full text-sm"
             >
               {countryOptions.map(country => (
                 <option key={country.code} value={country.name}>{country.name}</option>
               ))}
             </select>
           </div>
-
           {/* Số điện thoại với mã quốc gia */}
           <div>
             <label htmlFor="phoneNumber" className="block text-sm text-gray-600 mb-1">Số điện thoại</label>
             <div className="flex">
-              <div className="border p-2 rounded-l-md bg-gray-100 flex items-center justify-center min-w-[60px]">
+              <div className="border p-2 rounded-l-md bg-gray-100 flex items-center justify-center min-w-[60px] text-sm">
                 {formData.countryCode}
               </div>
               <input
@@ -280,7 +279,7 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
                 value={formData.phoneNumber}
                 onChange={handlePhoneNumberChange}
                 maxLength={getMaxPhoneLength()}
-                className="border p-2 rounded-r-md w-full"
+                className="border p-2 rounded-r-md w-full text-sm"
                 required
               />
             </div>
@@ -288,8 +287,7 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
               <p className="text-xs text-gray-500 mt-1">Ví dụ: Đối với số 0987654321, chỉ cần nhập 987654321</p>
             )}
           </div>
-
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-3 sm:gap-4">
             <div>
               <label htmlFor="provinceId" className="block text-sm text-gray-600 mb-1">Tỉnh / Thành phố</label>
               <select
@@ -297,7 +295,7 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
                 name="provinceId"
                 value={formData.provinceId}
                 onChange={handleProvinceChange}
-                className="border p-2 rounded-md w-full"
+                className="border p-2 rounded-md w-full text-sm"
                 required
               >
                 <option value="0">Chọn Tỉnh/Thành phố</option>
@@ -306,7 +304,6 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
                 ))}
               </select>
             </div>
-
             <div>
               <label htmlFor="districtId" className="block text-sm text-gray-600 mb-1">Quận / Huyện</label>
               <select
@@ -314,7 +311,7 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
                 name="districtId"
                 value={formData.districtId}
                 onChange={handleDistrictChange}
-                className="border p-2 rounded-md w-full"
+                className="border p-2 rounded-md w-full text-sm"
                 required
                 disabled={formData.provinceId === '0' || loading}
               >
@@ -324,7 +321,6 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
                 ))}
               </select>
             </div>
-
             <div>
               <label htmlFor="wardId" className="block text-sm text-gray-600 mb-1">Phường / Xã</label>
               <select
@@ -332,7 +328,7 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
                 name="wardId"
                 value={formData.wardId}
                 onChange={handleWardChange}
-                className="border p-2 rounded-md w-full"
+                className="border p-2 rounded-md w-full text-sm"
                 required
                 disabled={formData.districtId === '0' || loading}
               >
@@ -343,7 +339,6 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
               </select>
             </div>
           </div>
-
           <div>
             <label htmlFor="address" className="block text-sm text-gray-600 mb-1">Địa chỉ cụ thể</label>
             <input
@@ -353,11 +348,10 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
               placeholder="Số nhà, tên đường"
               value={formData.address}
               onChange={handleChange}
-              className="border p-2 rounded-md w-full"
+              className="border p-2 rounded-md w-full text-sm"
               required
             />
           </div>
-
           <div>
             <label htmlFor="address_line2" className="block text-sm text-gray-600 mb-1">Địa chỉ bổ sung (không bắt buộc)</label>
             <input
@@ -367,21 +361,20 @@ export const AddAddressPopup = ({ onClose, onSave }) => {
               placeholder="Tòa nhà, số tầng, số phòng, ..."
               value={formData.address_line2}
               onChange={handleChange}
-              className="border p-2 rounded-md w-full"
+              className="border p-2 rounded-md w-full text-sm"
             />
           </div>
-
-          <div className="flex justify-end space-x-3 mt-6">
+          <div className="flex flex-col sm:flex-row justify-end gap-2 sm:space-x-3 mt-4 sm:mt-6">
             <button
               type="button"
               onClick={onClose}
-              className="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-50"
+              className="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-50 w-full sm:w-auto"
             >
               Hủy
             </button>
             <button
               type="submit"
-              className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700"
+              className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 w-full sm:w-auto"
               disabled={loading}
             >
               {loading ? 'Đang xử lý...' : 'Thêm'}
@@ -756,10 +749,10 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded-md w-full max-w-lg max-h-90vh overflow-y-auto">
-        <h2 className="text-lg font-semibold mb-4">Chỉnh sửa địa chỉ</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-2 sm:px-0">
+      <div className="bg-white p-3 sm:p-6 rounded-2xl w-full max-w-xs sm:max-w-lg max-h-[95vh] overflow-y-auto">
+        <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Chỉnh sửa địa chỉ</h2>
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
           {/* Quốc gia - đặt trước số điện thoại */}
           <div>
             <label htmlFor="country" className="block text-sm text-gray-600 mb-1">Quốc gia</label>
@@ -768,19 +761,18 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
               name="country"
               value={formData.country}
               onChange={handleCountryChange}
-              className="border p-2 rounded-md w-full"
+              className="border p-2 rounded-md w-full text-sm"
             >
               {countryOptions.map(country => (
                 <option key={country.code} value={country.name}>{country.name}</option>
               ))}
             </select>
           </div>
-
           {/* Số điện thoại với mã quốc gia */}
           <div>
             <label htmlFor="phoneNumber" className="block text-sm text-gray-600 mb-1">Số điện thoại</label>
             <div className="flex">
-              <div className="border p-2 rounded-l-md bg-gray-100 flex items-center justify-center min-w-[60px]">
+              <div className="border p-2 rounded-l-md bg-gray-100 flex items-center justify-center min-w-[60px] text-sm">
                 {formData.countryCode}
               </div>
               <input
@@ -791,7 +783,7 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
                 value={formData.phoneNumber}
                 onChange={handlePhoneNumberChange}
                 maxLength={getMaxPhoneLength()}
-                className="border p-2 rounded-r-md w-full"
+                className="border p-2 rounded-r-md w-full text-sm"
                 required
               />
             </div>
@@ -799,8 +791,7 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
               <p className="text-xs text-gray-500 mt-1">Ví dụ: Đối với số 0987654321, chỉ cần nhập 987654321</p>
             )}
           </div>
-
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-3 sm:gap-4">
             <div>
               <label htmlFor="provinceId" className="block text-sm text-gray-600 mb-1">Tỉnh / Thành phố</label>
               <select
@@ -808,14 +799,12 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
                 name="provinceId"
                 value={formData.provinceId}
                 onChange={handleProvinceChange}
-                className="border p-2 rounded-md w-full"
+                className="border p-2 rounded-md w-full text-sm"
                 required
               >
                 <option value="0">Chọn Tỉnh/Thành phố</option>
                 {provinces.map((province) => (
-                  <option key={province.id} value={province.id}>
-                    {province.full_name}
-                  </option>
+                  <option key={province.id} value={province.id}>{province.full_name}</option>
                 ))}
               </select>
               {!foundProvince && parsedAddress.province && (
@@ -824,7 +813,6 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
                 </p>
               )}
             </div>
-
             <div>
               <label htmlFor="districtId" className="block text-sm text-gray-600 mb-1">Quận / Huyện</label>
               <select
@@ -832,15 +820,13 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
                 name="districtId"
                 value={formData.districtId}
                 onChange={handleDistrictChange}
-                className="border p-2 rounded-md w-full"
+                className="border p-2 rounded-md w-full text-sm"
                 required
                 disabled={formData.provinceId === '0' || loading}
               >
                 <option value="0">Chọn Quận/Huyện</option>
                 {districts.map((district) => (
-                  <option key={district.id} value={district.id}>
-                    {district.full_name}
-                  </option>
+                  <option key={district.id} value={district.id}>{district.full_name}</option>
                 ))}
               </select>
               {!foundDistrict && parsedAddress.district && (
@@ -849,7 +835,6 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
                 </p>
               )}
             </div>
-
             <div>
               <label htmlFor="wardId" className="block text-sm text-gray-600 mb-1">Phường / Xã</label>
               <select
@@ -857,15 +842,13 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
                 name="wardId"
                 value={formData.wardId}
                 onChange={handleWardChange}
-                className="border p-2 rounded-md w-full"
+                className="border p-2 rounded-md w-full text-sm"
                 required
                 disabled={formData.districtId === '0' || loading}
               >
                 <option value="0">Chọn Phường/Xã</option>
                 {wards.map((ward) => (
-                  <option key={ward.id} value={ward.id}>
-                    {ward.full_name}
-                  </option>
+                  <option key={ward.id} value={ward.id}>{ward.full_name}</option>
                 ))}
               </select>
               {!foundWard && parsedAddress.ward && (
@@ -875,7 +858,6 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
               )}
             </div>
           </div>
-
           <div>
             <label htmlFor="address" className="block text-sm text-gray-600 mb-1">Địa chỉ cụ thể</label>
             <input
@@ -885,11 +867,10 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
               placeholder="Số nhà, tên đường"
               value={formData.address}
               onChange={handleChange}
-              className="border p-2 rounded-md w-full"
+              className="border p-2 rounded-md w-full text-sm"
               required
             />
           </div>
-
           <div>
             <label htmlFor="address_line2" className="block text-sm text-gray-600 mb-1">Địa chỉ bổ sung (không bắt buộc)</label>
             <input
@@ -899,21 +880,20 @@ export const EditAddressPopup = ({ address, onClose, onSave }) => {
               placeholder="Tòa nhà, số tầng, số phòng, ..."
               value={formData.address_line2}
               onChange={handleChange}
-              className="border p-2 rounded-md w-full"
+              className="border p-2 rounded-md w-full text-sm"
             />
           </div>
-
-          <div className="flex justify-end space-x-3 mt-6">
+          <div className="flex flex-col sm:flex-row justify-end gap-2 sm:space-x-3 mt-4 sm:mt-6">
             <button
               type="button"
               onClick={onClose}
-              className="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-50"
+              className="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-50 w-full sm:w-auto"
             >
               Hủy
             </button>
             <button
               type="submit"
-              className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700"
+              className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 w-full sm:w-auto"
               disabled={loading}
             >
               {loading ? 'Đang xử lý...' : 'Lưu'}

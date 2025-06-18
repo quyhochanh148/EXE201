@@ -715,27 +715,30 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
     };
 
     return (
-        <div className="p-6">
-            <div className="flex items-center space-x-4 mb-6">
-                <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
+        <div className="p-4 sm:p-6">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Thông tin tài khoản</h2>
+            
+            {/* Avatar upload section */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gray-200 rounded-full flex items-center justify-center">
                     <img src={ShopAvatar} className='w-full h-full' alt="Profile" />
                 </div>
                 <div>
-                    <p className="text-sm text-gray-500">Dung lượng file tối đa 1 MB</p>
-                    <p className="text-sm text-gray-500">Định dạng: JPEG, PNG</p>
+                    <p className="text-xs sm:text-sm text-gray-500">Dung lượng file tối đa 1 MB</p>
+                    <p className="text-xs sm:text-sm text-gray-500">Định dạng: JPEG, PNG</p>
                 </div>
             </div>
 
             {/* Hiển thị thông báo lỗi nếu có */}
             {error && (
-                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
                     {error}
                 </div>
             )}
 
             {/* Hiển thị thông báo thành công nếu có */}
             {success && (
-                <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+                <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
                     {success}
                 </div>
             )}
@@ -743,20 +746,20 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
             <form className="space-y-4" onSubmit={handleSave}>
                 {isEditing && (
                     <div className="mb-4 p-3 bg-blue-100 border border-blue-400 text-blue-700 rounded">
-                        <p className="text-sm">
+                        <p className="text-xs sm:text-sm">
                             <strong>Lưu ý:</strong> Bạn có thể cập nhật họ, tên, số điện thoại và địa chỉ. Email không thể thay đổi.
                             Nếu không muốn thay đổi địa chỉ, bạn có thể để nguyên thông tin địa chỉ hiện tại.
                         </p>
                     </div>
                 )}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Họ</label>
                         <input
                             type="text"
                             value={profile.lastName || ""}
                             onChange={(e) => handleInputChange('lastName', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                             disabled={!isEditing}
                         />
                     </div>
@@ -766,7 +769,7 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                             type="text"
                             value={profile.firstName || ""}
                             onChange={(e) => handleInputChange('firstName', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                             disabled={!isEditing}
                         />
                     </div>
@@ -778,7 +781,7 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                         type="email"
                         value={profile.email || ""}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                         disabled={true} // Email không được phép thay đổi
                     />
                 </div>
@@ -788,7 +791,7 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                     {isEditing ? (
                         <div>
                             <div className="flex">
-                                <div className="border p-2 rounded-l-md bg-gray-100 flex items-center justify-center min-w-[60px]">
+                                <div className="border p-2 rounded-l-md bg-gray-100 flex items-center justify-center min-w-[60px] text-sm">
                                     {addressForm.countryCode}
                                 </div>
                                 <input
@@ -799,7 +802,7 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                                     value={addressForm.phoneNumber}
                                     onChange={handlePhoneNumberChange}
                                     maxLength={getMaxPhoneLength()}
-                                    className="border p-2 rounded-r-md w-full"
+                                    className="border p-2 rounded-r-md w-full text-sm"
                                     required
                                 />
                             </div>
@@ -811,7 +814,7 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                         <input
                             type="tel"
                             value={profile.phone || ""}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                             disabled
                         />
                     )}
@@ -836,7 +839,7 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                                             name="country"
                                             value={addressForm.country}
                                             onChange={handleCountryChange}
-                                            className="border p-2 rounded-md w-full"
+                                            className="border p-2 rounded-md w-full text-sm"
                                         >
                                             {countryOptions.map(country => (
                                                 <option key={country.code} value={country.name}>{country.name}</option>
@@ -852,7 +855,7 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                                                 name="provinceId"
                                                 value={addressForm.provinceId}
                                                 onChange={handleProvinceChange}
-                                                className="border p-2 rounded-md w-full"
+                                                className="border p-2 rounded-md w-full text-sm"
                                                 required={addressModified}
                                             >
                                                 <option value="0">Chọn Tỉnh/Thành phố</option>
@@ -871,7 +874,7 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                                                 name="districtId"
                                                 value={addressForm.districtId}
                                                 onChange={handleDistrictChange}
-                                                className="border p-2 rounded-md w-full"
+                                                className="border p-2 rounded-md w-full text-sm"
                                                 required={addressModified}
                                                 disabled={addressForm.provinceId === '0'}
                                             >
@@ -891,7 +894,7 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                                                 name="wardId"
                                                 value={addressForm.wardId}
                                                 onChange={handleWardChange}
-                                                className="border p-2 rounded-md w-full"
+                                                className="border p-2 rounded-md w-full text-sm"
                                                 required={addressModified}
                                                 disabled={addressForm.districtId === '0'}
                                             >
@@ -914,7 +917,7 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                                             placeholder="Số nhà, tên đường"
                                             value={addressForm.address}
                                             onChange={handleAddressFormChange}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                                             required={addressModified}
                                         />
                                     </div>
@@ -928,14 +931,14 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                                             placeholder="Tòa nhà, số tầng, số phòng, ..."
                                             value={addressForm.address_line2}
                                             onChange={handleAddressFormChange}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
                                         />
                                     </div>
                                 </>
                             ) : (
                                 <div className="border p-3 rounded-md bg-gray-50">
-                                    <p className="text-gray-700">{getFormattedAddress()}</p>
-                                    <p className="text-sm text-gray-600 mt-1">
+                                    <p className="text-gray-700 text-sm">{getFormattedAddress()}</p>
+                                    <p className="text-xs sm:text-sm text-gray-600 mt-1">
                                         {primaryAddress.phone ? `Số điện thoại: ${primaryAddress.phone}` : ''}
                                     </p>
                                 </div>
@@ -943,28 +946,28 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                         </div>
                     ) : (
                         <div className="border p-3 rounded-md bg-gray-50 text-gray-500">
-                            <p>Bạn chưa có địa chỉ nào</p>
-                            <a href="/user-profile/addresses" className="text-purple-600 text-sm hover:underline mt-1 inline-block">
+                            <p className="text-sm">Bạn chưa có địa chỉ nào</p>
+                            <a href="/user-profile/addresses" className="text-purple-600 text-xs sm:text-sm hover:underline mt-1 inline-block">
                                 + Thêm địa chỉ mới
                             </a>
                         </div>
                     )}
                 </div>
 
-                <div className="flex justify-end space-x-4 pt-4">
+                <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4 pt-4">
                     {isEditing ? (
                         <>
                             <button
                                 type="button"
                                 onClick={handleCancel}
-                                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+                                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 w-full sm:w-auto"
                                 disabled={loading}
                             >
                                 Hủy
                             </button>
                             <button
                                 type="submit"
-                                className="px-4 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                className="px-4 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 w-full sm:w-auto"
                                 disabled={loading}
                             >
                                 {loading ? 'Đang lưu...' : 'Lưu'}
@@ -974,7 +977,7 @@ const ProfileContent = ({ profile, handleInputChange, handleBirthDateChange, upd
                         <button
                             type="button"
                             onClick={handleEdit}
-                            className="px-4 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="px-4 py-2 bg-purple-600 text-white rounded-md text-sm font-medium hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 w-full sm:w-auto"
                         >
                             Chỉnh sửa
                         </button>

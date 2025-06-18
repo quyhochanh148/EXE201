@@ -405,14 +405,14 @@ const VariantFormModal = ({ variant, isEditing, onClose, onSave }) => {
 
   // Sử dụng React Portal để render modal trực tiếp vào body
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] isolate overflow-y-auto py-6">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative z-[10000] my-auto max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center mb-6 sticky top-0 bg-white pt-1 z-10">
-          <h3 className="text-xl font-medium">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] px-2 sm:px-0 isolate overflow-y-auto py-6">
+      <div className="bg-white rounded-2xl shadow-lg w-full max-w-xs sm:max-w-2xl p-3 sm:p-6 relative z-[10000] my-auto max-h-[95vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-4 sm:mb-6 sticky top-0 bg-white pt-1 z-10">
+          <h3 className="text-lg sm:text-xl font-medium">
             {isEditing ? 'Chỉnh sửa biến thể' : 'Thêm biến thể mới'}
           </h3>
-          <button className="text-gray-400 hover:text-gray-600" onClick={onClose}>
-            <X size={24} />
+          <button className="text-gray-400 hover:text-gray-600 p-2 -mr-2 sm:mr-0" onClick={onClose} aria-label="Đóng">
+            <X size={28} />
           </button>
         </div>
 
@@ -433,8 +433,8 @@ const VariantFormModal = ({ variant, isEditing, onClose, onSave }) => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
             {/* Tên biến thể */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
