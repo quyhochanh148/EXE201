@@ -26,6 +26,7 @@ import ShopPaymentDetail from './revenue/ShopPaymentDetail';
 import PaymentBatchDetail from './revenue/PaymentBatchDetail';
 import AdminProfile from './profile/ProfileContent';
 import AdminPasswordChange from './profile/AdminPasswordChange';
+import BlogManagement from './blog/BlogManagement';
 
 // Main Content Component
 const MainContent = () => {
@@ -68,6 +69,7 @@ const MainContent = () => {
 
           <Route path="/categories" element={<CategoryManagement />} />
           {/* Đã xóa route add-category */}
+          <Route path="/blog" element={<BlogManagement />} />
 
           <Route path="/brands" element={<BrandList />} />
           {/* Đã xóa route add-brand */}

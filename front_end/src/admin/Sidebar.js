@@ -25,6 +25,9 @@ const Sidebar = () => {
     { id: 'categories', icon: <Grid size={20} />, label: 'Danh mục', hasSubmenu: true, submenus: [
       { id: 'allCategories', label: 'Tất cả danh mục', path: '/admin/categories' }
     ]},
+        { id: 'blog', icon: <Grid size={20} />, label: ' BLog', hasSubmenu: true, submenus: [
+      { id: 'allblog', label: 'Tất cả BLog', path: '/admin/blog' }
+    ]},
     { id: 'brands', icon: <ShoppingBag size={20} />, label: 'Thương hiệu', hasSubmenu: true, submenus: [
       { id: 'brandList', label: 'Danh sách thương hiệu', path: '/admin/brands' }
     ]},

@@ -197,15 +197,15 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center space-x-6 perspective-1000">
-          <div className="hidden md:flex relative ">
-            <input
-              type="text"
-              placeholder="Tìm kiếm sản phẩm..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSearch(e)}
-              className="px-4 py-2 rounded-full w-72 focus:outline-none focus:ring-2 focus:ring-green-600 transition-all duration-300 border-green-500 !important"
-            />
+<div className="hidden md:flex relative">
+  <input
+    type="text"
+    placeholder="Tìm kiếm sản phẩm..."
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    onKeyPress={(e) => e.key === 'Enter' && handleSearch(e)}
+    className="px-4 py-2 rounded-full w-72 focus:outline-none focus:ring-2 focus:ring-green-600 transition-all duration-300 border border-green-500"
+  />
             <button
               onClick={handleSearch}
               className="absolute right-2 top-1/2 transform -translate-y-1/2 text-green-600 hover:text-green-800   transition-all duration-200"

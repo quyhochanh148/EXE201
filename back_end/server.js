@@ -37,6 +37,7 @@ const {
   PayOsRouter,
   ShopRevenueRouter,
   BankAccountRouter,
+  BlogRouter,  
 } = require('./src/routes');
 
 const session = require('express-session');
@@ -118,6 +119,7 @@ app.use('/api/product-attribute', ProductAttributeRouter);
 app.use('/api/conversation', ConversationRouter);
 app.use('/api/revenue', ShopRevenueRouter);
 app.use('/api/bank-account', BankAccountRouter);
+app.use('/api/blog', BlogRouter);
 
 // Kiểm soát lỗi
 app.use(async (req, res, next) => {

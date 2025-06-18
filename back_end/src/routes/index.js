@@ -23,6 +23,7 @@ const GeminiRouter = require('./gemini.routes');
 const BankAccountRouter = require('./bank-account.routes')
 const PayOsRouter = require('./payos.routes')
 const ShopRevenueRouter = require('./shop-revenue.routes');
+const BlogRouter = require('./blog.routes');
 module.exports = {
     AuthRouter,
     UserRouter,
@@ -48,5 +49,6 @@ module.exports = {
     GeminiRouter,
     PayOsRouter ,
     ShopRevenueRouter,
-    BankAccountRouter
+    BankAccountRouter,
+    BlogRouter
 }
