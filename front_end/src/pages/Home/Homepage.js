@@ -395,7 +395,7 @@ const TroocEcommerce = () => {
             <div ref={recommendedProductsRef} className="bg-white rounded-lg shadow-lg p-3 sm:p-4 md:p-6">
               <h2 className="text-lg sm:text-xl md:text-2xl text-center font-bold text-green-700 mb-3 sm:mb-4">Gợi Ý Hôm Nay</h2>
               <div className="bg-green-500 h-1 w-16 sm:w-20 md:w-24 mx-auto mb-3 sm:mb-4 md:mb-6"></div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
+              <div className="grid grid-cols-4 gap-4">
                 {recommendedProducts.map((product, index) => (
                   <ProductCard
                     key={product._id}
