@@ -1007,7 +1007,7 @@ const ProductList = () => {
         const shopProducts = fetchedProducts.filter(product => 
           (product.shop_id === shopId) || 
           (product.shop_id?._id === shopId) ||
-          (typeof product.shop_id === 'object' && product.shop_id.toString() === shopId)
+          (typeof product.shop_id === 'object' && product.shop_id && product.shop_id.toString() === shopId)
         );
         
         if (!isMounted) return;
@@ -1036,7 +1036,18 @@ const ProductList = () => {
           createdAt: new Date(product.created_at || product.createdAt),
           category_id: product.category_id || [],
           // brand_id: product.brand_id || '',
-          category: product.category_id && product.category_id.name ? product.category_id.name : 'Không phân loại'
+          category: (() => {
+            if (!product.category_id) return 'Không phân loại';
+            if (Array.isArray(product.category_id)) {
+              return product.category_id.length > 0 && product.category_id[0].name 
+                ? product.category_id[0].name 
+                : 'Không phân loại';
+            }
+            if (typeof product.category_id === 'object' && product.category_id.name) {
+              return product.category_id.name;
+            }
+            return 'Không phân loại';
+          })()
         }));
 
         setProducts(formattedProducts);
@@ -1113,7 +1124,7 @@ const ProductList = () => {
     
     // Áp dụng lọc tìm kiếm
     filteredProducts = filteredProducts.filter(product => 
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      (product.name || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     // Áp dụng sắp xếp

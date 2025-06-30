@@ -80,7 +80,7 @@ const AddressForm = ({ initialData = {}, onSubmit, submitLabel = "Save" }) => {
                 if (data.error === 0) {
                     setProvinces(data.data);
                     
-                    // If we have province data in initialData, try to find provinceId
+                    // If we have province data in initialData, try to find provinceIdL
                     if (initialData.provinceName) {
                         const foundProvince = data.data.find(p => 
                             p.full_name.toLowerCase().includes(initialData.provinceName.toLowerCase()) ||

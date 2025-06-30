@@ -15,6 +15,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../services/ApiService';
 import AuthService from '../services/AuthService';
+import SimpleModal from '../components/SimpleModal';
 // import leafBg from '../assets/leaf-bg.png';
 
 const ShopRegistration = () => {
@@ -62,6 +63,10 @@ const ShopRegistration = () => {
   // State cho tiến trình
   const [progressPercent, setProgressPercent] = useState(0);
   const [progressStatus, setProgressStatus] = useState('');
+
+  // State quản lý modal điều khoản & chính sách
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [showPolicyModal, setShowPolicyModal] = useState(false);
 
   // Component ProgressBar
   const ProgressBar = ({ percent, status }) => {
@@ -945,8 +950,15 @@ const ShopRegistration = () => {
               className="mt-1 mr-2 sm:mr-3 border-emerald-500"
             />
             <span className="text-xs sm:text-sm text-emerald-700 transform hover:translateZ(5px)">
-              Tôi đã đọc và đồng ý với <a href="#" className="text-blue-600 hover:underline">Điều khoản dịch vụ</a> và{' '}
-              <a href="#" className="text-blue-600 hover:underline">Chính sách bán hàng</a> của GreenGarden. Tôi cam kết tuân thủ các quy định về bán hàng và chịu trách nhiệm về các sản phẩm đăng bán.
+              Tôi đã đọc và đồng ý với{' '}
+              <button type="button" className="text-blue-600 hover:underline" onClick={() => setShowTermsModal(true)}>
+                Điều khoản dịch vụ
+              </button>
+              {' '}và{' '}
+              <button type="button" className="text-blue-600 hover:underline" onClick={() => setShowPolicyModal(true)}>
+                Chính sách bán hàng
+              </button>
+              {' '}của GreenGarden. Tôi cam kết tuân thủ các quy định về bán hàng và chịu trách nhiệm về các sản phẩm đăng bán.
             </span>
           </div>
 
@@ -1098,6 +1110,23 @@ const ShopRegistration = () => {
           .animate-wiggle { animation: wiggle 1s infinite; }
         `}</style>
       </div>
+
+      {/* Modal Điều khoản dịch vụ */}
+      <SimpleModal
+        show={showTermsModal}
+        onClose={() => setShowTermsModal(false)}
+        title="ĐIỀU KHOẢN DỊCH VỤ GREEN GARDEN"
+      >
+        {`1️⃣ Chính sách bảo mật thông tin cá nhân\nGreenGarden cam kết:\n- Chỉ thu thập, sử dụng thông tin cá nhân (họ tên, số điện thoại, email, địa chỉ giao hàng) phục vụ cho hoạt động giao dịch, chăm sóc khách hàng, hỗ trợ hậu mãi.\n- Không chia sẻ, tiết lộ thông tin của người dùng cho bên thứ ba khi chưa có sự đồng ý của người dùng, trừ trường hợp theo yêu cầu của cơ quan chức năng theo quy định của pháp luật.\n- Dữ liệu cá nhân được lưu trữ trên hệ thống bảo mật cao, hạn chế tối đa truy cập trái phép.\n- Người dùng có thể yêu cầu chỉnh sửa hoặc xoá thông tin cá nhân bất kỳ lúc nào qua mục Liên hệ của GreenGarden.\n\n⚠ Việc tiếp tục sử dụng nền tảng GreenGarden đồng nghĩa với việc bạn đã đọc, hiểu và đồng ý với các điều khoản dịch vụ này. GreenGarden có quyền cập nhật điều khoản mà không cần báo trước và sẽ thông báo công khai trên website.`}
+      </SimpleModal>
+      {/* Modal Chính sách bán hàng */}
+      <SimpleModal
+        show={showPolicyModal}
+        onClose={() => setShowPolicyModal(false)}
+        title="CHÍNH SÁCH BÁN HÀNG GREEN GARDEN"
+      >
+        {`2️⃣ Quy định về mua bán, thanh toán\nĐối với Người mua:\n- Đặt hàng qua website/app GreenGarden và chọn hình thức thanh toán: Chuyển khoản ngân hàng / Thanh toán khi nhận hàng (COD) / Thanh toán qua ví điện tử đối tác (nếu có).\n- Cam kết cung cấp thông tin chính xác khi đặt hàng.\n\nĐối với Người bán:\n- Chỉ đăng bán sản phẩm hợp pháp (cây cảnh, hoa, phụ kiện, dụng cụ làm vườn...).\n- Đảm bảo chất lượng sản phẩm đúng mô tả.\n- Chịu trách nhiệm trong quá trình xử lý đơn hàng và giao hàng.\n\nThanh toán trên GreenGarden:\n- Các giao dịch thanh toán được thực hiện an toàn, minh bạch thông qua hệ thống của GreenGarden hoặc đối tác thanh toán được ủy quyền.\n- GreenGarden không lưu trữ thông tin thẻ ngân hàng của khách hàng.\n\n3️⃣ Chính sách đổi trả hàng hóa\n- Người mua có quyền yêu cầu đổi trả trong vòng 48 giờ kể từ khi nhận hàng nếu sản phẩm: bị hư hỏng do vận chuyển, không đúng loại/kích thước/số lượng, cây chết/hỏng hoàn toàn khi nhận.\n- Điều kiện đổi trả: cung cấp hình ảnh, video xác thực ngay thời điểm nhận hàng; sản phẩm còn nguyên hiện trạng như khi giao.\n- Người bán và GreenGarden có trách nhiệm tiếp nhận, xử lý đổi trả và hoàn tiền (nếu cần) trong vòng 7 ngày làm việc.\n\n4️⃣ Quy định về bảo vệ quyền lợi người tiêu dùng\n- GreenGarden cam kết bảo vệ quyền lợi chính đáng của người mua: hỗ trợ xử lý khiếu nại, đảm bảo thông tin người tiêu dùng được bảo mật, định kỳ đánh giá kiểm duyệt người bán.\n- Người bán có quyền khiếu nại nếu phát hiện hành vi gian lận từ người mua. GreenGarden sẽ hỗ trợ điều tra và xử lý theo quy định.\n\n5️⃣ Các điều khoản về vi phạm và xử lý vi phạm\nĐối với Người bán:\n- Đăng thông tin sai lệch, gian lận, bán sản phẩm cấm → Khoá tài khoản, ngừng hợp tác vĩnh viễn, thông báo cơ quan chức năng nếu cần.\n- Vi phạm quy định về chất lượng giao hàng → Bị cảnh báo, giới hạn chức năng, hoặc ngừng hợp tác.\n\nĐối với Người mua:\n- Gian lận trong đổi trả, đánh giá sai sự thật gây ảnh hưởng uy tín người bán → Khoá tài khoản, từ chối phục vụ.\n\nGreenGarden có toàn quyền xử lý theo chính sách nội bộ và quy định pháp luật nếu phát hiện hành vi vi phạm.\n\n⚠ Lưu ý: GreenGarden có quyền cập nhật chính sách mà không cần báo trước và sẽ thông báo công khai trên website.`}
+      </SimpleModal>
     </div>
   );
 }

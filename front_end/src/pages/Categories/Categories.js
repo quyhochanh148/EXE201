@@ -63,6 +63,9 @@ const Categories = () => {
     // Get location for URL parameters
     const location = useLocation();
 
+    // State for mobile filter
+    const [showMobileFilter, setShowMobileFilter] = useState(false);
+
     // Lấy dữ liệu danh mục và sản phẩm từ backend
     useEffect(() => {
         const fetchData = async () => {
@@ -632,6 +635,51 @@ const Categories = () => {
 
                 {/* Mobile Layout */}
                 <div className="block lg:hidden">
+                    {/* Nút mở bộ lọc trên mobile */}
+                    <div className="flex justify-end mb-4">
+                        <button
+                            className="flex items-center px-4 py-2 bg-green-600 text-white rounded-full shadow hover:bg-green-700 transition-all"
+                            onClick={() => setShowMobileFilter(true)}
+                        >
+                            <Filter className="w-4 h-4 mr-2" />
+                            Bộ lọc
+                        </button>
+                    </div>
+                    {/* Off-canvas filter panel */}
+                    {showMobileFilter && (
+                        <div className="fixed inset-0 z-50 flex">
+                            {/* Overlay */}
+                            <div className="fixed inset-0 bg-black bg-opacity-40" onClick={() => setShowMobileFilter(false)}></div>
+                            {/* Sidebar content */}
+                            <div className="relative bg-white w-4/5 max-w-xs h-full shadow-xl animate-slideInLeft overflow-y-auto">
+                                <button
+                                    className="absolute top-3 right-3 text-gray-500 hover:text-green-600"
+                                    onClick={() => setShowMobileFilter(false)}
+                                >
+                                    <XIcon className="w-6 h-6" />
+                                </button>
+                                <CategorySidebar
+                                    categories={categories}
+                                    selectedCategory={selectedCategory}
+                                    handleCategorySelect={handleCategorySelect}
+                                    priceRange={priceRange}
+                                    handlePriceChange={handlePriceChange}
+                                    applyPriceFilter={applyPriceFilter}
+                                    clearFilters={clearFilters}
+                                />
+                            </div>
+                            <style>{`
+                                @keyframes slideInLeft {
+                                    from { transform: translateX(-100%); }
+                                    to { transform: translateX(0); }
+                                }
+                                .animate-slideInLeft {
+                                    animation: slideInLeft 0.3s ease-out;
+                                }
+                            `}</style>
+                        </div>
+                    )}
+
                     {/* Mobile Header */}
                     <div className="bg-white rounded-2xl p-4 mb-6 shadow-lg border border-green-100">
                         <div className="flex justify-between items-center mb-4">
@@ -668,21 +716,6 @@ const Categories = () => {
                                 </div>
                             </div>
                         )}
-                    </div>
-
-                    {/* Mobile Filter Display */}
-                    <div className="mb-6">
-                        <FilterDisplay 
-                            selectedCategory={selectedCategory}
-                            categories={categories}
-                            priceRange={priceRange}
-                            selectedLocations={selectedLocations}
-                            setPriceRange={setPriceRange}
-                            setSelectedLocations={setSelectedLocations}
-                            setSelectedCategory={setSelectedCategory}
-                            clearFilters={clearFilters}
-                            formatPrice={formatPrice}
-                        />
                     </div>
 
                     {/* Mobile Products Grid */}

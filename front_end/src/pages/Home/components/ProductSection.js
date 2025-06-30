@@ -18,7 +18,7 @@ const ProductSection = ({
                     <ClockIcon size={16} className="text-green-600 mr-2 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                     <h2 className="text-base sm:text-lg md:text-xl font-bold text-green-600">{title}</h2>
                 </div>
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
                     {products.map((product, index) => (
                         <ProductCard
                             key={product._id}
